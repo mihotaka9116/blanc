@@ -16,19 +16,17 @@ function renderProducts() {
     
     products.forEach(p => {
         const card = document.createElement('div');
-        card.className = "product-card-bg rounded-[3rem] p-8 shadow-lg text-center cursor-pointer transition-all duration-500 hover:-translate-y-6 hover:shadow-2xl group relative overflow-hidden flex flex-col items-center";
+        card.className = "bg-white rounded-[3rem] p-8 shadow-lg text-center cursor-pointer transition-all duration-500 hover:-translate-y-6 hover:shadow-2xl group relative overflow-hidden flex flex-col items-center border border-[#FFD1DC]/20";
         
         card.innerHTML = `
             <div class="w-32 h-32 rounded-full border-4 border-dashed border-[#B0E0E6]/50 flex items-center justify-center mb-6 text-[#FF8DA1] transition-colors group-hover:bg-[#FFD1DC]/10 icon-animate relative shrink-0">
                 <i data-lucide="${p.icon}" size="56"></i>
             </div>
-            
             <div class="flex-grow flex flex-col justify-between w-full px-4">
                 <div>
                     <h4 class="text-3xl font-bold mb-3 group-hover:text-[#FF8DA1] transition-colors">${p.name}</h4>
                     <p class="text-gray-600 text-sm leading-relaxed mb-6 italic px-2">「${p.story}」</p>
                 </div>
-                
                 <div class="flex justify-between items-center w-full mt-auto pt-4 border-t-2 border-dashed border-[#FFD1DC]/20">
                     <div class="text-4xl font-display text-[#5F9EA0]">¥${p.price.toLocaleString()}</div>
                     <div class="add-btn w-14 h-14 bg-[#FFD1DC] rounded-full flex items-center justify-center text-white shadow-md">
@@ -37,7 +35,6 @@ function renderProducts() {
                 </div>
             </div>
         `;
-        
         card.onclick = () => openModal(p);
         grid.appendChild(card);
     });
@@ -59,30 +56,22 @@ function openModal(p) {
     lucide.createIcons();
 }
 
-// カート追加・表示関連
 function handleAddToCart(product) {
     cartItems.push(product);
     updateCartUI();
-    const modalBtn = document.getElementById('add-to-cart-btn');
-    if (modalBtn) {
-        const original = modalBtn.innerHTML;
-        modalBtn.innerHTML = `<i data-lucide="loader-2" class="animate-spin"></i> 魔法をかけています...`;
-        lucide.createIcons();
-        setTimeout(() => {
-            closeModal();
-            showToast(`${product.name}をカートに届けたよ！`);
-            modalBtn.innerHTML = original;
-            lucide.createIcons();
-        }, 800);
-    }
+    closeModal();
+    showToast(`${product.name}をカートに届けたよ！`);
 }
 
 function updateCartUI() {
     const count = document.getElementById('cart-count');
-    if(count) {
-        count.classList.toggle('hidden', cartItems.length === 0);
-        count.innerText = cartItems.length;
-    }
+    const countMobile = document.getElementById('cart-count-mobile');
+    [count, countMobile].forEach(c => {
+        if(c) {
+            c.classList.toggle('hidden', cartItems.length === 0);
+            c.innerText = cartItems.length;
+        }
+    });
 }
 
 function showToast(msg) {
@@ -97,6 +86,8 @@ function closeModal() { document.getElementById('modal').classList.add('hidden')
 // 初期化
 document.addEventListener('DOMContentLoaded', () => {
     renderProducts();
+    
+    // モーダル・カート操作
     document.getElementById('modal-close').onclick = closeModal;
     document.getElementById('modal-overlay').onclick = closeModal;
     document.querySelectorAll('.cart-trigger').forEach(btn => btn.onclick = () => {
@@ -107,4 +98,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     document.getElementById('checkout-close').onclick = () => document.getElementById('checkout-modal').classList.add('hidden');
+
+    // ハンバーガーメニュー操作
+    const mOpen = document.getElementById('menu-open');
+    const mClose = document.getElementById('menu-close');
+    const mMenu = document.getElementById('mobile-menu');
+    
+    if(mOpen) mOpen.onclick = () => mMenu.classList.add('active');
+    if(mClose) mClose.onclick = () => mMenu.classList.remove('active');
+    document.querySelectorAll('.mobile-link').forEach(link => {
+        link.onclick = () => mMenu.classList.remove('active');
+    });
 });
