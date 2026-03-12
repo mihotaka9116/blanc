@@ -54,3 +54,13 @@ body {
     margin-top: 1rem; /* 少し余白を追加 */
     transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
+
+/* 詳細画面（モーダル）のアイコン用スタイル */
+.icon-animate-modal svg {
+    filter: drop-shadow(0 10px 15px rgba(255, 141, 161, 0.2));
+    transition: all 0.5s ease;
+}
+
+#modal-icon {
+    min-height: 300px; /* アイコン表示エリアの高さを確保 */
+}
