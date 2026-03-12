@@ -22,12 +22,12 @@ body { font-family: 'M PLUS Rounded 1c', sans-serif; scroll-behavior: smooth; ov
 
 /* 一覧：カードホバー時にアイコンを傾けて大きくする */
 .product-card-bg {
-    background: rgba(255, 255, 255, 0.6) !important;
+    background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(8px);
     border: 1px solid rgba(255, 209, 220, 0.3);
 }
 .icon-animate svg {
-    width: 110px !important; height: 110px !important;
+    width: 110px !important; height: 110px;
     transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 .group:hover .icon-animate svg {
@@ -37,7 +37,7 @@ body { font-family: 'M PLUS Rounded 1c', sans-serif; scroll-behavior: smooth; ov
 
 /* 詳細モーダル：アイコンは左に5度傾けて固定（動かさない） */
 .icon-animate-modal svg {
-    width: 180px !important; height: 180px !important;
+    width: 180px !important; height: 180px;
     filter: drop-shadow(0 15px 25px rgba(255, 141, 161, 0.3));
     transform: rotate(-5deg); /* 固定 */
 }
@@ -47,12 +47,12 @@ body { font-family: 'M PLUS Rounded 1c', sans-serif; scroll-behavior: smooth; ov
 
 /* 主役のうさぎ */
 .story-rabbit-wrap { width: 24rem; height: 24rem; }
-.story-rabbit-wrap svg { width: 220px !important; height: 220px !important; }
+.story-rabbit-wrap svg { width: 220px; height: 220px; }
 
 /* レスポンシブ */
 @media (max-width: 768px) {
     .story-rabbit-wrap { width: 16rem; height: 16rem; }
-    .story-rabbit-wrap svg { width: 140px !important; height: 140px !important; }
+    .story-rabbit-wrap svg { width: 140px; height: 140px; }
 }
 
 /* ポラロイド */
@@ -61,7 +61,7 @@ body { font-family: 'M PLUS Rounded 1c', sans-serif; scroll-behavior: smooth; ov
     box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid rgba(255,209,220,0.2);
     display: flex; align-items: center; justify-content: center; transform: rotate(-2deg);
 }
-.polaroid-card svg { width: 90px !important; height: 90px !important; }
+.polaroid-card svg { width: 90px; height: 90px; }
 
 /* 吹き出しの三角 */
 .speech-bubble { position: relative; }
@@ -74,22 +74,22 @@ body { font-family: 'M PLUS Rounded 1c', sans-serif; scroll-behavior: smooth; ov
 
 /* --- 一覧画面のアイコンサイズを強力に固定 --- */
 .icon-animate svg {
-    width: 110px !important;
-    height: 110px !important;
+    width: 110px;
+    height: 110px;
     display: block;
     margin: 0 auto;
     transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* ホバーした時に少し大きく＆傾ける（Mihoさんのこだわり！） */
+/* ホバーした時に少し大きく＆傾ける */
 .group:hover .icon-animate svg {
     transform: scale(1.1) rotate(10deg);
 }
 
 /* --- 詳細モーダルのアイコンサイズを強力に固定 --- */
 .icon-animate-modal svg {
-    width: 180px !important;
-    height: 180px !important;
+    width: 180px;
+    height: 180px;
     display: block;
     margin: 0 auto;
     /* モーダル内は動かさない設定 */
@@ -99,11 +99,22 @@ body { font-family: 'M PLUS Rounded 1c', sans-serif; scroll-behavior: smooth; ov
 /* --- スマホ表示でのサイズ調整 --- */
 @media (max-width: 768px) {
     .icon-animate svg {
-        width: 80px !important;
-        height: 80px !important;
+        width: 80px;
+        height: 80px;
     }
     .icon-animate-modal svg {
-        width: 140px !important;
-        height: 140px !important;
+        width: 140px;
+        height: 140px;
     }
+}
+
+/* 英語タイトルの調整：少し影をつけて読みやすく */
+.font-display {
+    font-family: 'Pacifico', cursive;
+    text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.8);
+}
+
+/* 日本語タイトルの調整：文字の間隔を広げて高級感を出す */
+header p {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
 }
