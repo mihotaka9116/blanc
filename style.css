@@ -71,3 +71,39 @@ body { font-family: 'M PLUS Rounded 1c', sans-serif; scroll-behavior: smooth; ov
         background: white; width: 30px; height: 30px; border-left: 2px solid rgba(255,209,220,0.3); border-bottom: 2px solid rgba(255,209,220,0.3);
     }
 }
+
+/* --- 一覧画面のアイコンサイズを強力に固定 --- */
+.icon-animate svg {
+    width: 110px !important;
+    height: 110px !important;
+    display: block;
+    margin: 0 auto;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* ホバーした時に少し大きく＆傾ける（Mihoさんのこだわり！） */
+.group:hover .icon-animate svg {
+    transform: scale(1.1) rotate(10deg);
+}
+
+/* --- 詳細モーダルのアイコンサイズを強力に固定 --- */
+.icon-animate-modal svg {
+    width: 180px !important;
+    height: 180px !important;
+    display: block;
+    margin: 0 auto;
+    /* モーダル内は動かさない設定 */
+    transform: rotate(-5deg); 
+}
+
+/* --- スマホ表示でのサイズ調整 --- */
+@media (max-width: 768px) {
+    .icon-animate svg {
+        width: 80px !important;
+        height: 80px !important;
+    }
+    .icon-animate-modal svg {
+        width: 140px !important;
+        height: 140px !important;
+    }
+}
