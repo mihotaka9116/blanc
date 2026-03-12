@@ -9,7 +9,7 @@ const products = [
 
 let cartItems = [];
 
-// 商品一覧の表示
+// 商品一覧の表示（挙動修正版）
 function renderProducts() {
     const grid = document.getElementById('product-grid');
     if (!grid) return;
@@ -32,12 +32,22 @@ function renderProducts() {
                 
                 <div class="flex justify-between items-center w-full mt-auto pt-4 border-t-2 border-dashed border-[#FFD1DC]/20">
                     <div class="text-4xl font-display text-[#5F9EA0]">¥${p.price.toLocaleString()}</div>
-                    <button class="add-btn w-14 h-14 bg-[#FFD1DC] rounded-full flex items-center justify-center text-white shadow-md hover:bg-[#FF8DA1] transition-colors outline-none" title="カートに入れる">
+                    <div class="add-btn w-14 h-14 bg-[#FFD1DC] rounded-full flex items-center justify-center text-white shadow-md group-hover:bg-[#FF8DA1] transition-colors outline-none">
                         <i data-lucide="plus" size="24"></i>
-                    </button>
+                    </div>
                 </div>
             </div>
         `;
+        
+        // カード全体のクリックイベント（プラスボタンも含む）
+        card.onclick = () => {
+            openModal(p);
+        };
+        
+        grid.appendChild(card);
+    });
+    lucide.createIcons();
+}
         
         card.onclick = (e) => {
             if (e.target.closest('.add-btn')) return;
