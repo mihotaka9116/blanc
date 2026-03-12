@@ -16,11 +16,11 @@ function renderProducts() {
     
     products.forEach(p => {
         const card = document.createElement('div');
-        card.className = "product-card-bg bg-white rounded-[3rem] p-8 shadow-lg text-center cursor-pointer transition-all duration-500 hover:-translate-y-6 hover:shadow-2xl group relative overflow-hidden flex flex-col items-center";
+        card.className = "product-card-bg rounded-[3rem] p-8 shadow-lg text-center cursor-pointer transition-all duration-500 hover:-translate-y-6 hover:shadow-2xl group relative overflow-hidden flex flex-col items-center";
         
         card.innerHTML = `
             <div class="w-32 h-32 rounded-full border-4 border-dashed border-[#B0E0E6]/50 flex items-center justify-center mb-6 text-[#FF8DA1] transition-colors group-hover:bg-[#FFD1DC]/10 icon-animate relative shrink-0">
-                <i data-lucide="${p.icon}"></i>
+                <i data-lucide="${p.icon}" size="56"></i>
             </div>
             
             <div class="flex-grow flex flex-col justify-between w-full px-4">
@@ -31,7 +31,7 @@ function renderProducts() {
                 
                 <div class="flex justify-between items-center w-full mt-auto pt-4 border-t-2 border-dashed border-[#FFD1DC]/20">
                     <div class="text-4xl font-display text-[#5F9EA0]">¥${p.price.toLocaleString()}</div>
-                    <div class="add-btn w-14 h-14 bg-[#FFD1DC] rounded-full flex items-center justify-center text-white shadow-md group-hover:bg-[#FF8DA1] transition-colors">
+                    <div class="add-btn w-14 h-14 bg-[#FFD1DC] rounded-full flex items-center justify-center text-white shadow-md">
                         <i data-lucide="plus" size="24"></i>
                     </div>
                 </div>
@@ -49,7 +49,7 @@ function openModal(p) {
     document.getElementById('modal-price').innerText = `¥${p.price.toLocaleString()}`;
     document.getElementById('modal-story').innerText = `「${p.story}」`;
     document.getElementById('modal-description').innerText = p.description;
-    document.getElementById('modal-icon').innerHTML = `<i data-lucide="${p.icon}" size="80"></i>`;
+    document.getElementById('modal-icon').innerHTML = `<i data-lucide="${p.icon}" size="120"></i>`;
     
     const addBtn = document.getElementById('add-to-cart-btn');
     addBtn.onclick = () => handleAddToCart(p);
@@ -59,89 +59,30 @@ function openModal(p) {
     lucide.createIcons();
 }
 
+// カート追加・表示関連
 function handleAddToCart(product) {
     cartItems.push(product);
     updateCartUI();
     const modalBtn = document.getElementById('add-to-cart-btn');
     if (modalBtn) {
-        const originalContent = modalBtn.innerHTML;
+        const original = modalBtn.innerHTML;
         modalBtn.innerHTML = `<i data-lucide="loader-2" class="animate-spin"></i> 魔法をかけています...`;
         lucide.createIcons();
         setTimeout(() => {
             closeModal();
             showToast(`${product.name}をカートに届けたよ！`);
-            modalBtn.innerHTML = originalContent;
+            modalBtn.innerHTML = original;
             lucide.createIcons();
         }, 800);
     }
 }
 
 function updateCartUI() {
-    const counts = [document.getElementById('cart-count'), document.getElementById('cart-count-mobile')];
-    counts.forEach(c => { 
-        if(c) { 
-            c.classList.toggle('hidden', cartItems.length === 0); 
-            c.innerText = cartItems.length; 
-        } 
-    });
-}
-
-function openCheckoutModal() {
-    if (cartItems.length === 0) { 
-        showToast("カートが空っぽだよ！"); 
-        return; 
+    const count = document.getElementById('cart-count');
+    if(count) {
+        count.classList.toggle('hidden', cartItems.length === 0);
+        count.innerText = cartItems.length;
     }
-    renderCartList();
-    document.getElementById('checkout-modal').classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-}
-
-function renderCartList() {
-    const list = document.getElementById('cart-items-list');
-    list.innerHTML = '';
-    let total = 0;
-    cartItems.forEach((item, index) => {
-        total += item.price;
-        const div = document.createElement('div');
-        div.className = "flex justify-between items-center py-4 border-b border-dashed border-[#B0E0E6]/30";
-        div.innerHTML = `
-            <div class="flex items-center gap-3">
-                <div class="text-[#FF8DA1]"><i data-lucide="${item.icon}" size="18"></i></div>
-                <span class="text-gray-700 font-bold">${item.name}</span>
-            </div>
-            <div class="flex items-center gap-4">
-                <span class="text-[#5F9EA0]">¥${item.price.toLocaleString()}</span>
-                <button onclick="removeFromCart(${index})" class="text-gray-300 hover:text-red-400 transition-colors">
-                    <i data-lucide="trash-2" size="18"></i>
-                </button>
-            </div>
-        `;
-        list.appendChild(div);
-    });
-    document.getElementById('total-price').innerText = `¥${total.toLocaleString()}`;
-    lucide.createIcons();
-}
-
-function removeFromCart(index) {
-    cartItems.splice(index, 1);
-    updateCartUI();
-    if (cartItems.length === 0) {
-        closeCheckoutModal();
-    } else {
-        renderCartList();
-    }
-}
-
-function handleFinalOrder() {
-    const btn = document.getElementById('final-order-btn');
-    btn.innerText = `注文中...`;
-    setTimeout(() => {
-        closeCheckoutModal();
-        showToast("注文ありがとう！ブランが準備を始めたよ。");
-        cartItems = [];
-        updateCartUI();
-        btn.innerText = "魔法の注文を確定する";
-    }, 1500);
 }
 
 function showToast(msg) {
@@ -152,14 +93,18 @@ function showToast(msg) {
 }
 
 function closeModal() { document.getElementById('modal').classList.add('hidden'); document.body.style.overflow = 'auto'; }
-function closeCheckoutModal() { document.getElementById('checkout-modal').classList.add('hidden'); document.body.style.overflow = 'auto'; }
 
+// 初期化
 document.addEventListener('DOMContentLoaded', () => {
     renderProducts();
     document.getElementById('modal-close').onclick = closeModal;
     document.getElementById('modal-overlay').onclick = closeModal;
-    document.getElementById('checkout-close').onclick = closeCheckoutModal;
-    document.getElementById('checkout-overlay').onclick = closeCheckoutModal;
-    document.getElementById('final-order-btn').onclick = handleFinalOrder;
-    document.querySelectorAll('.cart-trigger').forEach(btn => btn.onclick = openCheckoutModal);
+    document.querySelectorAll('.cart-trigger').forEach(btn => btn.onclick = () => {
+        if(cartItems.length > 0) {
+            document.getElementById('checkout-modal').classList.remove('hidden');
+        } else {
+            showToast("カートが空っぽだよ！");
+        }
+    });
+    document.getElementById('checkout-close').onclick = () => document.getElementById('checkout-modal').classList.add('hidden');
 });
