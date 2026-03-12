@@ -29,3 +29,35 @@ svg {
     transform: scale(1.1) rotate(5deg);
     transition: 0.3s ease;
 }
+
+/* style.css の一番下に追記、または該当箇所を上書きしてください */
+
+/* --- アイコンを丸枠のど真ん中に固定（これはそのまま） --- */
+.icon-animate, .icon-animate-modal {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* --- SHOP（一覧）：アイコンサイズを110pxに固定 --- */
+.icon-animate svg {
+    width: 110px !important;
+    height: 110px !important;
+    display: block;
+    margin: 0 auto;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* 一覧：カードホバー時にアイコンを「ぷるん」と傾ける演出 */
+.group:hover .icon-animate svg {
+    transform: scale(1.1) rotate(10deg);
+}
+
+/* --- 詳細モーダル：アイコンサイズを180pxに固定 --- */
+.icon-animate-modal svg {
+    width: 180px !important;
+    height: 180px !important;
+    filter: drop-shadow(0 15px 25px rgba(255, 141, 161, 0.3));
+    /* 詳細画面では、少し大人っぽく左に5度傾けて固定 */
+    transform: rotate(-5deg); 
+}
