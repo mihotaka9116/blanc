@@ -9,10 +9,7 @@ const products = [
 
 let cartItems = [];
 
-// ... productsデータはそのまま ...
-
-// ... productsデータはそのまま ...
-
+// 商品一覧の表示
 function renderProducts() {
     const grid = document.getElementById('product-grid');
     if (!grid) return;
@@ -20,7 +17,6 @@ function renderProducts() {
     
     products.forEach(p => {
         const card = document.createElement('div');
-        // ホバー時の「びよよよーん」を維持
         card.className = "product-card-bg rounded-[3rem] p-8 shadow-lg text-center cursor-pointer transition-all duration-500 hover:-translate-y-6 hover:shadow-2xl group relative overflow-hidden flex flex-col items-center";
         
         card.innerHTML = `
@@ -43,36 +39,14 @@ function renderProducts() {
             </div>
         `;
         
-        // カード全体をクリックした時はモーダルを開く
         card.onclick = (e) => {
             if (e.target.closest('.add-btn')) return;
             openModal(p);
         };
         
-        // プラスボタンのクリックイベント
         const addBtn = card.querySelector('.add-btn');
         addBtn.onclick = (e) => {
-            e.stopPropagation(); // 親要素（カード）のクリックイベントを発生させない
-            handleAddToCart(p);
-        };
-        
-        grid.appendChild(card);
-    });
-    lucide.createIcons();
-}
-// ... 以降の関数はそのまま ...
-        
-        // カード全体をクリックした時はモーダルを開く
-        card.onclick = (e) => {
-            // プラスボタンをクリックした時はモーダルを開かないように制御
-            if (e.target.closest('.add-btn')) return;
-            openModal(p);
-        };
-        
-        // プラスボタンのクリックイベントを設定
-        const addBtn = card.querySelector('.add-btn');
-        addBtn.onclick = (e) => {
-            e.stopPropagation(); // 親要素（カード）のクリックイベントを発生させない
+            e.stopPropagation();
             handleAddToCart(p);
         };
         
@@ -81,64 +55,117 @@ function renderProducts() {
     lucide.createIcons();
 }
 
-// ... 以降の関数はそのまま ...
-
+// モーダルを開く
 function openModal(p) {
     document.getElementById('modal-title').innerText = p.name;
     document.getElementById('modal-price').innerText = `¥${p.price.toLocaleString()}`;
     document.getElementById('modal-story').innerText = `「${p.story}」`;
     document.getElementById('modal-description').innerText = p.description;
     document.getElementById('modal-icon').innerHTML = `<i data-lucide="${p.icon}"></i>`;
-    document.getElementById('add-to-cart-btn').onclick = () => handleAddToCart(p);
+    
+    const addBtn = document.getElementById('add-to-cart-btn');
+    addBtn.onclick = () => handleAddToCart(p);
+    
     document.getElementById('modal').classList.remove('hidden');
     document.body.style.overflow = 'hidden';
     lucide.createIcons();
 }
 
+// カートに追加
 function handleAddToCart(product) {
     cartItems.push(product);
     updateCartUI();
-    const btn = document.getElementById('add-to-cart-btn');
-    btn.innerHTML = `<i data-lucide="loader-2" class="animate-spin"></i> 魔法をかけています...`;
-    lucide.createIcons();
-    setTimeout(() => {
-        closeModal();
-        showToast("カートに魔法を届けたよ！");
-        btn.innerHTML = `<i data-lucide="shopping-cart"></i> カートに入れる`;
+    
+    // モーダル内のボタンがある場合のアニメーション
+    const modalBtn = document.getElementById('add-to-cart-btn');
+    if (modalBtn) {
+        const originalContent = modalBtn.innerHTML;
+        modalBtn.innerHTML = `<i data-lucide="loader-2" class="animate-spin"></i> 魔法をかけています...`;
         lucide.createIcons();
-    }, 800);
+        setTimeout(() => {
+            closeModal();
+            showToast(`${product.name}をカートに届けたよ！`);
+            modalBtn.innerHTML = originalContent;
+            lucide.createIcons();
+        }, 800);
+    } else {
+        showToast(`${product.name}をカートに届けたよ！`);
+    }
 }
 
+// カートUIの更新（バッジの数字）
 function updateCartUI() {
     const counts = [document.getElementById('cart-count'), document.getElementById('cart-count-mobile')];
-    counts.forEach(c => { if(c) { c.classList.toggle('hidden', cartItems.length === 0); c.innerText = cartItems.length; } });
+    counts.forEach(c => { 
+        if(c) { 
+            c.classList.toggle('hidden', cartItems.length === 0); 
+            c.innerText = cartItems.length; 
+        } 
+    });
 }
 
+// チェックアウトモーダルを開く（削除機能付き）
 function openCheckoutModal() {
-    if (cartItems.length === 0) { showToast("カートが空っぽだよ！"); return; }
-    const list = document.getElementById('cart-items-list');
-    list.innerHTML = '';
-    let total = 0;
-    cartItems.forEach((item, index) => {
-        total += item.price;
-        const div = document.createElement('div');
-        div.className = "flex justify-between items-center py-4 border-b border-dashed";
-        div.innerHTML = `<span>${item.name}</span><span>¥${item.price.toLocaleString()}</span>`;
-        list.appendChild(div);
-    });
-    document.getElementById('total-price').innerText = `¥${total.toLocaleString()}`;
+    if (cartItems.length === 0) { 
+        showToast("カートが空っぽだよ！"); 
+        return; 
+    }
+    renderCartList();
     document.getElementById('checkout-modal').classList.remove('hidden');
     document.body.style.overflow = 'hidden';
 }
 
+// カートの中身をリスト表示する（削除ボタンの実装）
+function renderCartList() {
+    const list = document.getElementById('cart-items-list');
+    list.innerHTML = '';
+    let total = 0;
+    
+    cartItems.forEach((item, index) => {
+        total += item.price;
+        const div = document.createElement('div');
+        div.className = "flex justify-between items-center py-4 border-b border-dashed border-[#B0E0E6]/30";
+        div.innerHTML = `
+            <div class="flex items-center gap-3">
+                <div class="text-[#FF8DA1]"><i data-lucide="${item.icon}" size="18"></i></div>
+                <span class="text-gray-700 font-bold">${item.name}</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <span class="text-[#5F9EA0]">¥${item.price.toLocaleString()}</span>
+                <button onclick="removeFromCart(${index})" class="text-gray-300 hover:text-red-400 transition-colors">
+                    <i data-lucide="trash-2" size="18"></i>
+                </button>
+            </div>
+        `;
+        list.appendChild(div);
+    });
+    
+    document.getElementById('total-price').innerText = `¥${total.toLocaleString()}`;
+    lucide.createIcons();
+}
+
+// カートから削除
+function removeFromCart(index) {
+    cartItems.splice(index, 1);
+    updateCartUI();
+    if (cartItems.length === 0) {
+        closeCheckoutModal();
+        showToast("カートが空になったよ");
+    } else {
+        renderCartList();
+    }
+}
+
 function handleFinalOrder() {
     const btn = document.getElementById('final-order-btn');
-    btn.innerHTML = `注文中...`;
+    const originalText = btn.innerText;
+    btn.innerText = `注文中...`;
     setTimeout(() => {
         closeCheckoutModal();
         showToast("注文ありがとう！ブランが準備を始めたよ。");
         cartItems = [];
         updateCartUI();
+        btn.innerText = originalText;
     }, 1500);
 }
 
@@ -152,22 +179,26 @@ function showToast(msg) {
 function closeModal() { document.getElementById('modal').classList.add('hidden'); document.body.style.overflow = 'auto'; }
 function closeCheckoutModal() { document.getElementById('checkout-modal').classList.add('hidden'); document.body.style.overflow = 'auto'; }
 
-window.onload = () => {
+// 実行
+document.addEventListener('DOMContentLoaded', () => {
     renderProducts();
+    
     document.getElementById('modal-close').onclick = closeModal;
     document.getElementById('modal-overlay').onclick = closeModal;
     document.getElementById('checkout-close').onclick = closeCheckoutModal;
     document.getElementById('checkout-overlay').onclick = closeCheckoutModal;
     document.getElementById('final-order-btn').onclick = handleFinalOrder;
     
-    // 全てのカートボタンを有効化
     document.querySelectorAll('.cart-trigger').forEach(btn => btn.onclick = openCheckoutModal);
 
-    // ハンバーガーメニュー
     const mOpen = document.getElementById('menu-open');
     const mClose = document.getElementById('menu-close');
     const mMenu = document.getElementById('mobile-menu');
-    mOpen.onclick = () => mMenu.classList.add('active');
-    mClose.onclick = () => mMenu.classList.remove('active');
-    document.querySelectorAll('.mobile-link').forEach(link => link.onclick = () => mMenu.classList.remove('active'));
-};
+    
+    if(mOpen) mOpen.onclick = () => mMenu.classList.add('active');
+    if(mClose) mClose.onclick = () => mMenu.classList.remove('active');
+    
+    document.querySelectorAll('.mobile-link').forEach(link => {
+        link.onclick = () => mMenu.classList.remove('active');
+    });
+});
