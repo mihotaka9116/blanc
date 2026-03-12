@@ -150,3 +150,16 @@ header p {
     transform: rotate(-5deg); /* 固定 */
     animation: none;
 }
+
+/* カート内のスクロールバーを細く、色を合わせる */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: #FDF9F2;
+    border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #B0E0E6;
+    border-radius: 10px;
+}
