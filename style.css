@@ -1,157 +1,57 @@
-:root {
-    --wakatta-pink: #FFD1DC;
-    --wakatta-pink-dark: #FF8DA1;
-    --wakatta-blue: #B0E0E6;
-    --wakatta-blue-dark: #5F9EA0;
-}
-
-body { font-family: 'M PLUS Rounded 1c', sans-serif; scroll-behavior: smooth; overflow-x: hidden; }
-.font-display { font-family: 'Pacifico', cursive; }
-
-/* ボタン */
-.wakatta-button { background: var(--wakatta-pink); color: white; border-radius: 999px; font-weight: bold; box-shadow: 0 4px 0 var(--wakatta-pink-dark); transition: all 0.2s; cursor: pointer; text-align: center; }
-.wakatta-button:hover { transform: translateY(-2px); box-shadow: 0 6px 0 var(--wakatta-pink-dark); }
-.wakatta-button-blue { background: var(--wakatta-blue); color: #5F9EA0; border-radius: 999px; font-weight: bold; box-shadow: 0 4px 0 var(--wakatta-blue-dark); transition: all 0.2s; cursor: pointer; text-align: center; }
-
-/* Shop背景のぼやっとした光 */
-#shop {
-    position: relative;
-    background: radial-gradient(circle at 10% 20%, rgba(255, 209, 220, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(176, 224, 230, 0.15) 0%, transparent 40%);
-}
-
-/* 一覧：カードホバー時にアイコンを傾けて大きくする */
-.product-card-bg {
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 209, 220, 0.3);
-}
-.icon-animate svg {
-    width: 110px !important; height: 110px;
-    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-.group:hover .icon-animate svg {
-    transform: scale(1.1) rotate(10deg); /* 10度傾けて少し大きく */
-    color: var(--wakatta-pink-dark);
-}
-
-/* 詳細モーダル：アイコンは左に5度傾けて固定（動かさない） */
-.icon-animate-modal svg {
-    width: 180px !important; height: 180px;
-    filter: drop-shadow(0 15px 25px rgba(255, 141, 161, 0.3));
-    transform: rotate(-5deg); /* 固定 */
-}
-
-/* スマホメニュー制御 */
-#mobile-menu.active { transform: translateX(0); }
-
-/* 主役のうさぎ */
-.story-rabbit-wrap { width: 24rem; height: 24rem; }
-.story-rabbit-wrap svg { width: 220px; height: 220px; }
-
-/* レスポンシブ */
-@media (max-width: 768px) {
-    .story-rabbit-wrap { width: 16rem; height: 16rem; }
-    .story-rabbit-wrap svg { width: 140px; height: 140px; }
-}
-
-/* ポラロイド */
-.polaroid-card.card-flat {
-    width: 180px; height: 220px; background: white; padding: 15px 15px 40px 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid rgba(255,209,220,0.2);
-    display: flex; align-items: center; justify-content: center; transform: rotate(-2deg);
-}
-.polaroid-card svg { width: 90px; height: 90px; }
-
-/* 吹き出しの三角 */
-.speech-bubble { position: relative; }
-@media (min-width: 768px) {
-    .speech-bubble::before {
-        content: ""; position: absolute; left: -16px; top: 50%; transform: translateY(-50%) rotate(45deg);
-        background: white; width: 30px; height: 30px; border-left: 2px solid rgba(255,209,220,0.3); border-bottom: 2px solid rgba(255,209,220,0.3);
-    }
-}
-
-/* --- 一覧画面のアイコンサイズを強力に固定 --- */
-.icon-animate svg {
-    width: 110px;
-    height: 110px;
-    display: block;
-    margin: 0 auto;
-    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-/* ホバーした時に少し大きく＆傾ける */
-.group:hover .icon-animate svg {
-    transform: scale(1.1) rotate(10deg);
-}
-
-/* --- 詳細モーダルのアイコンサイズを強力に固定 --- */
-.icon-animate-modal svg {
-    width: 180px;
-    height: 180px;
-    display: block;
-    margin: 0 auto;
-    /* モーダル内は動かさない設定 */
-    transform: rotate(-5deg); 
-}
-
-/* --- スマホ表示でのサイズ調整 --- */
-@media (max-width: 768px) {
-    .icon-animate svg {
-        width: 80px;
-        height: 80px;
-    }
-    .icon-animate-modal svg {
-        width: 140px;
-        height: 140px;
-    }
-}
-
-/* 英語タイトルの調整：少し影をつけて読みやすく */
-.font-display {
-    font-family: 'Pacifico', cursive;
-    text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.8);
-}
-
-/* 日本語タイトルの調整：文字の間隔を広げて高級感を出す */
-header p {
+/* フォント設定 */
+body {
     font-family: 'M PLUS Rounded 1c', sans-serif;
 }
-
-/* --- 一覧：アイコンの薄い水色点線枠（JSでborder指定済みなので、ここでは動きを） --- */
-.icon-animate svg {
-    width: 110px;
-    height: 110px;
-    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+.font-display {
+    font-family: 'Pacifico', cursive;
 }
 
-/* 一覧：カードホバー時にアイコンを傾ける */
+/* アイコンをど真ん中に配置するための設定 */
+.icon-animate, .icon-animate-modal {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* 消えないようにサイズを調整 */
+.icon-animate svg, .icon-animate-modal svg {
+    width: 64px;
+    height: 64px;
+    stroke-width: 1.5;
+}
+
+/* ホバー時の動き */
 .group:hover .icon-animate svg {
-    transform: scale(1.1) rotate(10deg);
-    color: #FF8DA1;
+    transform: scale(1.1) rotate(5deg);
+    transition: transform 0.3s ease;
 }
 
-/* プラスボタンのホバー演出 */
-.add-btn {
-    transition: all 0.3s ease;
-    will-change: transform;
+/* ボタンの共通スタイル */
+.wakatta-button {
+    background-color: #FF8DA1;
+    color: white;
+    border-radius: 9999px;
+    font-weight: bold;
+    transition: all 0.3s;
 }
-.add-btn:hover {
-    transform: scale(1.1) rotate(90deg); /* 1.1倍にして90度回す */
-    box-shadow: 0 5px 15px rgba(255, 141, 161, 0.4);
-}
-
-/* --- 詳細モーダル：アイコンは左に5度傾けて固定（動かさない） --- */
-.icon-animate-modal svg {
-    width: 180px;
-    height: 180px;
-    filter: drop-shadow(0 15px 25px rgba(255, 141, 161, 0.3));
-    transform: rotate(-5deg); /* 固定 */
-    animation: none;
+.wakatta-button:hover {
+    background-color: #ff758f;
+    transform: scale(1.05);
 }
 
-/* カート内のスクロールバーを細く、色を合わせる */
+.wakatta-button-blue {
+    background-color: #5F9EA0;
+    color: white;
+    border-radius: 9999px;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+.wakatta-button-blue:hover {
+    background-color: #4d8284;
+    transform: scale(1.05);
+}
+
+/* カート内のスクロールバー */
 .custom-scrollbar::-webkit-scrollbar {
     width: 6px;
 }
@@ -162,45 +62,4 @@ header p {
 .custom-scrollbar::-webkit-scrollbar-thumb {
     background: #B0E0E6;
     border-radius: 10px;
-}
-
-/* style.css の一番下に追記、または該当箇所を上書きしてください */
-
-/* --- アイコンを丸枠の「ど真ん中」に固定 --- */
-.icon-animate, .icon-animate-modal {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* 一覧：アイコンサイズ（110px）を強制固定し、丸枠（w-32=128px）の中央へ */
-.icon-animate svg {
-    width: 110px;
-    height: 110px;
-    display: block;
-    margin: 0 auto;
-    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-/* 一覧：カードホバー時にアイコンを「ぷるん」と傾ける（Mihoさんのこだわり！） */
-.group:hover .icon-animate svg {
-    transform: scale(1.1) rotate(10deg);
-}
-
-/* --- プラスボタン：ホバー時に大きく＆傾ける演出 --- */
-.add-btn {
-    transition: all 0.3s ease-in-out;
-}
-.group:hover .add-btn {
-    background-color: #FF8DA1; /* ホバー時に濃いピンクへ */
-    transform: scale(1.1) rotate(15deg); /* 大きく＆少し傾ける */
-    box-shadow: 0 10px 20px rgba(255, 141, 161, 0.3);
-}
-
-/* --- 詳細モーダル：アイコンは左に5度傾けて固定 --- */
-.icon-animate-modal svg {
-    width: 180px;
-    height: 180px;
-    filter: drop-shadow(0 15px 25px rgba(255, 141, 161, 0.3));
-    transform: rotate(-5deg); /* 固定 */
 }
