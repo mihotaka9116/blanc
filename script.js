@@ -41,19 +41,26 @@ function renderProducts() {
     lucide.createIcons();
 }
 
+// script.js の openModal 関数を丸ごと差し替えてください
 function openModal(p) {
     document.getElementById('modal-title').innerText = p.name;
     document.getElementById('modal-price').innerText = `¥${p.price.toLocaleString()}`;
     document.getElementById('modal-story').innerText = `「${p.story}」`;
     document.getElementById('modal-description').innerText = p.description;
-    document.getElementById('modal-icon').innerHTML = `<i data-lucide="${p.icon}" size="120"></i>`;
+    
+    // --- 修正ポイント：アイコンを .icon-animate-modal で囲む ---
+    document.getElementById('modal-icon').innerHTML = `
+        <div class="icon-animate-modal">
+            <i data-lucide="${p.icon}"></i>
+        </div>
+    `;
     
     const addBtn = document.getElementById('add-to-cart-btn');
     addBtn.onclick = () => handleAddToCart(p);
     
     document.getElementById('modal').classList.remove('hidden');
     document.body.style.overflow = 'hidden';
-    lucide.createIcons();
+    lucide.createIcons(); // Lucideアイコンを描画（これがないと消えます）
 }
 
 function handleAddToCart(product) {
