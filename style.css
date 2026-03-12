@@ -30,7 +30,7 @@ body {
     transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.icon-animate-wrap svg { width: 70px; height: 70px; }
+.icon-animate-wrap svg { width: 70px !important; height: 70px !important; }
 
 /* ★ホバーでアイコン部分のみを傾ける */
 .group:hover .icon-animate-wrap {
@@ -39,7 +39,7 @@ body {
     border-color: #FFD1DC;
 }
 
-.icon-animate-modal svg { width: 160px; height: 160px; }
-@media (min-width: 768px) { .icon-animate-modal svg { width: 220px; height: 220px; } }
+.icon-animate-modal svg { width: 160px !important; height: 160px !important; }
+@media (min-width: 768px) { .icon-animate-modal svg { width: 220px !important; height: 220px !important; } }
 
 .no-scrollbar::-webkit-scrollbar { display: none; }
