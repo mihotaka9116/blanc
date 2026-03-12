@@ -30,8 +30,8 @@ body {
 
 /* あなぐまくん出現アニメーション */
 #anaguma-icon.show {
-    bottom: 30px !important;
-    opacity: 1 !important;
+    bottom: 30px;
+    opacity: 1;
     transform: rotate(-5deg);
 }
 
