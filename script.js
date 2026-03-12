@@ -22,25 +22,21 @@ const messages = [
 function updateMessage() {
     const el = document.getElementById("blanc-message");
     const icon = document.getElementById("anaguma-icon");
-    if (!el) return;
+    if (!el || !icon) return;
 
     const msg = messages[Math.floor(Math.random() * messages.length)];
     el.innerText = msg;
 
-    if (icon) {
-        if (msg.includes("あなぐまくん")) {
-            icon.style.display = "block";
-            // transitionを効かせるため少し遅らせる
-            setTimeout(() => icon.classList.add("show"), 50);
-        } else {
-            icon.classList.remove("show");
-            setTimeout(() => { 
-                if(!icon.classList.contains('show')) icon.style.display = "none"; 
-            }, 800);
-        }
+    if (msg.includes("あなぐまくん")) {
+        icon.classList.add("show");
+        icon.style.opacity = "1";
+        icon.style.pointerEvents = "auto";
+    } else {
+        icon.classList.remove("show");
+        icon.style.opacity = "0";
+        icon.style.pointerEvents = "none";
     }
 }
-
 // --- 3. 商品描画（点線の丸を復活！） ---
 function renderProducts() {
     const grid = document.getElementById('product-grid');
