@@ -104,4 +104,48 @@
             <h3 class="text-3xl font-display text-[#FF8DA1] mb-8">Contact Us</h3>
             <form class="space-y-6 text-left" onsubmit="event.preventDefault(); alert('メッセージを預かりました！');">
                 <div><label class="block text-sm font-bold text-gray-600 mb-2">お名前</label><input type="text" class="w-full px-6 py-3 rounded-full border-2 border-[#FFD1DC]/30 focus:outline-none focus:border-[#FF8DA1]"></div>
-                <div><label class="block text-sm font-bold text-gray-600 mb-2">メールアドレス</label><input type="email" class="w-full px-6 py-3 rounded-full border-2 border-[#FFD1DC]/30
+                <div><label class="block text-sm font-bold text-gray-600 mb-2">メールアドレス</label><input type="email" class="w-full px-6 py-3 rounded-full border-2 border-[#FFD1DC]/30 focus:outline-none focus:border-[#FF8DA1]"></div>
+                <div><label class="block text-sm font-bold text-gray-600 mb-2">メッセージ</label><textarea class="w-full px-6 py-4 rounded-[2rem] border-2 border-[#FFD1DC]/30 focus:outline-none focus:border-[#FF8DA1] h-32"></textarea></div>
+                <button type="submit" class="w-full py-4 bg-[#FF8DA1] text-white rounded-full font-bold shadow-lg hover:bg-[#ff758f] transition-all">手紙を送る</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="py-12 text-center text-gray-400 font-bold text-xs">&copy; 2026 Blanc's Recipe. Created by Miho Takahashi</footer>
+
+    <div id="cart-modal" class="fixed inset-0 z-[160] hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60" id="cart-overlay"></div>
+        <div class="relative w-full max-w-xl bg-white rounded-[3rem] p-8 shadow-2xl">
+            <button id="cart-close" class="absolute top-6 right-6"><i data-lucide="x"></i></button>
+            <h2 class="text-3xl font-display text-[#5F9EA0] mb-8 text-center">Your Cart</h2>
+            <div id="cart-items-list" class="max-h-60 overflow-y-auto mb-8 text-gray-600 space-y-3"></div>
+            <div class="border-t-2 border-dashed border-[#B0E0E6] pt-6 flex justify-between items-center mb-8">
+                <span class="font-bold">Total</span><span class="text-3xl font-display text-[#FF8DA1]" id="total-price">¥0</span>
+            </div>
+            <button onclick="alert('注文を受け付けました！')" class="w-full py-4 bg-[#5F9EA0] text-white rounded-full font-bold">注文を確定する</button>
+        </div>
+    </div>
+
+    <div id="modal" class="fixed inset-0 z-[150] hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" id="modal-overlay"></div>
+        <div class="relative w-full max-w-4xl bg-[#FFFDF9] rounded-[3rem] overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[90vh] overflow-y-auto md:overflow-hidden">
+            <button id="modal-close" class="absolute top-6 right-6 z-20 p-2 bg-white rounded-full shadow-md"><i data-lucide="x"></i></button>
+            <div id="modal-icon" class="w-full md:w-1/2 bg-[#FFD1DC]/20 flex items-center justify-center p-12 text-[#FF8DA1]"></div>
+            <div class="p-8 md:p-14 flex flex-col flex-1">
+                <div id="modal-info" class="text-[10px] font-bold text-[#5F9EA0] mb-2 uppercase tracking-widest"></div>
+                <h2 id="modal-title" class="text-3xl md:text-4xl font-bold text-[#FF8DA1] mb-2"></h2>
+                <p id="modal-price" class="text-2xl md:text-3xl font-display text-[#5F9EA0] mb-6"></p>
+                <div class="bg-white/60 p-6 rounded-2xl border-2 border-dashed border-[#FFD1DC] mb-8 text-sm text-gray-600 leading-loose">
+                    <p id="modal-story" class="italic mb-4"></p>
+                    <p id="modal-description" class="border-l-2 border-[#FFD1DC] pl-4"></p>
+                </div>
+                <button id="add-to-cart-btn" class="w-full py-4 bg-[#FF8DA1] text-white rounded-full font-bold">カートに入れる</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="order-success" class="fixed bottom-10 left-1/2 -translate-x-1/2 z-[200] hidden bg-[#5F9EA0] text-white px-8 py-3 rounded-full shadow-2xl text-sm font-bold"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
