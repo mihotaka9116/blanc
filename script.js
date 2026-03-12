@@ -19,8 +19,8 @@ function renderProducts() {
         card.className = "bg-white rounded-[3rem] p-8 shadow-lg text-center cursor-pointer transition-all duration-500 hover:-translate-y-6 hover:shadow-2xl group relative overflow-hidden flex flex-col items-center border border-[#FFD1DC]/20";
         
         card.innerHTML = `
-            <div class="w-32 h-32 rounded-full border-4 border-dashed border-[#B0E0E6]/50 flex items-center justify-center mb-6 text-[#FF8DA1] transition-colors group-hover:bg-[#FFD1DC]/10 icon-animate relative shrink-0">
-                <i data-lucide="${p.icon}" size="56"></i>
+            <div class="w-32 h-32 rounded-full border-4 border-dashed border-[#B0E0E6]/50 flex items-center justify-center mb-6 text-[#FF8DA1] transition-colors group-hover:bg-[#FFD1DC]/10 icon-animate shrink-0">
+                <i data-lucide="${p.icon}"></i>
             </div>
             <div class="flex-grow flex flex-col justify-between w-full px-4">
                 <div>
@@ -41,26 +41,23 @@ function renderProducts() {
     lucide.createIcons();
 }
 
-// script.js の openModal 関数を丸ごと差し替えてください
 function openModal(p) {
     document.getElementById('modal-title').innerText = p.name;
     document.getElementById('modal-price').innerText = `¥${p.price.toLocaleString()}`;
     document.getElementById('modal-story').innerText = `「${p.story}」`;
     document.getElementById('modal-description').innerText = p.description;
     
-    // --- 修正ポイント：アイコンを .icon-animate-modal で囲む ---
+    // アイコンを専用クラスで囲んで特大表示
     document.getElementById('modal-icon').innerHTML = `
         <div class="icon-animate-modal">
             <i data-lucide="${p.icon}"></i>
         </div>
     `;
     
-    const addBtn = document.getElementById('add-to-cart-btn');
-    addBtn.onclick = () => handleAddToCart(p);
-    
+    document.getElementById('add-to-cart-btn').onclick = () => handleAddToCart(p);
     document.getElementById('modal').classList.remove('hidden');
     document.body.style.overflow = 'hidden';
-    lucide.createIcons(); // Lucideアイコンを描画（これがないと消えます）
+    lucide.createIcons();
 }
 
 function handleAddToCart(product) {
@@ -72,13 +69,10 @@ function handleAddToCart(product) {
 
 function updateCartUI() {
     const count = document.getElementById('cart-count');
-    const countMobile = document.getElementById('cart-count-mobile');
-    [count, countMobile].forEach(c => {
-        if(c) {
-            c.classList.toggle('hidden', cartItems.length === 0);
-            c.innerText = cartItems.length;
-        }
-    });
+    if(count) {
+        count.classList.toggle('hidden', cartItems.length === 0);
+        count.innerText = cartItems.length;
+    }
 }
 
 function showToast(msg) {
@@ -90,30 +84,8 @@ function showToast(msg) {
 
 function closeModal() { document.getElementById('modal').classList.add('hidden'); document.body.style.overflow = 'auto'; }
 
-// 初期化
 document.addEventListener('DOMContentLoaded', () => {
     renderProducts();
-    
-    // モーダル・カート操作
     document.getElementById('modal-close').onclick = closeModal;
     document.getElementById('modal-overlay').onclick = closeModal;
-    document.querySelectorAll('.cart-trigger').forEach(btn => btn.onclick = () => {
-        if(cartItems.length > 0) {
-            document.getElementById('checkout-modal').classList.remove('hidden');
-        } else {
-            showToast("カートが空っぽだよ！");
-        }
-    });
-    document.getElementById('checkout-close').onclick = () => document.getElementById('checkout-modal').classList.add('hidden');
-
-    // ハンバーガーメニュー操作
-    const mOpen = document.getElementById('menu-open');
-    const mClose = document.getElementById('menu-close');
-    const mMenu = document.getElementById('mobile-menu');
-    
-    if(mOpen) mOpen.onclick = () => mMenu.classList.add('active');
-    if(mClose) mClose.onclick = () => mMenu.classList.remove('active');
-    document.querySelectorAll('.mobile-link').forEach(link => {
-        link.onclick = () => mMenu.classList.remove('active');
-    });
 });
