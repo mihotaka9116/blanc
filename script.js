@@ -1,4 +1,3 @@
-// --- 商品データ（ご提示いただいた最新テキスト版） ---
 const products = [
     { 
         id: '1', no: '01', name: '夜空の星屑クッキー', price: 1200, icon: 'star', difficulty: '★★★', time: '45min', 
@@ -34,7 +33,6 @@ const products = [
 
 let cartItems = [];
 
-// --- 商品一覧（Daily Specials）の描画 ---
 function renderProducts() {
     const grid = document.getElementById('product-grid');
     if (!grid) return;
@@ -43,15 +41,11 @@ function renderProducts() {
     products.forEach(p => {
         const card = document.createElement('div');
         card.className = "recipe-card rounded-[2.5rem] p-8 shadow-lg text-center cursor-pointer transition-all duration-300 hover:shadow-2xl group flex flex-col items-center relative";
-        
-        // カードクリックで詳細を開く
         card.onclick = () => openModal(p);
 
         card.innerHTML = `
             <div class="recipe-tag">RECIPE ${p.no}</div>
-            <div class="icon-animate-wrap">
-                <i data-lucide="${p.icon}" class="text-[#FF8DA1]"></i>
-            </div>
+            <div class="icon-animate-wrap"><i data-lucide="${p.icon}" class="text-[#FF8DA1]"></i></div>
             <div class="flex-grow w-full text-gray-600 flex flex-col">
                 <div class="text-[10px] font-bold text-[#5F9EA0] mb-2 uppercase tracking-tighter">${p.difficulty} | ${p.time}</div>
                 <h4 class="text-xl md:text-2xl font-bold mb-2 group-hover:text-[#FF8DA1] transition-colors">${p.name}</h4>
@@ -66,44 +60,22 @@ function renderProducts() {
         `;
         grid.appendChild(card);
     });
-    // 動的に追加した要素のアイコンを生成
-    if (window.lucide) {
-        lucide.createIcons();
-    }
+    lucide.createIcons();
 }
 
-// --- 詳細モーダルの表示 ---
 function openModal(p) {
-    const modal = document.getElementById('modal');
-    if (!modal) return;
-
     document.getElementById('modal-info').innerText = `Recipe No.${p.no} | Difficulty: ${p.difficulty} | Time: ${p.time}`;
     document.getElementById('modal-title').innerText = p.name;
     document.getElementById('modal-price').innerText = `¥${p.price.toLocaleString()}`;
     document.getElementById('modal-story').innerText = `「${p.story}」`;
     document.getElementById('modal-description').innerText = p.desc;
-    
-    // アイコンの更新
-    const iconContainer = document.getElementById('modal-icon');
-    if (iconContainer) {
-        iconContainer.innerHTML = `<div class="icon-animate-modal"><i data-lucide="${p.icon}"></i></div>`;
-    }
-    
-    // カート追加ボタンのイベント設定
-    const addBtn = document.getElementById('add-to-cart-btn');
-    if (addBtn) {
-        addBtn.onclick = () => addToCart(p);
-    }
-    
-    modal.classList.remove('hidden');
+    document.getElementById('modal-icon').innerHTML = `<div class="icon-animate-modal"><i data-lucide="${p.icon}"></i></div>`;
+    document.getElementById('add-to-cart-btn').onclick = () => addToCart(p);
+    document.getElementById('modal').classList.remove('hidden');
     document.body.style.overflow = 'hidden';
-    
-    if (window.lucide) {
-        lucide.createIcons();
-    }
+    lucide.createIcons();
 }
 
-// --- カート機能 ---
 function addToCart(p) {
     cartItems.push(p);
     updateCartUI();
@@ -115,84 +87,27 @@ function updateCartUI() {
     const total = cartItems.reduce((sum, item) => sum + item.price, 0);
     const countD = document.getElementById('cart-count');
     const countM = document.getElementById('cart-count-mobile');
-    
-    [countD, countM].forEach(el => {
-        if(el) {
-            el.classList.toggle('hidden', cartItems.length === 0);
-            el.innerText = cartItems.length;
-        }
-    });
-    
-    const priceEl = document.getElementById('total-price');
-    if (priceEl) priceEl.innerText = `¥${total.toLocaleString()}`;
-
-    const list = document.getElementById('cart-items-list');
-    if (list) {
-        list.innerHTML = cartItems.map(item => `
-            <div class="flex justify-between py-2 border-b border-gray-100 italic">
-                <span>${item.name}</span><span>¥${item.price.toLocaleString()}</span>
-            </div>
-        `).join('');
-    }
+    [countD, countM].forEach(el => { if(el) { el.classList.toggle('hidden', cartItems.length === 0); el.innerText = cartItems.length; } });
+    document.getElementById('total-price').innerText = `¥${total.toLocaleString()}`;
+    document.getElementById('cart-items-list').innerHTML = cartItems.map(item => `<div class="flex justify-between py-2 border-b border-gray-100 italic"><span>${item.name}</span><span>¥${item.price.toLocaleString()}</span></div>`).join('');
 }
 
-// --- 共通アクション ---
-function closeModal() {
-    const modal = document.getElementById('modal');
-    if (modal) modal.classList.add('hidden');
-    document.body.style.overflow = 'auto';
-}
+function closeModal() { document.getElementById('modal').classList.add('hidden'); document.body.style.overflow = 'auto'; }
+function showToast(msg) { const toast = document.getElementById('order-success'); toast.innerText = msg; toast.classList.remove('hidden'); setTimeout(() => toast.classList.add('hidden'), 3000); }
 
-function showToast(msg) {
-    const toast = document.getElementById('order-success');
-    if (!toast) return;
-    toast.innerText = msg;
-    toast.classList.remove('hidden');
-    setTimeout(() => toast.classList.add('hidden'), 3000);
-}
-
-// --- 初期化処理 ---
 document.addEventListener('DOMContentLoaded', () => {
-    // 商品一覧の描画
     renderProducts();
-    
-    // モバイルメニュー制御
     const menu = document.getElementById('mobile-menu');
-    const openBtn = document.getElementById('menu-open');
-    const closeBtn = document.getElementById('menu-close');
-    
-    if (openBtn) openBtn.onclick = () => menu.classList.add('active');
-    if (closeBtn) closeBtn.onclick = () => menu.classList.remove('active');
-    
-    document.querySelectorAll('.mobile-link').forEach(link => {
-        link.onclick = () => menu.classList.remove('active');
+    document.getElementById('menu-open').onclick = () => menu.classList.add('active');
+    document.getElementById('menu-close').onclick = () => menu.classList.remove('active');
+    document.querySelectorAll('.mobile-link').forEach(link => link.onclick = () => menu.classList.remove('active'));
+    document.querySelectorAll('.cart-trigger').forEach(btn => btn.onclick = (e) => {
+        e.preventDefault();
+        if(cartItems.length > 0) document.getElementById('cart-modal').classList.remove('hidden');
+        else showToast("カートは空っぽだよ！");
     });
-
-    // カートモーダル制御
-    document.querySelectorAll('.cart-trigger').forEach(btn => {
-        btn.onclick = (e) => {
-            e.preventDefault();
-            if(cartItems.length > 0) {
-                document.getElementById('cart-modal').classList.remove('hidden');
-            } else {
-                showToast("カートは空っぽだよ！");
-            }
-        };
-    });
-    
-    const cartClose = document.getElementById('cart-close');
-    const cartOverlay = document.getElementById('cart-overlay');
-    if (cartClose) cartClose.onclick = () => document.getElementById('cart-modal').classList.add('hidden');
-    if (cartOverlay) cartOverlay.onclick = () => document.getElementById('cart-modal').classList.add('hidden');
-
-    // 詳細モーダルを閉じる
-    const modalClose = document.getElementById('modal-close');
-    const modalOverlay = document.getElementById('modal-overlay');
-    if (modalClose) modalClose.onclick = closeModal;
-    if (modalOverlay) modalOverlay.onclick = closeModal;
-
-    // ページ全体の静的なアイコンを生成（ヒーロー部分など）
-    if (window.lucide) {
-        lucide.createIcons();
-    }
+    document.getElementById('cart-close').onclick = () => document.getElementById('cart-modal').classList.add('hidden');
+    document.getElementById('cart-overlay').onclick = () => document.getElementById('cart-modal').classList.add('hidden');
+    document.getElementById('modal-close').onclick = closeModal;
+    document.getElementById('modal-overlay').onclick = closeModal;
 });
