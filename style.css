@@ -118,3 +118,35 @@ body { font-family: 'M PLUS Rounded 1c', sans-serif; scroll-behavior: smooth; ov
 header p {
     font-family: 'M PLUS Rounded 1c', sans-serif;
 }
+
+/* --- 一覧：アイコンの薄い水色点線枠（JSでborder指定済みなので、ここでは動きを） --- */
+.icon-animate svg {
+    width: 110px;
+    height: 110px;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* 一覧：カードホバー時にアイコンを傾ける */
+.group:hover .icon-animate svg {
+    transform: scale(1.1) rotate(10deg);
+    color: #FF8DA1;
+}
+
+/* プラスボタンのホバー演出 */
+.add-btn {
+    transition: all 0.3s ease;
+    will-change: transform;
+}
+.add-btn:hover {
+    transform: scale(1.1) rotate(90deg); /* 1.1倍にして90度回す */
+    box-shadow: 0 5px 15px rgba(255, 141, 161, 0.4);
+}
+
+/* --- 詳細モーダル：アイコンは左に5度傾けて固定（動かさない） --- */
+.icon-animate-modal svg {
+    width: 180px;
+    height: 180px;
+    filter: drop-shadow(0 15px 25px rgba(255, 141, 161, 0.3));
+    transform: rotate(-5deg); /* 固定 */
+    animation: none;
+}
