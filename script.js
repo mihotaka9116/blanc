@@ -111,3 +111,37 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('modal-close').onclick = closeModal;
     document.getElementById('modal-overlay').onclick = closeModal;
 });
+
+const messages = [
+  "霧の朝だね。今日はハチミツを多めに練り込んだよ。",
+  "風が強い日は、クロワッサンの層が綺麗に焼けるんだ。",
+  "星が綺麗な夜には、少ししょっぱいクッキーが合うよ。",
+  "見つけてくれてありがとう。ゆっくりしていってね。",
+  "おはよう。今朝の霧はミルクの香りがするね。シフォンがふわふわに焼けたよ。",
+  "窓の外は真っ白。こんな日は、温かい紅茶とマドレーヌで心に灯をともそう。",
+  "お疲れさま。今日の最後の一仕事は、自分をたっぷり甘やかすことだよ。",
+  "あなぐまくんが遊びに来たよ。彼が見つけてくれた特別な切り株で、今日はロールケーキを巻いたんだ。",
+  "あなぐまくんが持ってきた木の実、少しだけクッキーに混ぜてみたよ。森の香りがするはずさ。",
+  "あなぐまくんとお茶をしていたら、ついつい話し込んじゃった。お菓子が焦げなくてよかったよ。"
+];
+
+function updateMessage() {
+  const messageElement = document.getElementById("blanc-message");
+  const anagumaIcon = document.getElementById("anaguma-icon");
+
+  // ランダムに1つ選ぶ
+  const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+  
+  // テキストを反映
+  messageElement.innerText = randomMessage;
+
+  // メッセージに「あなぐまくん」という言葉が入っているかチェック
+  if (randomMessage.includes("あなぐまくん")) {
+    anagumaIcon.style.display = "block"; // 現れる
+  } else {
+    anagumaIcon.style.display = "none";  // 隠れる
+  }
+}
+
+// ページを読み込んだ時に実行
+window.onload = updateMessage;
