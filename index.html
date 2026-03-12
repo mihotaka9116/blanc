@@ -9,7 +9,7 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-[#FFFDF9]">
+<body class="bg-[#FFFDF9] scroll-smooth">
 
     <nav class="sticky top-0 z-[100] bg-white/80 backdrop-blur-md border-b-2 border-[#FFD1DC]/30 py-4 px-6">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
@@ -19,33 +19,50 @@
                 </div>
                 <h1 class="text-2xl font-display text-[#FF8DA1]">Blanc's Recipe</h1>
             </div>
-            <div class="flex items-center gap-4">
-                <button class="cart-trigger p-2 text-gray-600 hover:text-[#FF8DA1] relative outline-none">
+
+            <div class="hidden md:flex gap-10 font-bold text-gray-600 items-center">
+                <a href="#about" class="hover:text-[#FF8DA1] transition-colors">Story</a>
+                <a href="#shop" class="hover:text-[#FF8DA1] transition-colors">Shop</a>
+                <button id="cart-btn-desktop" class="cart-trigger p-2 text-gray-600 hover:text-[#FF8DA1] relative outline-none">
                     <i data-lucide="shopping-cart"></i>
                     <span id="cart-count" class="absolute -top-1 -right-1 bg-[#FF8DA1] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center hidden">0</span>
                 </button>
-                <button id="menu-open" class="md:hidden p-2 text-gray-600"><i data-lucide="menu"></i></button>
+            </div>
+
+            <div class="flex md:hidden items-center gap-4">
+                <button id="cart-btn-mobile" class="cart-trigger p-2 text-gray-600 relative outline-none">
+                    <i data-lucide="shopping-cart"></i>
+                    <span id="cart-count-mobile" class="absolute -top-1 -right-1 bg-[#FF8DA1] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center hidden">0</span>
+                </button>
+                <button id="menu-open" class="p-2 text-gray-600"><i data-lucide="menu"></i></button>
             </div>
         </div>
     </nav>
+
+    <div id="mobile-menu" class="fixed inset-0 z-[200] bg-[#FFFDF9] translate-x-full transition-transform duration-300 ease-in-out md:hidden flex flex-col p-6">
+        <div class="flex justify-end">
+            <button id="menu-close" class="p-2 text-gray-600"><i data-lucide="x" size="32"></i></button>
+        </div>
+        <div class="flex flex-col items-center gap-12 mt-20 font-bold text-3xl text-gray-600">
+            <a href="#about" class="mobile-link">Story</a>
+            <a href="#shop" class="mobile-link">Shop</a>
+        </div>
+    </div>
 
     <header class="relative py-12 md:py-20 text-center overflow-hidden">
         <h2 class="text-6xl md:text-8xl font-display text-[#FF8DA1] mb-4">BLANC'S RECIPE</h2>
         <p class="text-xl md:text-2xl font-bold text-[#5F9EA0] tracking-[0.2em] mb-12">ブランの不思議なレシピ店</p>
         
-        <div class="flex justify-center gap-6 overflow-x-auto pb-6 px-4 no-scrollbar">
-            <div class="w-28 h-28 md:w-32 md:h-32 bg-white rounded-3xl shadow-lg flex items-center justify-center text-[#FF8DA1] shrink-0 transform -rotate-6 border border-[#FFD1DC]/30">
-                <i data-lucide="star" size="48"></i>
-            </div>
-            <div class="w-28 h-28 md:w-32 md:h-32 bg-white rounded-3xl shadow-lg flex items-center justify-center text-[#5F9EA0] shrink-0 transform rotate-3 border border-[#B0E0E6]/30">
-                <i data-lucide="cake-slice" size="48"></i>
-            </div>
-            <div class="w-28 h-28 md:w-32 md:h-32 bg-white rounded-3xl shadow-lg flex items-center justify-center text-[#FFD1DC] shrink-0 transform -rotate-3 border border-[#FFD1DC]/30">
-                <i data-lucide="croissant" size="48"></i>
-            </div>
-            <div class="w-28 h-28 md:w-32 md:h-32 bg-white rounded-3xl shadow-lg flex items-center justify-center text-[#B0E0E6] shrink-0 transform rotate-6 border border-[#B0E0E6]/30">
-                <i data-lucide="cookie" size="48"></i>
-            </div>
+        <div class="flex justify-center gap-6 mb-12 overflow-x-auto pb-6 px-4 no-scrollbar">
+            <div class="w-28 h-28 md:w-32 md:h-32 bg-white rounded-3xl shadow-lg flex items-center justify-center text-[#FF8DA1] shrink-0 transform -rotate-6 border border-[#FFD1DC]/30"><i data-lucide="star" size="48"></i></div>
+            <div class="w-28 h-28 md:w-32 md:h-32 bg-white rounded-3xl shadow-lg flex items-center justify-center text-[#5F9EA0] shrink-0 transform rotate-3 border border-[#B0E0E6]/30"><i data-lucide="chef-hat" size="48"></i></div>
+            <div class="w-28 h-28 md:w-32 md:h-32 bg-white rounded-3xl shadow-lg flex items-center justify-center text-[#FFD1DC] shrink-0 transform -rotate-3 border border-[#FFD1DC]/30"><i data-lucide="utensils" size="48"></i></div>
+            <div class="w-28 h-28 md:w-32 md:h-32 bg-white rounded-3xl shadow-lg flex items-center justify-center text-[#B0E0E6] shrink-0 transform rotate-6 border border-[#B0E0E6]/30"><i data-lucide="cookie" size="48"></i></div>
+        </div>
+
+        <div class="flex flex-col md:flex-row justify-center gap-4 px-6">
+            <a href="#about" class="bg-white border-2 border-[#FFD1DC] text-[#FF8DA1] px-8 py-4 rounded-full font-bold hover:bg-[#FFD1DC] hover:text-white transition-all flex items-center justify-center gap-2"><i data-lucide="book-open" size="20"></i> ストーリーを見る</a>
+            <a href="#shop" class="bg-[#5F9EA0] text-white px-8 py-4 rounded-full font-bold hover:bg-[#4d8284] shadow-lg transition-all flex items-center justify-center gap-2"><i data-lucide="sparkles" size="20"></i> お菓子を見る</a>
         </div>
     </header>
 
@@ -63,8 +80,8 @@
     </section>
 
     <section id="shop" class="py-24 px-6 bg-white/50">
-        <div class="max-w-7xl mx-auto">
-            <h3 class="text-4xl font-display text-center text-[#FF8DA1] mb-16">Daily Specials</h3>
+        <div class="max-w-7xl mx-auto text-center">
+            <h3 class="text-4xl font-display text-[#FF8DA1] mb-16">Daily Specials</h3>
             <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12"></div>
         </div>
     </section>
@@ -76,18 +93,34 @@
     <div id="modal" class="fixed inset-0 z-[150] hidden flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" id="modal-overlay"></div>
         <div class="relative w-full max-w-4xl bg-[#FFFDF9] rounded-[3rem] overflow-hidden shadow-2xl flex flex-col md:flex-row">
-            <button id="modal-close" class="absolute top-6 right-6 z-20 p-2 bg-white rounded-full shadow-md"><i data-lucide="x"></i></button>
-            <div class="w-full md:w-1/2 bg-[#FFD1DC]/20 flex items-center justify-center p-12 shrink-0">
+            <button id="modal-close" class="absolute top-6 right-6 z-20 p-2 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors"><i data-lucide="x"></i></button>
+            <div class="w-full md:w-1/2 bg-[#FFD1DC]/20 flex items-center justify-center p-12 shrink-0 border-r border-[#FFD1DC]/20">
                 <div id="modal-icon" class="text-[#FF8DA1] w-full flex justify-center items-center"></div>
             </div>
             <div class="p-10 md:p-14 flex flex-col flex-1">
+                <div id="modal-info" class="text-xs font-bold text-[#5F9EA0] tracking-widest mb-2 uppercase"></div>
                 <h2 id="modal-title" class="text-4xl font-bold text-[#FF8DA1] mb-2"></h2>
                 <p id="modal-price" class="text-3xl font-display text-[#5F9EA0] mb-6"></p>
-                <p id="modal-story" class="italic text-gray-500 mb-6"></p>
-                <p id="modal-description" class="text-gray-600 mb-10 leading-loose"></p>
+                <div class="bg-white/60 p-6 rounded-2xl border-2 border-dashed border-[#FFD1DC] mb-8">
+                    <p id="modal-story" class="italic text-gray-500 mb-4 text-sm"></p>
+                    <p id="modal-description" class="text-gray-600 leading-loose text-sm border-l-2 border-[#FFD1DC] pl-4"></p>
+                </div>
                 <button id="add-to-cart-btn" class="wakatta-button w-full py-5 text-xl flex items-center justify-center gap-3">
                     <i data-lucide="shopping-cart"></i> カートに入れる
                 </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="cart-modal" class="fixed inset-0 z-[160] hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60" id="cart-overlay"></div>
+        <div class="relative w-full max-w-2xl bg-white rounded-[3rem] p-8 shadow-2xl border-4 border-[#5F9EA0]">
+            <button id="cart-close" class="absolute top-6 right-6 p-2 text-gray-600"><i data-lucide="x"></i></button>
+            <h2 class="text-3xl font-display text-[#5F9EA0] mb-8 text-center">Your Magic Cart</h2>
+            <div id="cart-items-list" class="max-h-[40vh] overflow-y-auto mb-8 pr-2 text-gray-600"></div>
+            <div class="border-t-2 border-dashed border-[#B0E0E6] pt-6 flex justify-between items-center">
+                <span class="text-xl font-bold text-gray-600">Total</span>
+                <span class="text-4xl font-display text-[#FF8DA1]" id="total-price">¥0</span>
             </div>
         </div>
     </div>
