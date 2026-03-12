@@ -84,3 +84,27 @@ body {
     0%, 100% { transform: translateY(0) scale(1) rotate(-5deg); }
     50% { transform: translateY(-30px) scale(1.1) rotate(5deg); }
 }
+
+/* 一覧画面（カード内）のアイコンサイズを強制固定 */
+.icon-animate-wrap svg {
+    width: 70px !important;
+    height: 70px !important;
+}
+
+/* 詳細画面（モーダル）のアイコンサイズを強制固定 */
+.icon-animate-modal svg {
+    width: 180px !important;
+    height: 180px !important;
+}
+
+/* 点線の丸自体のサイズも少し大きくして余裕を持たせる */
+.icon-animate-wrap {
+    width: 130px !important;
+    height: 130px !important;
+    border-radius: 50%;
+    border: 3px dashed #FFD1DC;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 240, 243, 0.4);
+}
