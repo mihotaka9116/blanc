@@ -1,4 +1,4 @@
-body { font-family: 'M PLUS Rounded 1c', sans-serif; overflow-x: hidden; }
+body { font-family: 'M PLUS Rounded 1c', sans-serif; }
 .font-display { font-family: 'Pacifico', cursive; }
 
 /* アイコンを丸のど真ん中に固定 */
@@ -7,57 +7,39 @@ body { font-family: 'M PLUS Rounded 1c', sans-serif; overflow-x: hidden; }
     align-items: center !important;
     justify-content: center !important;
     width: 100%;
-    height: 100%;
 }
 
-/* Lucideアイコンが表示されない問題を回避するための強制設定 */
-svg {
-    display: inline-block !important;
-}
-
-/* モバイルメニューのアニメーション用クラス */
-#mobile-menu.active {
-    transform: translateX(0);
-}
-
-/* ボタンとホバー */
-.wakatta-button { background-color: #FF8DA1; color: white; border-radius: 9999px; transition: 0.3s; }
-.wakatta-button:hover { background-color: #ff758f; transform: scale(1.05); }
-.wakatta-button-blue { background-color: #5F9EA0; color: white; border-radius: 9999px; transition: 0.3s; }
-
-.group:hover .icon-animate svg {
-    transform: scale(1.1) rotate(5deg);
-    transition: 0.3s ease;
-}
-
-/* style.css の一番下に追記、または該当箇所を上書きしてください */
-
-/* --- アイコンを丸枠のど真ん中に固定（これはそのまま） --- */
-.icon-animate, .icon-animate-modal {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-}
-
-/* --- SHOP（一覧）：アイコンサイズを110pxに固定 --- */
+/* ★一覧（SHOP）のアイコンサイズを固定 */
 .icon-animate svg {
     width: 110px !important;
     height: 110px !important;
     display: block;
-    margin: 0 auto;
-    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* 一覧：カードホバー時にアイコンを「ぷるん」と傾ける演出 */
-.group:hover .icon-animate svg {
-    transform: scale(1.1) rotate(10deg);
-}
-
-/* --- 詳細モーダル：アイコンサイズを180pxに固定 --- */
+/* ★詳細（モーダル）のアイコンを特大に固定 */
 .icon-animate-modal svg {
-    width: 180px !important;
-    height: 180px !important;
-    filter: drop-shadow(0 15px 25px rgba(255, 141, 161, 0.3));
-    /* 詳細画面では、少し大人っぽく左に5度傾けて固定 */
-    transform: rotate(-5deg); 
+    width: 200px !important;
+    height: 200px !important;
+    stroke-width: 1px;
+    filter: drop-shadow(0 10px 15px rgba(255, 141, 161, 0.2));
+}
+
+/* ヒーローカードのスクロールバー非表示 */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ボタン設定 */
+.wakatta-button {
+    background-color: #FF8DA1;
+    color: white;
+    border-radius: 9999px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.wakatta-button:hover { background-color: #ff758f; transform: scale(1.05); }
+
+/* ホバー時の「ぷるん」演出 */
+.group:hover .icon-animate svg {
+    transform: scale(1.1) rotate(5deg);
+    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
