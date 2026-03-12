@@ -19,26 +19,49 @@
                 </div>
                 <h1 class="text-2xl font-display text-[#FF8DA1]">Blanc's Recipe</h1>
             </div>
-            <div class="flex gap-4 items-center">
+
+            <div class="hidden md:flex gap-8 font-bold text-gray-600 items-center">
+                <a href="#" class="hover:text-[#FF8DA1] transition-colors">Home</a>
+                <a href="#about" class="hover:text-[#FF8DA1] transition-colors">Story</a>
+                <a href="#shop" class="hover:text-[#FF8DA1] transition-colors">Shop</a>
                 <button class="cart-trigger p-2 text-gray-600 hover:text-[#FF8DA1] relative outline-none">
                     <i data-lucide="shopping-cart"></i>
                     <span id="cart-count" class="absolute -top-1 -right-1 bg-[#FF8DA1] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center hidden">0</span>
                 </button>
             </div>
+
+            <div class="flex md:hidden items-center gap-4">
+                <button class="cart-trigger p-2 text-gray-600 relative outline-none">
+                    <i data-lucide="shopping-cart"></i>
+                    <span id="cart-count-mobile" class="absolute -top-1 -right-1 bg-[#FF8DA1] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center hidden">0</span>
+                </button>
+                <button id="menu-open" class="p-2 text-gray-600"><i data-lucide="menu"></i></button>
+            </div>
         </div>
     </nav>
 
+    <div id="mobile-menu" class="fixed inset-0 z-[200] bg-[#FFFDF9] translate-x-full transition-transform duration-300 ease-in-out md:hidden flex flex-col p-6">
+        <div class="flex justify-end">
+            <button id="menu-close" class="p-2 text-gray-600"><i data-lucide="x" size="32"></i></button>
+        </div>
+        <div class="flex flex-col items-center gap-10 mt-10 font-bold text-2xl text-gray-600">
+            <a href="#" class="mobile-link">Home</a>
+            <a href="#about" class="mobile-link">Story</a>
+            <a href="#shop" class="mobile-link">Shop</a>
+        </div>
+    </div>
+
     <header class="py-12 md:py-24 text-center">
-        <h2 class="text-6xl md:text-8xl font-display text-[#FF8DA1] mb-4">BLANC'S RECIPE</h2>
+        <h2 class="text-6xl md:text-8xl font-display text-[#FF8DA1] mb-4 uppercase">BLANC'S RECIPE</h2>
         <p class="text-xl md:text-2xl font-bold text-[#5F9EA0] tracking-[0.2em]">ブランの不思議なレシピ店</p>
     </header>
 
     <section id="about" class="py-16 px-6">
         <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12">
-            <div class="w-64 h-64 bg-[#FFF0F3] rounded-full flex items-center justify-center shrink-0 border-4 border-dashed border-[#FFD1DC] shadow-inner">
-                <i data-lucide="rabbit" size="100" class="text-[#FF8DA1]"></i>
+            <div class="w-64 h-64 md:w-80 md:h-80 bg-[#FFF0F3] rounded-full flex items-center justify-center shrink-0 border-4 border-dashed border-[#FFD1DC] shadow-inner relative overflow-hidden">
+                <i data-lucide="rabbit" class="text-[#FF8DA1] transform scale-[4.0]"></i>
             </div>
-            <div class="bg-white p-10 md:p-14 rounded-[3rem] shadow-xl border-2 border-[#FFD1DC]/30 leading-loose text-gray-600 flex-1">
+            <div class="bg-white p-10 md:p-14 rounded-[3rem] shadow-xl border-2 border-[#FFD1DC]/30 leading-loose text-gray-600 flex-1 relative">
                 <p class="font-bold text-[#FF8DA1] text-2xl mb-4">「やあ、見つけてくれてありがとう。」</p>
                 <p>霧の朝にだけ開く、不思議なお店。店主のブランが焼くお菓子には、心に灯をともす小さな魔法がかけられています。</p>
                 <p class="text-right font-display text-[#5F9EA0] mt-4">- Blanc</p>
@@ -46,7 +69,7 @@
         </div>
     </section>
 
-    <section id="shop" class="py-24 px-6 bg-white/50">
+    <section id="shop" class="py-24 px-6">
         <div class="max-w-7xl mx-auto">
             <h3 class="text-4xl font-display text-center text-[#FF8DA1] mb-16">Daily Specials</h3>
             <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 min-h-[400px]">
@@ -54,9 +77,18 @@
         </div>
     </section>
 
+    <footer class="bg-[#FDF9F2] py-12 text-center border-t-2 border-dotted border-[#FFD1DC]">
+        <div class="flex justify-center gap-4 mb-4 text-[#FF8DA1]">
+            <i data-lucide="rabbit"></i>
+            <i data-lucide="star"></i>
+            <i data-lucide="cake-slice"></i>
+        </div>
+        <p class="text-sm text-gray-400">&copy; 2026 Blanc's Recipe. Created by Miho Takahashi</p>
+    </footer>
+
     <div id="modal" class="fixed inset-0 z-[150] hidden flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" id="modal-overlay"></div>
-        <div class="relative w-full max-w-4xl bg-white rounded-[3rem] overflow-hidden shadow-2xl flex flex-col md:flex-row">
+        <div class="relative w-full max-w-4xl bg-[#FFFDF9] rounded-[3rem] overflow-hidden shadow-2xl flex flex-col md:flex-row">
             <button id="modal-close" class="absolute top-6 right-6 z-20 p-2 bg-white rounded-full shadow-md"><i data-lucide="x"></i></button>
             <div class="w-full md:w-1/2 bg-[#FFD1DC]/20 flex items-center justify-center p-12 shrink-0">
                 <div id="modal-icon" class="text-[#FF8DA1]"></div>
@@ -75,7 +107,7 @@
 
     <div id="checkout-modal" class="fixed inset-0 z-[160] hidden flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/60" id="checkout-overlay"></div>
-        <div class="relative w-full max-w-2xl bg-white rounded-[3rem] p-8 shadow-2xl">
+        <div class="relative w-full max-w-2xl bg-white rounded-[3rem] p-8 shadow-2xl border-4 border-[#5F9EA0]">
             <button id="checkout-close" class="absolute top-6 right-6 p-2"><i data-lucide="x"></i></button>
             <h2 class="text-3xl font-display text-[#5F9EA0] mb-8 text-center">Your Magic Cart</h2>
             <div id="cart-items-list" class="max-h-[40vh] overflow-y-auto mb-8 pr-2"></div>
@@ -87,7 +119,7 @@
         </div>
     </div>
 
-    <div id="order-success" class="fixed bottom-10 left-1/2 -translate-x-1/2 z-[200] hidden bg-[#5F9EA0] text-white px-8 py-4 rounded-full shadow-2xl flex items-center gap-3"></div>
+    <div id="order-success" class="fixed bottom-10 left-1/2 -translate-x-1/2 z-[200] hidden bg-[#5F9EA0] text-white px-8 py-4 rounded-full shadow-2xl"></div>
 
     <script src="script.js"></script>
 </body>
