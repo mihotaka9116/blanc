@@ -53,11 +53,10 @@
         </div>
     </div>
 
- <header class="relative py-12 md:py-24 px-6 overflow-hidden">
+    <header class="relative py-12 md:py-24 px-6 overflow-hidden">
         <div class="max-w-6xl mx-auto flex flex-col items-center text-center relative z-10">
-            
             <div class="mb-12">
-                <h2 class="text-6xl md:text-8xl font-display text-[#FF8DA1] leading-none mb-4">
+                <h2 class="text-6xl md:text-8xl font-display text-[#FF8DA1] leading-none mb-4 uppercase">
                     BLANC'S RECIPE
                 </h2>
                 <p class="text-xl md:text-2xl font-bold text-[#5F9EA0] tracking-[0.2em]">
@@ -82,8 +81,8 @@
     <section id="about" class="py-24 px-6">
         <div class="max-w-6xl mx-auto">
             <div class="flex flex-col md:flex-row items-center gap-12 md:gap-16">
-                <div class="story-rabbit-wrap bg-[#FFF0F3] rounded-full flex items-center justify-center shrink-0 border-4 border-dashed border-[#FFD1DC]">
-                    <i data-lucide="rabbit" class="text-[#FF8DA1]"></i>
+                <div class="story-rabbit-wrap w-40 h-40 md:w-48 md:h-48 bg-[#FFF0F3] rounded-full flex items-center justify-center shrink-0 border-4 border-dashed border-[#FFD1DC] mx-auto md:mx-0 shadow-inner">
+                    <i data-lucide="rabbit" size="64" class="text-[#FF8DA1]"></i>
                 </div>
                 <div class="bg-white p-10 md:p-14 rounded-[3rem] shadow-xl border-2 border-[#FFD1DC]/30 leading-loose text-gray-600 flex-1 speech-bubble">
                     <div class="space-y-6">
@@ -123,7 +122,7 @@
     <div id="modal" class="fixed inset-0 z-[150] hidden flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" id="modal-overlay"></div>
         <div class="relative w-full max-w-5xl bg-[#FFFDF9] rounded-[3rem] overflow-hidden shadow-2xl border-4 border-[#FFD1DC] flex flex-col md:flex-row max-h-[90vh]">
-            <button id="modal-close" class="absolute top-6 right-6 z-20 p-2 bg-white rounded-full"><i data-lucide="x"></i></button>
+            <button id="modal-close" class="absolute top-6 right-6 z-20 p-2 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors"><i data-lucide="x"></i></button>
             <div class="w-full md:w-1/2 bg-[#FFD1DC]/20 flex items-center justify-center p-12 shrink-0">
                 <div id="modal-icon" class="text-[#FF8DA1] icon-animate-modal"></div>
             </div>
@@ -134,7 +133,9 @@
                     <p id="modal-story" class="italic text-gray-600 leading-relaxed"></p>
                 </div>
                 <p id="modal-description" class="text-gray-600 text-sm leading-loose mb-10 flex-grow"></p>
-                <button id="add-to-cart-btn" class="wakatta-button w-full py-5 text-xl flex items-center justify-center gap-3"><i data-lucide="shopping-cart"></i> カートに入れる</button>
+                <button id="add-to-cart-btn" class="wakatta-button w-full py-5 text-xl flex items-center justify-center gap-3">
+                    <i data-lucide="shopping-cart"></i> カートに入れる
+                </button>
             </div>
         </div>
     </div>
@@ -142,14 +143,19 @@
     <div id="checkout-modal" class="fixed inset-0 z-[160] hidden flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/60 backdrop-blur-md" id="checkout-overlay"></div>
         <div class="relative w-full max-w-2xl bg-white rounded-[3rem] p-8 md:p-12 shadow-2xl border-4 border-[#5F9EA0]">
-            <button id="checkout-close" class="absolute top-6 right-6 p-2 text-gray-400"><i data-lucide="x"></i></button>
+            <button id="checkout-close" class="absolute top-6 right-6 p-2 text-gray-400 hover:text-[#FF8DA1] transition-colors"><i data-lucide="x"></i></button>
             <h2 class="text-3xl font-display text-[#5F9EA0] mb-8 text-center">Your Magic Cart</h2>
-            <div id="cart-items-list" class="max-h-[40vh] overflow-y-auto mb-8 pr-4"></div>
-            <div class="border-t-2 border-dashed border-[#B0E0E6] pt-6 mb-8 flex justify-between items-end">
-                <span class="text-gray-500 font-bold">Total</span>
+            
+            <div id="cart-items-list" class="max-h-[40vh] overflow-y-auto mb-8 pr-2 custom-scrollbar">
+                </div>
+
+            <div class="border-t-2 border-dashed border-[#B0E0E6] pt-6 mb-8 flex justify-between items-center">
+                <span class="text-gray-500 font-bold text-xl">Total</span>
                 <span class="text-4xl font-display text-[#FF8DA1]" id="total-price">¥0</span>
             </div>
-            <button id="final-order-btn" class="wakatta-button-blue w-full py-4 text-xl">魔法の注文を確定する</button>
+            <button id="final-order-btn" class="wakatta-button-blue w-full py-5 text-xl shadow-lg hover:shadow-2xl transition-all">
+                魔法の注文を確定する
+            </button>
         </div>
     </div>
 
