@@ -64,3 +64,23 @@ body {
 #modal-icon {
     min-height: 300px; /* アイコン表示エリアの高さを確保 */
 }
+
+/* あなぐまくんがひょっこり出ている時のゆらゆら待機モーション */
+#anaguma-icon.show img {
+    animation: anaguma-sway 3s ease-in-out infinite;
+}
+
+@keyframes anaguma-sway {
+    0%, 100% { transform: rotate(0deg) translateY(0); }
+    50% { transform: rotate(5deg) translateY(-8px); }
+}
+
+/* クリックした時の「わーい！」というジャンプ */
+.anaguma-happy {
+    animation: anaguma-jump 0.5s ease-out 2;
+}
+
+@keyframes anaguma-jump {
+    0%, 100% { transform: translateY(0) scale(1) rotate(-5deg); }
+    50% { transform: translateY(-30px) scale(1.1) rotate(5deg); }
+}
