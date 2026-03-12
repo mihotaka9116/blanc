@@ -1,13 +1,7 @@
-/* フォント設定 */
-body {
-    font-family: 'M PLUS Rounded 1c', sans-serif;
-}
-.font-display {
-    font-family: 'Pacifico', cursive;
-}
+body { font-family: 'M PLUS Rounded 1c', sans-serif; overflow-x: hidden; }
+.font-display { font-family: 'Pacifico', cursive; }
 
-
-/* アイコンと丸枠をど真ん中に固定 */
+/* アイコンを丸のど真ん中に固定 */
 .icon-animate, .icon-animate-modal {
     display: flex !important;
     align-items: center !important;
@@ -16,39 +10,22 @@ body {
     height: 100%;
 }
 
-/* アイコン自体のサイズと太さを固定 */
+/* Lucideアイコンが表示されない問題を回避するための強制設定 */
 svg {
-    display: inline-block;
-    vertical-align: middle;
+    display: inline-block !important;
 }
 
-/* お菓子のカード用設定 */
-.product-card-bg {
-    background: white;
-    border: 1px solid rgba(255, 209, 220, 0.3);
+/* モバイルメニューのアニメーション用クラス */
+#mobile-menu.active {
+    transform: translateX(0);
 }
 
-/* ボタン */
-.wakatta-button {
-    background-color: #FF8DA1;
-    color: white;
-    border-radius: 9999px;
-    font-weight: bold;
-    transition: 0.3s;
-}
+/* ボタンとホバー */
+.wakatta-button { background-color: #FF8DA1; color: white; border-radius: 9999px; transition: 0.3s; }
 .wakatta-button:hover { background-color: #ff758f; transform: scale(1.05); }
+.wakatta-button-blue { background-color: #5F9EA0; color: white; border-radius: 9999px; transition: 0.3s; }
 
-.wakatta-button-blue {
-    background-color: #5F9EA0;
-    color: white;
-    border-radius: 9999px;
-    font-weight: bold;
-    transition: 0.3s;
-}
-.wakatta-button-blue:hover { background-color: #4d8284; transform: scale(1.05); }
-
-/* ホバー演出 */
 .group:hover .icon-animate svg {
     transform: scale(1.1) rotate(5deg);
-    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: 0.3s ease;
 }
