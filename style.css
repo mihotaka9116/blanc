@@ -1,45 +1,58 @@
 body { font-family: 'M PLUS Rounded 1c', sans-serif; }
 .font-display { font-family: 'Pacifico', cursive; }
 
-/* アイコンを丸のど真ん中に固定 */
-.icon-animate, .icon-animate-modal {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 100%;
+/* モバイルメニュー */
+#mobile-menu.active { transform: translateX(0); }
+
+/* レシピカードのデザイン */
+.recipe-card {
+    background-color: #ffffff;
+    background-image: radial-gradient(#FFD1DC 0.5px, transparent 0.5px);
+    background-size: 10px 10px;
+    border: 1px solid #FFD1DC;
+    position: relative;
 }
 
-/* ★一覧（SHOP）のアイコンサイズを固定 */
-.icon-animate svg {
-    width: 110px !important;
-    height: 110px !important;
-    display: block;
-}
-
-/* ★詳細（モーダル）のアイコンを特大に固定 */
-.icon-animate-modal svg {
-    width: 200px !important;
-    height: 200px !important;
-    stroke-width: 1px;
-    filter: drop-shadow(0 10px 15px rgba(255, 141, 161, 0.2));
-}
-
-/* ヒーローカードのスクロールバー非表示 */
-.no-scrollbar::-webkit-scrollbar { display: none; }
-.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-/* ボタン設定 */
-.wakatta-button {
-    background-color: #FF8DA1;
+.recipe-tag {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: #5F9EA0;
     color: white;
-    border-radius: 9999px;
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-size: 0.7rem;
     font-weight: bold;
-    transition: 0.3s;
 }
-.wakatta-button:hover { background-color: #ff758f; transform: scale(1.05); }
 
-/* ホバー時の「ぷるん」演出 */
-.group:hover .icon-animate svg {
-    transform: scale(1.1) rotate(5deg);
-    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+/* 一覧アイコンの丸枠（拡大版） */
+.icon-animate-wrap {
+    width: 144px;
+    height: 144px;
+    border-radius: 9999px;
+    border: 3px dashed rgba(176, 224, 230, 0.8);
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    margin-top: 1rem;
+    transition: all 0.3s;
 }
+
+.icon-animate-wrap svg { width: 90px; height: 90px; }
+
+/* 詳細アイコン（特大） */
+.icon-animate-modal svg {
+    width: 200px;
+    height: 200px;
+    stroke-width: 1px;
+}
+
+/* ボタンとスクロールバー */
+.wakatta-button { background-color: #FF8DA1; color: white; border-radius: 9999px; transition: 0.3s; }
+.wakatta-button:hover { background-color: #ff758f; transform: scale(1.05); }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* カードホバー時の動き */
+.group:hover .icon-animate-wrap { transform: rotate(3deg); background-color: #FFF0F3; }
