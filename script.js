@@ -11,6 +11,8 @@ let cartItems = [];
 
 // ... productsデータはそのまま ...
 
+// ... productsデータはそのまま ...
+
 function renderProducts() {
     const grid = document.getElementById('product-grid');
     if (!grid) return;
@@ -18,11 +20,11 @@ function renderProducts() {
     
     products.forEach(p => {
         const card = document.createElement('div');
-        // ホバー時の「びよよよーん」を維持しつつ、レイアウトを調整
+        // ホバー時の「びよよよーん」を維持
         card.className = "product-card-bg rounded-[3rem] p-8 shadow-lg text-center cursor-pointer transition-all duration-500 hover:-translate-y-6 hover:shadow-2xl group relative overflow-hidden flex flex-col items-center";
         
         card.innerHTML = `
-            <div class="w-72 h-72 rounded-full border-4 border-dashed border-[#B0E0E6]/50 flex items-center justify-center mb-8 text-[#FF8DA1] transition-colors group-hover:bg-[#FFD1DC]/10 icon-animate relative shrink-0">
+            <div class="w-32 h-32 rounded-full border-4 border-dashed border-[#B0E0E6]/50 flex items-center justify-center mb-6 text-[#FF8DA1] transition-colors group-hover:bg-[#FFD1DC]/10 icon-animate relative shrink-0">
                 <i data-lucide="${p.icon}"></i>
             </div>
             
@@ -40,6 +42,25 @@ function renderProducts() {
                 </div>
             </div>
         `;
+        
+        // カード全体をクリックした時はモーダルを開く
+        card.onclick = (e) => {
+            if (e.target.closest('.add-btn')) return;
+            openModal(p);
+        };
+        
+        // プラスボタンのクリックイベント
+        const addBtn = card.querySelector('.add-btn');
+        addBtn.onclick = (e) => {
+            e.stopPropagation(); // 親要素（カード）のクリックイベントを発生させない
+            handleAddToCart(p);
+        };
+        
+        grid.appendChild(card);
+    });
+    lucide.createIcons();
+}
+// ... 以降の関数はそのまま ...
         
         // カード全体をクリックした時はモーダルを開く
         card.onclick = (e) => {
