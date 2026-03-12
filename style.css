@@ -1,58 +1,45 @@
-body { font-family: 'M PLUS Rounded 1c', sans-serif; }
+body {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    /* 森の霧のグラデーション背景 */
+    background: linear-gradient(135deg, #FFFDF9 0%, #F4FBFB 50%, #FFF0F3 100%);
+    background-attachment: fixed;
+}
 .font-display { font-family: 'Pacifico', cursive; }
 
-/* モバイルメニュー */
 #mobile-menu.active { transform: translateX(0); }
 
-/* レシピカードのデザイン */
 .recipe-card {
-    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.8);
     background-image: radial-gradient(#FFD1DC 0.5px, transparent 0.5px);
     background-size: 10px 10px;
-    border: 1px solid #FFD1DC;
-    position: relative;
+    border: 1px solid rgba(255, 209, 220, 0.5);
+    backdrop-filter: blur(5px);
 }
 
 .recipe-tag {
-    position: absolute;
-    top: 1rem;
-    left: 1rem;
-    background: #5F9EA0;
-    color: white;
-    padding: 2px 10px;
-    border-radius: 4px;
-    font-size: 0.7rem;
-    font-weight: bold;
+    position: absolute; top: 1rem; left: 1rem;
+    background: #5F9EA0; color: white; padding: 2px 10px;
+    border-radius: 4px; font-size: 0.7rem; font-weight: bold;
 }
 
-/* 一覧アイコンの丸枠（拡大版） */
 .icon-animate-wrap {
-    width: 144px;
-    height: 144px;
-    border-radius: 9999px;
+    width: 120px; height: 120px; border-radius: 9999px;
     border: 3px dashed rgba(176, 224, 230, 0.8);
-    background: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1.5rem;
-    margin-top: 1rem;
-    transition: all 0.3s;
+    background: white; display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.5rem; margin-top: 1rem;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.icon-animate-wrap svg { width: 90px; height: 90px; }
+.icon-animate-wrap svg { width: 70px; height: 70px; }
 
-/* 詳細アイコン（特大） */
-.icon-animate-modal svg {
-    width: 200px;
-    height: 200px;
-    stroke-width: 1px;
+/* ★ホバーでアイコン部分のみを傾ける */
+.group:hover .icon-animate-wrap {
+    transform: rotate(8deg) scale(1.05);
+    background-color: #FFF0F3;
+    border-color: #FFD1DC;
 }
 
-/* ボタンとスクロールバー */
-.wakatta-button { background-color: #FF8DA1; color: white; border-radius: 9999px; transition: 0.3s; }
-.wakatta-button:hover { background-color: #ff758f; transform: scale(1.05); }
+.icon-animate-modal svg { width: 160px; height: 160px; }
+@media (min-width: 768px) { .icon-animate-modal svg { width: 220px; height: 220px; } }
+
 .no-scrollbar::-webkit-scrollbar { display: none; }
-
-/* カードホバー時の動き */
-.group:hover .icon-animate-wrap { transform: rotate(3deg); background-color: #FFF0F3; }
