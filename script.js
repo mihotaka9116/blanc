@@ -1,4 +1,4 @@
-// エラーで止まらないように全体をチェックしながら実行します
+// --- 1. 商品データ ---
 const products = [
     { id: '1', no: '01', name: '夜空の星屑クッキー', price: 1200, icon: 'star', difficulty: '★★★', time: '45min', story: '夜空からこぼれ落ちた星の欠片を拾い集めて焼いた、少ししょっぱいバタークッキー。', desc: '北海道産バターを贅沢に使用し、生地を何度も寝かせてサクサクの食感を実現しました。' },
     { id: '2', no: '02', name: '木漏れ日のシフォン', price: 2800, icon: 'chef-hat', difficulty: '★★☆', time: '60min', story: '森の精霊たちがダンスをする午後のひととき。', desc: '驚くほどふわふわで、弾力があります。' },
@@ -18,7 +18,7 @@ const messages = [
     "あなぐまくんが遊びに来たよ。一緒にロールケーキを食べよう。"
 ];
 
-// 1. メッセージ更新（エラー回避付き）
+// --- 2. メッセージ更新（あなぐまくん制御付き） ---
 function updateMessage() {
     const el = document.getElementById("blanc-message");
     const icon = document.getElementById("anaguma-icon");
@@ -30,15 +30,18 @@ function updateMessage() {
     if (icon) {
         if (msg.includes("あなぐまくん")) {
             icon.style.display = "block";
+            // transitionを効かせるため少し遅らせる
             setTimeout(() => icon.classList.add("show"), 50);
         } else {
             icon.classList.remove("show");
-            setTimeout(() => { icon.style.display = "none"; }, 800);
+            setTimeout(() => { 
+                if(!icon.classList.contains('show')) icon.style.display = "none"; 
+            }, 800);
         }
     }
 }
 
-// 2. 商品描画
+// --- 3. 商品描画（点線の丸を復活！） ---
 function renderProducts() {
     const grid = document.getElementById('product-grid');
     if (!grid) return;
@@ -46,25 +49,37 @@ function renderProducts() {
     
     products.forEach(p => {
         const card = document.createElement('div');
+        // カード全体のデザイン
         card.className = "recipe-card rounded-[2.5rem] p-8 shadow-lg text-center cursor-pointer transition-all duration-300 hover:shadow-2xl group flex flex-col items-center relative bg-white";
         card.onclick = () => openModal(p);
+        
         card.innerHTML = `
-            <div class="recipe-tag bg-[#FFD1DC] text-white px-4 py-1 rounded-full text-xs mb-4">RECIPE ${p.no}</div>
-            <div class="mb-4 text-[#FF8DA1]"><i data-lucide="${p.icon}" size="40"></i></div>
+            <div class="recipe-tag bg-[#FFD1DC] text-white px-4 py-1 rounded-full text-xs mb-6 font-bold tracking-widest">RECIPE ${p.no}</div>
+            
+            <div class="w-20 h-20 rounded-full border-2 border-dashed border-[#FFD1DC] flex items-center justify-center mb-6 bg-[#FFF0F3]/30 group-hover:scale-110 transition-transform">
+                <div class="text-[#FF8DA1]">
+                    <i data-lucide="${p.icon}" size="40" stroke-width="1.5"></i>
+                </div>
+            </div>
+            
             <div class="flex-grow w-full text-gray-600 flex flex-col">
-                <div class="text-[10px] font-bold text-[#5F9EA0] mb-2 uppercase tracking-tighter">${p.difficulty} | ${p.time}</div>
-                <h4 class="text-xl md:text-2xl font-bold mb-2 group-hover:text-[#FF8DA1] transition-colors">${p.name}</h4>
-                <p class="text-xs italic mb-6">"${p.story}"</p>
-                <div class="flex justify-between items-center mt-auto pt-4 border-t border-dashed border-[#FFD1DC]">
-                    <span class="text-2xl font-display text-[#5F9EA0]">¥${p.price.toLocaleString()}</span>
-                    <div class="w-10 h-10 bg-[#FFD1DC] rounded-xl flex items-center justify-center text-white"><i data-lucide="plus" size="18"></i></div>
+                <div class="text-[10px] font-bold text-[#5F9EA0] mb-3 uppercase tracking-widest">${p.difficulty} | ${p.time}</div>
+                <h4 class="text-xl md:text-2xl font-bold mb-3 group-hover:text-[#FF8DA1] transition-colors">${p.name}</h4>
+                <p class="text-xs italic mb-8 line-clamp-2 leading-relaxed">"${p.story}"</p>
+                <div class="flex justify-between items-center mt-auto pt-5 border-t border-dashed border-[#FFD1DC]">
+                    <span class="text-2xl md:text-3xl font-display text-[#5F9EA0]">¥${p.price.toLocaleString()}</span>
+                    <div class="w-10 h-10 bg-[#FFD1DC] rounded-xl flex items-center justify-center text-white group-hover:bg-[#FF8DA1] transition-colors shadow-md">
+                        <i data-lucide="plus" size="20"></i>
+                    </div>
                 </div>
             </div>`;
         grid.appendChild(card);
     });
+    // Lucideアイコンの再描画
+    if (window.lucide) lucide.createIcons();
 }
 
-// 3. モーダル関連（存在チェック付き）
+// --- 4. モーダル関連 ---
 function openModal(p) {
     const ids = ['modal-info', 'modal-title', 'modal-price', 'modal-story', 'modal-description', 'modal-icon'];
     if (ids.some(id => !document.getElementById(id))) return;
@@ -75,7 +90,10 @@ function openModal(p) {
     document.getElementById('modal-story').innerText = `「${p.story}」`;
     document.getElementById('modal-description').innerText = p.desc;
     document.getElementById('modal-icon').innerHTML = `<i data-lucide="${p.icon}" size="80"></i>`;
-    document.getElementById('add-to-cart-btn').onclick = () => addToCart(p);
+    document.getElementById('add-to-cart-btn').onclick = (e) => {
+        e.stopPropagation();
+        addToCart(p);
+    };
     document.getElementById('modal').classList.remove('hidden');
     document.body.style.overflow = 'hidden';
     if (window.lucide) lucide.createIcons();
@@ -115,36 +133,9 @@ function showToast(msg) {
     setTimeout(() => toast.classList.add('hidden'), 3000);
 }
 
-// 4. メイン初期化
+// --- 5. メイン初期化 ---
 document.addEventListener('DOMContentLoaded', () => {
-    // まずアイコンを出す（最優先）
-    if (window.lucide) lucide.createIcons();
-    
-    // 商品とメッセージ
+    // 描画と初期化
     renderProducts();
     updateMessage();
-
-    // ボタン類のイベント（一つずつチェックして登録）
-    const menu = document.getElementById('mobile-menu');
-    const menuOpen = document.getElementById('menu-open');
-    const menuClose = document.getElementById('menu-close');
-
-    if (menuOpen && menu) menuOpen.onclick = () => menu.classList.add('translate-x-0');
-    if (menuClose && menu) menuClose.onclick = () => menu.classList.remove('translate-x-0');
-    
-    document.querySelectorAll('.cart-trigger').forEach(btn => {
-        btn.onclick = (e) => {
-            e.preventDefault();
-            const cartModal = document.getElementById('cart-modal');
-            if (cartItems.length > 0 && cartModal) cartModal.classList.remove('hidden');
-            else showToast("カートは空っぽだよ！");
-        };
-    });
-
-    const cClose = document.getElementById('cart-close');
-    const cModal = document.getElementById('cart-modal');
-    if (cClose && cModal) cClose.onclick = () => cModal.classList.add('hidden');
-
-    const mClose = document.getElementById('modal-close');
-    if (mClose) mClose.onclick = closeModal;
-});
+    if (window.luc
