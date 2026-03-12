@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ブランの不思議なレシピ店 | 卒業制作</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-[#FFFDF9]">
+
+    <nav class="sticky top-0 z-[100] bg-white/80 backdrop-blur-md border-b-2 border-[#FFD1DC]/30 py-4 px-6">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-[#FFD1DC] rounded-full flex items-center justify-center text-white">
+                    <i data-lucide="rabbit" size="20"></i>
+                </div>
+                <h1 class="text-2xl font-display text-[#FF8DA1]">Blanc's Recipe</h1>
+            </div>
+
+            <div class="hidden md:flex gap-8 font-bold text-gray-600 items-center">
+                <a href="#" class="hover:text-[#FF8DA1] transition-colors">Home</a>
+                <a href="#about" class="hover:text-[#FF8DA1] transition-colors">Story</a>
+                <a href="#shop" class="hover:text-[#FF8DA1] transition-colors">Shop</a>
+                <a href="#contact" class="hover:text-[#FF8DA1] transition-colors">Contact</a>
+                <button class="cart-trigger p-2 text-gray-600 hover:text-[#FF8DA1] relative outline-none">
+                    <i data-lucide="shopping-cart"></i>
+                    <span id="cart-count" class="absolute -top-1 -right-1 bg-[#FF8DA1] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center hidden">0</span>
+                </button>
+            </div>
+
+            <div class="flex md:hidden items-center gap-4">
+                <button class="cart-trigger p-2 text-gray-600 relative outline-none">
+                    <i data-lucide="shopping-cart"></i>
+                    <span id="cart-count-mobile" class="absolute -top-1 -right-1 bg-[#FF8DA1] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center hidden">0</span>
+                </button>
+                <button id="menu-open" class="p-2 text-gray-600"><i data-lucide="menu"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <div id="mobile-menu" class="fixed inset-0 z-[200] bg-[#FFFDF9] translate-x-full transition-transform duration-300 ease-in-out md:hidden">
+        <div class="flex justify-end p-6">
+            <button id="menu-close" class="p-2 text-gray-600"><i data-lucide="x" size="32"></i></button>
+        </div>
+        <div class="flex flex-col items-center gap-10 mt-10 font-bold text-2xl text-gray-600">
+            <a href="#" class="mobile-link">Home</a>
+            <a href="#about" class="mobile-link">Story</a>
+            <a href="#shop" class="mobile-link">Shop</a>
+            <a href="#contact" class="mobile-link">Contact</a>
+        </div>
+    </div>
+
+    <header class="relative py-12 md:py-24 px-6 overflow-hidden">
+        <div class="max-w-6xl mx-auto flex flex-col items-center text-center relative z-10">
+            <h2 class="text-5xl md:text-7xl font-display text-[#FF8DA1] mb-8 leading-tight">ブランの<br><span class="text-[#5F9EA0]">不思議なレシピ店</span></h2>
+            <div class="flex flex-col sm:flex-row gap-4 md:gap-6 z-20">
+                <a href="#shop" class="wakatta-button inline-flex items-center justify-center gap-2 text-lg px-10 py-4">お菓子を見る <i data-lucide="sparkles"></i></a>
+                <a href="#about" class="wakatta-button-blue inline-flex items-center justify-center gap-2 text-lg px-10 py-4">物語を読む <i data-lucide="book-open"></i></a>
+            </div>
+            <div class="mt-20 relative w-full max-w-5xl mx-auto flex flex-wrap justify-center gap-6 md:gap-10">
+                <div class="polaroid-card card-flat"><i data-lucide="rabbit" class="text-[#FF8DA1]"></i></div>
+                <div class="polaroid-card card-flat"><i data-lucide="star" class="text-[#B0E0E6]"></i></div>
+                <div class="polaroid-card card-flat"><i data-lucide="cake-slice" class="text-[#5F9EA0]"></i></div>
+                <div class="polaroid-card card-flat"><i data-lucide="croissant" class="text-[#FF8DA1]"></i></div>
+            </div>
+        </div>
+    </header>
+
+    <section id="about" class="py-24 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col md:flex-row items-center gap-12 md:gap-16">
+                <div class="story-rabbit-wrap bg-[#FFF0F3] rounded-full flex items-center justify-center shrink-0 border-4 border-dashed border-[#FFD1DC]">
+                    <i data-lucide="rabbit" class="text-[#FF8DA1]"></i>
+                </div>
+                <div class="bg-white p-10 md:p-14 rounded-[3rem] shadow-xl border-2 border-[#FFD1DC]/30 leading-loose text-gray-600 flex-1 speech-bubble">
+                    <div class="space-y-6">
+                        <p class="font-bold text-[#FF8DA1] text-2xl">「やあ、見つけてくれてありがとう。」</p>
+                        <p>霧の朝にだけ開く、不思議なお店。</p>
+                        <p>深い森の奥、鳥たちが歌う声に誘われて歩いていくと、そこにはウサギの店主「ブラン」が営むレシピ店があります。</p>
+                        <p>「悲しいときは星屑を、勇気がほしいときは朝露を。」ブランが焼くお菓子には、心に灯をともす小さな魔法がかけられています。一口食べれば、あなたの日常も少しだけ特別に変わるはず。</p>
+                        <p class="text-right font-display text-[#5F9EA0] mt-4">- Blanc</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="shop" class="py-24 px-6">
+        <div class="max-w-7xl mx-auto">
+            <h3 class="text-4xl font-display text-center text-[#FF8DA1] mb-16">Daily Specials</h3>
+            <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12"></div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-24 px-6">
+        <div class="max-w-3xl mx-auto text-center">
+            <h3 class="text-4xl font-display text-[#FF8DA1] mb-8">Contact</h3>
+            <form class="space-y-6 bg-white p-8 md:p-12 rounded-[2.5rem] shadow-xl border-2 border-[#FFD1DC]/30">
+                <input type="text" placeholder="お名前" class="w-full px-6 py-4 rounded-full border-2 border-[#FFD1DC]/20 outline-none focus:border-[#FF8DA1]">
+                <textarea rows="4" placeholder="メッセージ" class="w-full px-6 py-4 rounded-[1.5rem] border-2 border-[#FFD1DC]/20 outline-none focus:border-[#FF8DA1] resize-none"></textarea>
+                <button type="button" class="wakatta-button-blue w-full py-4 text-lg">メッセージを送る</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="bg-[#FDF9F2] py-10 text-center border-t-2 border-dotted border-[#FFD1DC]">
+        <p class="text-xs text-gray-400">&copy; 2026 Blanc's Recipe. Created by Miho Takahashi</p>
+    </footer>
+
+    <div id="modal" class="fixed inset-0 z-[150] hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" id="modal-overlay"></div>
+        <div class="relative w-full max-w-5xl bg-[#FFFDF9] rounded-[3rem] overflow-hidden shadow-2xl border-4 border-[#FFD1DC] flex flex-col md:flex-row max-h-[90vh]">
+            <button id="modal-close" class="absolute top-6 right-6 z-20 p-2 bg-white rounded-full"><i data-lucide="x"></i></button>
+            <div class="w-full md:w-1/2 bg-[#FFD1DC]/20 flex items-center justify-center p-12 shrink-0">
+                <div id="modal-icon" class="text-[#FF8DA1] icon-animate-modal"></div>
+            </div>
+            <div class="w-full md:w-1/2 p-10 md:p-14 overflow-y-auto flex flex-col">
+                <h2 id="modal-title" class="text-4xl font-display text-[#FF8DA1] mb-2"></h2>
+                <p id="modal-price" class="text-3xl font-display text-[#5F9EA0] mb-8"></p>
+                <div class="mb-8 p-4 bg-white/50 rounded-2xl border-l-4 border-[#FFD1DC]">
+                    <p id="modal-story" class="italic text-gray-600 leading-relaxed"></p>
+                </div>
+                <p id="modal-description" class="text-gray-600 text-sm leading-loose mb-10 flex-grow"></p>
+                <button id="add-to-cart-btn" class="wakatta-button w-full py-5 text-xl flex items-center justify-center gap-3"><i data-lucide="shopping-cart"></i> カートに入れる</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="checkout-modal" class="fixed inset-0 z-[160] hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-md" id="checkout-overlay"></div>
+        <div class="relative w-full max-w-2xl bg-white rounded-[3rem] p-8 md:p-12 shadow-2xl border-4 border-[#5F9EA0]">
+            <button id="checkout-close" class="absolute top-6 right-6 p-2 text-gray-400"><i data-lucide="x"></i></button>
+            <h2 class="text-3xl font-display text-[#5F9EA0] mb-8 text-center">Your Magic Cart</h2>
+            <div id="cart-items-list" class="max-h-[40vh] overflow-y-auto mb-8 pr-4"></div>
+            <div class="border-t-2 border-dashed border-[#B0E0E6] pt-6 mb-8 flex justify-between items-end">
+                <span class="text-gray-500 font-bold">Total</span>
+                <span class="text-4xl font-display text-[#FF8DA1]" id="total-price">¥0</span>
+            </div>
+            <button id="final-order-btn" class="wakatta-button-blue w-full py-4 text-xl">魔法の注文を確定する</button>
+        </div>
+    </div>
+
+    <div id="order-success" class="fixed bottom-10 left-1/2 -translate-x-1/2 z-[200] hidden bg-[#5F9EA0] text-white px-8 py-4 rounded-full shadow-2xl flex items-center gap-3"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
