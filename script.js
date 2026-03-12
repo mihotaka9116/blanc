@@ -9,25 +9,58 @@ const products = [
 
 let cartItems = [];
 
+// ... productsデータはそのまま ...
+
 function renderProducts() {
     const grid = document.getElementById('product-grid');
     if (!grid) return;
     grid.innerHTML = '';
+    
     products.forEach(p => {
         const card = document.createElement('div');
-        card.className = "product-card-bg rounded-[3rem] p-10 shadow-lg text-center cursor-pointer transition-all duration-500 hover:-translate-y-6 hover:shadow-2xl group relative overflow-hidden";
+        // ホバー時の「びよよよーん」を維持しつつ、レイアウトを調整
+        card.className = "product-card-bg rounded-[3rem] p-8 shadow-lg text-center cursor-pointer transition-all duration-500 hover:-translate-y-6 hover:shadow-2xl group relative overflow-hidden flex flex-col items-center";
+        
         card.innerHTML = `
-            <div class="h-80 bg-[#FFD1DC]/10 rounded-[2.5rem] flex items-center justify-center mb-8 text-[#FF8DA1] transition-colors group-hover:bg-[#FFD1DC]/20">
-                <div class="icon-animate"><i data-lucide="${p.icon}"></i></div>
+            <div class="w-72 h-72 rounded-full border-4 border-dashed border-[#B0E0E6]/50 flex items-center justify-center mb-8 text-[#FF8DA1] transition-colors group-hover:bg-[#FFD1DC]/10 icon-animate relative shrink-0">
+                <i data-lucide="${p.icon}"></i>
             </div>
-            <h4 class="text-3xl font-bold mb-3 group-hover:text-[#FF8DA1] transition-colors">${p.name}</h4>
-            <div class="text-4xl font-display text-[#5F9EA0]">¥${p.price.toLocaleString()}</div>
+            
+            <div class="flex-grow flex flex-col justify-between w-full px-4">
+                <div>
+                    <h4 class="text-3xl font-bold mb-3 group-hover:text-[#FF8DA1] transition-colors">${p.name}</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed mb-6 italic px-2">「${p.story}」</p>
+                </div>
+                
+                <div class="flex justify-between items-center w-full mt-auto pt-4 border-t-2 border-dashed border-[#FFD1DC]/20">
+                    <div class="text-4xl font-display text-[#5F9EA0]">¥${p.price.toLocaleString()}</div>
+                    <button class="add-btn w-14 h-14 bg-[#FFD1DC] rounded-full flex items-center justify-center text-white shadow-md hover:bg-[#FF8DA1] transition-colors outline-none" title="カートに入れる">
+                        <i data-lucide="plus" size="24"></i>
+                    </button>
+                </div>
+            </div>
         `;
-        card.onclick = () => openModal(p);
+        
+        // カード全体をクリックした時はモーダルを開く
+        card.onclick = (e) => {
+            // プラスボタンをクリックした時はモーダルを開かないように制御
+            if (e.target.closest('.add-btn')) return;
+            openModal(p);
+        };
+        
+        // プラスボタンのクリックイベントを設定
+        const addBtn = card.querySelector('.add-btn');
+        addBtn.onclick = (e) => {
+            e.stopPropagation(); // 親要素（カード）のクリックイベントを発生させない
+            handleAddToCart(p);
+        };
+        
         grid.appendChild(card);
     });
     lucide.createIcons();
 }
+
+// ... 以降の関数はそのまま ...
 
 function openModal(p) {
     document.getElementById('modal-title').innerText = p.name;
