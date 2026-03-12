@@ -163,3 +163,44 @@ header p {
     background: #B0E0E6;
     border-radius: 10px;
 }
+
+/* style.css の一番下に追記、または該当箇所を上書きしてください */
+
+/* --- アイコンを丸枠の「ど真ん中」に固定 --- */
+.icon-animate, .icon-animate-modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 一覧：アイコンサイズ（110px）を強制固定し、丸枠（w-32=128px）の中央へ */
+.icon-animate svg {
+    width: 110px;
+    height: 110px;
+    display: block;
+    margin: 0 auto;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* 一覧：カードホバー時にアイコンを「ぷるん」と傾ける（Mihoさんのこだわり！） */
+.group:hover .icon-animate svg {
+    transform: scale(1.1) rotate(10deg);
+}
+
+/* --- プラスボタン：ホバー時に大きく＆傾ける演出 --- */
+.add-btn {
+    transition: all 0.3s ease-in-out;
+}
+.group:hover .add-btn {
+    background-color: #FF8DA1; /* ホバー時に濃いピンクへ */
+    transform: scale(1.1) rotate(15deg); /* 大きく＆少し傾ける */
+    box-shadow: 0 10px 20px rgba(255, 141, 161, 0.3);
+}
+
+/* --- 詳細モーダル：アイコンは左に5度傾けて固定 --- */
+.icon-animate-modal svg {
+    width: 180px;
+    height: 180px;
+    filter: drop-shadow(0 15px 25px rgba(255, 141, 161, 0.3));
+    transform: rotate(-5deg); /* 固定 */
+}
