@@ -6,60 +6,49 @@ body {
     font-family: 'Pacifico', cursive;
 }
 
-/* アイコンをど真ん中に配置するための設定 */
+
+/* アイコンと丸枠をど真ん中に固定 */
 .icon-animate, .icon-animate-modal {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+    width: 100%;
+    height: 100%;
 }
 
-/* 消えないようにサイズを調整 */
-.icon-animate svg, .icon-animate-modal svg {
-    width: 64px;
-    height: 64px;
-    stroke-width: 1.5;
+/* アイコン自体のサイズと太さを固定 */
+svg {
+    display: inline-block;
+    vertical-align: middle;
 }
 
-/* ホバー時の動き */
-.group:hover .icon-animate svg {
-    transform: scale(1.1) rotate(5deg);
-    transition: transform 0.3s ease;
+/* お菓子のカード用設定 */
+.product-card-bg {
+    background: white;
+    border: 1px solid rgba(255, 209, 220, 0.3);
 }
 
-/* ボタンの共通スタイル */
+/* ボタン */
 .wakatta-button {
     background-color: #FF8DA1;
     color: white;
     border-radius: 9999px;
     font-weight: bold;
-    transition: all 0.3s;
+    transition: 0.3s;
 }
-.wakatta-button:hover {
-    background-color: #ff758f;
-    transform: scale(1.05);
-}
+.wakatta-button:hover { background-color: #ff758f; transform: scale(1.05); }
 
 .wakatta-button-blue {
     background-color: #5F9EA0;
     color: white;
     border-radius: 9999px;
     font-weight: bold;
-    transition: all 0.3s;
+    transition: 0.3s;
 }
-.wakatta-button-blue:hover {
-    background-color: #4d8284;
-    transform: scale(1.05);
-}
+.wakatta-button-blue:hover { background-color: #4d8284; transform: scale(1.05); }
 
-/* カート内のスクロールバー */
-.custom-scrollbar::-webkit-scrollbar {
-    width: 6px;
-}
-.custom-scrollbar::-webkit-scrollbar-track {
-    background: #FDF9F2;
-    border-radius: 10px;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #B0E0E6;
-    border-radius: 10px;
+/* ホバー演出 */
+.group:hover .icon-animate svg {
+    transform: scale(1.1) rotate(5deg);
+    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
