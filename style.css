@@ -42,3 +42,15 @@ body {
 }
 
 .no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* style.css の該当箇所を修正 */
+.icon-animate-wrap {
+    width: 120px; height: 120px; /* 100pxから120pxへ拡大 */
+    border-radius: 9999px;
+    border: 3px dashed #FFD1DC; /* 少し線を太く */
+    background: rgba(255, 240, 243, 0.4);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.5rem; 
+    margin-top: 1rem; /* 少し余白を追加 */
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
