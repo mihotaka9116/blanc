@@ -1,82 +1,132 @@
-const products = [
-    { id: '1', no: '01', name: '夜空の星屑クッキー', price: 1200, icon: 'utensils', story: '夜空の欠片を拾い集めて。', difficulty: '★★★', time: '45min', desc: '岩手県産の濃厚バターと、隠し味に宮古の塩を。サクサクの魔法をお楽しみください。' },
-    { id: '2', no: '02', name: '木漏れ日のシフォン', price: 2800, icon: 'chef-hat', story: '森の精霊のダンスと共に。', difficulty: '★★☆', time: '60min', desc: '空気のように軽く、雲のように柔らかい。卵の優しい風味が口いっぱいに広がります。' },
-    { id: '3', no: '03', name: 'あなぐまさんの切り株', price: 2500, icon: 'disc', story: '秘密の森の、しっとりココア。', difficulty: '★★★', time: '90min', desc: 'ビターなチョコ生地とたっぷりクリーム。遠野の冬の温かい暖炉をイメージしました。' },
-    { id: '4', no: '04', name: '秘密の鍵穴ドーナツ', price: 450, icon: 'cog', story: '明日のお天気がわかる魔法。', difficulty: '★☆☆', time: '30min', desc: 'カリッと揚げた素朴な味わい。穴から未来をのぞけば、きっといいことがあります。' },
-    { id: '5', no: '05', name: '風の丘のクロワッサン', price: 380, icon: 'wind', story: 'そよ風が重ねた、軽やかな層。', difficulty: '★★★', time: '120min', desc: '発酵バターの香りが層の間から溢れ出します。サクッとした音まで美味しい逸品。' },
-    { id: '6', no: '06', name: 'ブランの特製マドレーヌ', price: 400, icon: 'rabbit', story: '隠し味は、少しの勇気。', difficulty: '★☆☆', time: '40min', desc: '貝殻の形をした、店主ブランのお気に入り。ハチミツの甘さが心に染み渡ります。' }
-];
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ブランの不思議なレシピ店 | 卒業制作</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-[#FFFDF9] scroll-smooth overflow-x-hidden">
 
-let cartItems = [];
+    <nav class="sticky top-0 z-[100] bg-white/80 backdrop-blur-md border-b-2 border-[#FFD1DC]/30 py-4 px-6">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="#" class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-[#FFD1DC] rounded-full flex items-center justify-center text-white">
+                    <i data-lucide="rabbit" size="20"></i>
+                </div>
+                <h1 class="text-2xl font-display text-[#FF8DA1]">Blanc's Recipe</h1>
+            </a>
 
-function renderProducts() {
-    const grid = document.getElementById('product-grid');
-    if (!grid) return;
-    grid.innerHTML = '';
-    products.forEach(p => {
-        const card = document.createElement('div');
-        card.className = "recipe-card rounded-[2.5rem] p-8 shadow-lg text-center cursor-pointer transition-all duration-500 hover:-translate-y-4 hover:shadow-2xl group flex flex-col items-center";
-        card.innerHTML = `
-            <div class="recipe-tag">RECIPE ${p.no}</div>
-            <div class="icon-animate-wrap"><i data-lucide="${p.icon}" class="text-[#FF8DA1]"></i></div>
-            <div class="flex-grow flex flex-col justify-between w-full px-2 text-gray-600">
-                <div>
-                    <div class="text-[10px] font-bold text-[#5F9EA0] mb-1 uppercase tracking-tighter">${p.difficulty} | ${p.time}</div>
-                    <h4 class="text-2xl font-bold mb-2 group-hover:text-[#FF8DA1] transition-colors">${p.name}</h4>
-                    <p class="text-xs italic mb-4">"${p.story}"</p>
-                </div>
-                <div class="flex justify-between items-center w-full mt-auto pt-4 border-t border-dashed border-[#FFD1DC]">
-                    <div class="text-3xl font-display text-[#5F9EA0]">¥${p.price.toLocaleString()}</div>
-                    <div class="w-10 h-10 bg-[#FFD1DC] rounded-xl flex items-center justify-center text-white"><i data-lucide="plus" size="20"></i></div>
-                </div>
+            <div class="hidden md:flex gap-8 font-bold text-gray-600 items-center">
+                <a href="#" class="hover:text-[#FF8DA1] transition-colors">Home</a>
+                <a href="#about" class="hover:text-[#FF8DA1] transition-colors">Story</a>
+                <a href="#shop" class="hover:text-[#FF8DA1] transition-colors">Shop</a>
+                <a href="#contact" class="hover:text-[#FF8DA1] transition-colors">Contact</a>
+                <button id="cart-btn-desktop" class="cart-trigger p-2 text-gray-600 hover:text-[#FF8DA1] relative outline-none">
+                    <i data-lucide="shopping-cart"></i>
+                    <span id="cart-count" class="absolute -top-1 -right-1 bg-[#FF8DA1] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center hidden">0</span>
+                </button>
             </div>
-        `;
-        card.onclick = () => openModal(p);
-        grid.appendChild(card);
-    });
-    lucide.createIcons();
-}
 
-function openModal(p) {
-    document.getElementById('modal-info').innerText = `Recipe No.${p.no} | Difficulty: ${p.difficulty} | Time: ${p.time}`;
-    document.getElementById('modal-title').innerText = p.name;
-    document.getElementById('modal-price').innerText = `¥${p.price.toLocaleString()}`;
-    document.getElementById('modal-story').innerText = `「${p.story}」`;
-    document.getElementById('modal-description').innerText = p.desc;
-    document.getElementById('modal-icon').innerHTML = `<div class="icon-animate-modal"><i data-lucide="${p.icon}"></i></div>`;
-    document.getElementById('add-to-cart-btn').onclick = () => { cartItems.push(p); updateCartUI(); closeModal(); showToast(`${p.name}をカートにいれたよ！`); };
-    document.getElementById('modal').classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-    lucide.createIcons();
-}
+            <div class="flex md:hidden items-center gap-4">
+                <button id="cart-btn-mobile" class="cart-trigger p-2 text-gray-600 relative outline-none">
+                    <i data-lucide="shopping-cart"></i>
+                    <span id="cart-count-mobile" class="absolute -top-1 -right-1 bg-[#FF8DA1] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center hidden">0</span>
+                </button>
+                <button id="menu-open" class="p-2 text-gray-600"><i data-lucide="menu"></i></button>
+            </div>
+        </div>
+    </nav>
 
-function updateCartUI() {
-    const total = cartItems.reduce((sum, item) => sum + item.price, 0);
-    [document.getElementById('cart-count'), document.getElementById('cart-count-mobile')].forEach(el => {
-        if(el) { el.classList.toggle('hidden', cartItems.length === 0); el.innerText = cartItems.length; }
-    });
-    document.getElementById('total-price').innerText = `¥${total.toLocaleString()}`;
-    document.getElementById('cart-items-list').innerHTML = cartItems.map(item => `<div class="flex justify-between py-2 border-b border-gray-100"><span>${item.name}</span><span>¥${item.price.toLocaleString()}</span></div>`).join('');
-}
+    <div id="mobile-menu" class="fixed inset-0 z-[200] bg-[#FFFDF9] translate-x-full transition-transform duration-300 md:hidden flex flex-col p-6">
+        <div class="flex justify-end"><button id="menu-close" class="p-2"><i data-lucide="x" size="32"></i></button></div>
+        <div class="flex flex-col items-center gap-10 mt-16 font-bold text-2xl text-gray-600">
+            <a href="#" class="mobile-link">Home</a>
+            <a href="#about" class="mobile-link">Story</a>
+            <a href="#shop" class="mobile-link">Shop</a>
+            <a href="#contact" class="mobile-link">Contact</a>
+        </div>
+    </div>
 
-function showToast(msg) {
-    const toast = document.getElementById('order-success');
-    toast.innerText = msg; toast.classList.remove('hidden');
-    setTimeout(() => toast.classList.add('hidden'), 3000);
-}
+    <header class="py-12 md:py-20 text-center px-4 overflow-hidden">
+        <h2 class="text-5xl md:text-8xl font-display text-[#FF8DA1] mb-4">BLANC'S RECIPE</h2>
+        <p class="text-lg md:text-2xl font-bold text-[#5F9EA0] tracking-[0.2em] mb-12">ブランの不思議なレシピ店</p>
+        <div class="flex justify-center gap-4 mb-12 overflow-x-auto pb-6 no-scrollbar">
+            <div class="w-24 h-24 md:w-32 md:h-32 bg-white rounded-3xl shadow-lg flex items-center justify-center text-[#FF8DA1] shrink-0 transform -rotate-6 border border-[#FFD1DC]/30"><i data-lucide="star" size="40"></i></div>
+            <div class="w-24 h-24 md:w-32 md:h-32 bg-white rounded-3xl shadow-lg flex items-center justify-center text-[#5F9EA0] shrink-0 transform rotate-3 border border-[#B0E0E6]/30"><i data-lucide="chef-hat" size="40"></i></div>
+            <div class="w-24 h-24 md:w-32 md:h-32 bg-white rounded-3xl shadow-lg flex items-center justify-center text-[#FFD1DC] shrink-0 transform -rotate-3 border border-[#FFD1DC]/30"><i data-lucide="utensils" size="40"></i></div>
+        </div>
+    </header>
 
-function closeModal() { document.getElementById('modal').classList.add('hidden'); document.body.style.overflow = 'auto'; }
+    <section id="about" class="py-16 px-6 max-w-5xl mx-auto">
+        <div class="flex flex-col md:flex-row items-center gap-12">
+            <div class="w-48 h-48 md:w-72 md:h-72 bg-[#FFF0F3] rounded-full flex items-center justify-center shrink-0 border-4 border-dashed border-[#FFD1DC] shadow-inner relative overflow-hidden">
+                <i data-lucide="rabbit" class="text-[#FF8DA1] transform scale-[3.0] md:scale-[4.0]"></i>
+            </div>
+            <div class="bg-white p-8 md:p-12 rounded-[2.5rem] shadow-xl border-2 border-[#FFD1DC]/30 leading-loose text-gray-600 flex-1">
+                <p class="font-bold text-[#FF8DA1] text-xl mb-4">「やあ、見つけてくれてありがとう。」</p>
+                <p class="text-sm md:text-base">霧の朝にだけ開く、不思議なお店。店主のブランが焼くお菓子には、心に灯をともす小さな魔法がかけられています。</p>
+            </div>
+        </div>
+    </section>
 
-document.addEventListener('DOMContentLoaded', () => {
-    renderProducts();
-    document.getElementById('modal-close').onclick = closeModal;
-    document.getElementById('modal-overlay').onclick = closeModal;
-    document.getElementById('menu-open').onclick = () => document.getElementById('mobile-menu').classList.add('active');
-    document.getElementById('menu-close').onclick = () => document.getElementById('mobile-menu').classList.remove('active');
-    document.querySelectorAll('.mobile-link').forEach(link => link.onclick = () => document.getElementById('mobile-menu').classList.remove('active'));
-    document.querySelectorAll('.cart-trigger').forEach(btn => btn.onclick = () => {
-        if(cartItems.length > 0) document.getElementById('cart-modal').classList.remove('hidden');
-        else showToast("カートは空っぽだよ！");
-    });
-    document.getElementById('cart-close').onclick = () => document.getElementById('cart-modal').classList.add('hidden');
-});
+    <section id="shop" class="py-24 px-4 bg-white/50">
+        <div class="max-w-7xl mx-auto">
+            <h3 class="text-4xl font-display text-center text-[#FF8DA1] mb-16">Daily Specials</h3>
+            <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12"></div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-24 px-6 bg-[#FDF9F2]">
+        <div class="max-w-2xl mx-auto bg-white p-8 md:p-12 rounded-[3rem] shadow-xl border-2 border-[#FFD1DC]/30 text-center">
+            <h3 class="text-3xl font-display text-[#FF8DA1] mb-8 text-center">Contact Us</h3>
+            <form class="space-y-6 text-left" onsubmit="event.preventDefault(); alert('メッセージを預かりました！');">
+                <div><label class="block text-sm font-bold text-gray-600 mb-2">お名前</label><input type="text" class="w-full px-6 py-3 rounded-full border-2 border-[#FFD1DC]/30 focus:outline-none focus:border-[#FF8DA1]" placeholder="ブラン 太郎"></div>
+                <div><label class="block text-sm font-bold text-gray-600 mb-2">メールアドレス</label><input type="email" class="w-full px-6 py-3 rounded-full border-2 border-[#FFD1DC]/30 focus:outline-none focus:border-[#FF8DA1]" placeholder="example@mail.com"></div>
+                <div><label class="block text-sm font-bold text-gray-600 mb-2">メッセージ</label><textarea class="w-full px-6 py-4 rounded-[2rem] border-2 border-[#FFD1DC]/30 focus:outline-none focus:border-[#FF8DA1] h-32" placeholder="お菓子のリクエストなど"></textarea></div>
+                <button type="submit" class="w-full py-4 bg-[#FF8DA1] text-white rounded-full font-bold shadow-lg hover:bg-[#ff758f] transition-all">手紙を送る</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="bg-white py-12 text-center text-gray-400 font-bold text-xs">&copy; 2026 Blanc's Recipe</footer>
+
+    <div id="cart-modal" class="fixed inset-0 z-[160] hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60" id="cart-overlay"></div>
+        <div class="relative w-full max-w-xl bg-white rounded-[3rem] p-8 shadow-2xl">
+            <button id="cart-close" class="absolute top-6 right-6"><i data-lucide="x"></i></button>
+            <h2 class="text-3xl font-display text-[#5F9EA0] mb-8 text-center">Your Cart</h2>
+            <div id="cart-items-list" class="max-h-60 overflow-y-auto mb-8 text-gray-600 space-y-3"></div>
+            <div class="border-t-2 border-dashed border-[#B0E0E6] pt-6 flex justify-between items-center mb-8">
+                <span class="font-bold">Total</span><span class="text-3xl font-display text-[#FF8DA1]" id="total-price">¥0</span>
+            </div>
+            <button onclick="alert('注文を受け付けました！')" class="w-full py-4 bg-[#5F9EA0] text-white rounded-full font-bold">注文を確定する</button>
+        </div>
+    </div>
+
+    <div id="modal" class="fixed inset-0 z-[150] hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" id="modal-overlay"></div>
+        <div class="relative w-full max-w-4xl bg-[#FFFDF9] rounded-[3rem] overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[90vh] overflow-y-auto md:overflow-hidden">
+            <button id="modal-close" class="absolute top-6 right-6 z-20 p-2 bg-white rounded-full shadow-md"><i data-lucide="x"></i></button>
+            <div id="modal-icon" class="w-full md:w-1/2 bg-[#FFD1DC]/20 flex items-center justify-center p-12 text-[#FF8DA1]"></div>
+            <div class="p-8 md:p-14 flex flex-col flex-1">
+                <div id="modal-info" class="text-[10px] font-bold text-[#5F9EA0] mb-2 uppercase tracking-widest"></div>
+                <h2 id="modal-title" class="text-3xl md:text-4xl font-bold text-[#FF8DA1] mb-2"></h2>
+                <p id="modal-price" class="text-2xl md:text-3xl font-display text-[#5F9EA0] mb-6"></p>
+                <div class="bg-white/60 p-6 rounded-2xl border-2 border-dashed border-[#FFD1DC] mb-8 text-sm text-gray-600 leading-loose">
+                    <p id="modal-story" class="italic mb-4"></p>
+                    <p id="modal-description" class="border-l-2 border-[#FFD1DC] pl-4"></p>
+                </div>
+                <button id="add-to-cart-btn" class="w-full py-4 bg-[#FF8DA1] text-white rounded-full font-bold">カートに入れる</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="order-success" class="fixed bottom-10 left-1/2 -translate-x-1/2 z-[200] hidden bg-[#5F9EA0] text-white px-8 py-3 rounded-full shadow-2xl text-sm font-bold"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
