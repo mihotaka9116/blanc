@@ -10,15 +10,13 @@ const products = [
 
 let cartItems = [];
 
-// --- 2. メッセージ配列（既存＋新規追加） ---
+// --- 2. メッセージ配列 ---
 const messages = [
-    // 既存のメッセージ
     "霧の朝だね。今日はハチミツを多めに練り込んだよ。",
     "風が強い日は、クロワッサンの層が綺麗に焼けるんだ。",
     "星が綺麗な夜には、少ししょっぱいクッキーが合うよ。",
     "見つけてくれてありがとう。ゆっくりしていってね。",
     "あなぐまくんが遊びに来たよ。一緒にロールケーキを食べよう。",
-    // 新しく追加したメッセージ
     "おはよう。今朝の霧はミルクの香りがするね。シフォンがふわふわに焼けたよ。",
     "窓の外は真っ白。こんな日は、温かい紅茶とマドレーヌで心に灯をともそう。",
     "お疲れさま。今日の最後の一仕事は、自分をたっぷり甘やかすことだよ。",
@@ -27,7 +25,7 @@ const messages = [
     "あなぐまくんとお茶をしていたら、ついつつ話し込んじゃった。お菓子が焦げなくてよかったよ。"
 ];
 
-// --- 3. メッセージ更新（あなぐまくん制御付き） ---
+// --- 3. メッセージ更新 ---
 function updateMessage() {
     const el = document.getElementById("blanc-message");
     const icon = document.getElementById("anaguma-icon");
@@ -36,7 +34,6 @@ function updateMessage() {
     const msg = messages[Math.floor(Math.random() * messages.length)];
     el.innerText = msg;
 
-    // 「あなぐまくん」が含まれる場合のみ表示
     if (msg.includes("あなぐまくん")) {
         icon.classList.add("show");
         icon.style.opacity = "1";
@@ -50,7 +47,7 @@ function updateMessage() {
     }
 }
 
-// --- 4. 商品一覧の描画（アイコンサイズ: 60px） ---
+// --- 4. 商品一覧の描画（アイコンサイズ修正版） ---
 function renderProducts() {
     const grid = document.getElementById('product-grid');
     if (!grid) return;
@@ -63,9 +60,9 @@ function renderProducts() {
         
         card.innerHTML = `
             <div class="recipe-tag uppercase tracking-tighter">RECIPE ${p.no}</div>
-            <div class="icon-animate-wrap">
+            <div class="icon-animate-wrap flex items-center justify-center">
                 <div class="text-[#FF8DA1]">
-                    <i data-lucide="${p.icon}" stroke-width="1.2" size="60"></i>
+                    <i data-lucide="${p.icon}" stroke-width="1.2" style="width: 70px; height: 70px;"></i>
                 </div>
             </div>
             <div class="flex-grow w-full text-gray-600 flex flex-col">
@@ -84,7 +81,7 @@ function renderProducts() {
     if (window.lucide) lucide.createIcons();
 }
 
-// --- 5. モーダル（詳細）表示（アイコンサイズ: 160px） ---
+// --- 5. モーダル表示（詳細アイコンサイズ大幅拡大） ---
 function openModal(p) {
     document.getElementById('modal-info').innerText = `Recipe No.${p.no} | ${p.difficulty} | ${p.time}`;
     document.getElementById('modal-title').innerText = p.name;
@@ -92,9 +89,10 @@ function openModal(p) {
     document.getElementById('modal-story').innerText = `「${p.story}」`;
     document.getElementById('modal-description').innerText = p.desc;
     
+    // 詳細画面のアイコンをさらに巨大化 (180px)
     document.getElementById('modal-icon').innerHTML = `
-        <div class="icon-animate-modal">
-            <i data-lucide="${p.icon}" size="160" stroke-width="1"></i>
+        <div class="icon-animate-modal flex items-center justify-center w-full">
+            <i data-lucide="${p.icon}" stroke-width="1" style="width: 180px; height: 180px;"></i>
         </div>`;
     
     document.getElementById('add-to-cart-btn').onclick = (e) => {
@@ -112,7 +110,7 @@ function closeModal() {
     document.body.style.overflow = 'auto';
 }
 
-// --- 6. カート機能 ---
+// --- 6. カート・通知機能（そのまま） ---
 function addToCart(p) {
     cartItems.push(p);
     updateCartUI();
@@ -154,24 +152,19 @@ document.addEventListener('DOMContentLoaded', () => {
     renderProducts();
     updateMessage();
 
-    // あなぐまくんをクリックした時のアクション
     const anaguma = document.getElementById('anaguma-icon');
     if (anaguma) {
         anaguma.style.cursor = "pointer";
         anaguma.onclick = () => {
             anaguma.classList.add('anaguma-happy');
             showToast("あなぐまくん：わーい！クッキー大好き！");
-            setTimeout(() => {
-                anaguma.classList.remove('anaguma-happy');
-            }, 1000);
+            setTimeout(() => { anaguma.classList.remove('anaguma-happy'); }, 1000);
         };
     }
 
-    // モバイルメニュー
     document.getElementById('menu-open').onclick = () => document.getElementById('mobile-menu').classList.remove('translate-x-full');
     document.getElementById('menu-close').onclick = () => document.getElementById('mobile-menu').classList.add('translate-x-full');
 
-    // カート表示
     document.querySelectorAll('.cart-trigger').forEach(btn => {
         btn.onclick = () => {
             if (cartItems.length > 0) document.getElementById('cart-modal').classList.remove('hidden');
