@@ -1,172 +1,137 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Blanc's Recipe</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body class="bg-[#FFFDF9] scroll-smooth overflow-x-hidden">
+// --- 1. 商品データ ---
+const products = [
+    { id: '1', no: '01', name: '夜空の星屑クッキー', price: 1200, icon: 'star', difficulty: '★★★', time: '45min', story: '夜空からこぼれ落ちた星の欠片を拾い集めて焼いた、少ししょっぱいバタークッキー。', desc: '北海道産バターを贅沢に使用し、生地を何度も寝かせてサクサクの食感を実現しました。' },
+    { id: '2', no: '02', name: '木漏れ日のシフォン', price: 2800, icon: 'chef-hat', difficulty: '★★☆', time: '60min', story: '森の精霊たちがダンスをする午後のひととき。', desc: '驚くほどふわふわで、弾力があります。' },
+    { id: '3', no: '03', name: 'あなぐまの切り株ロール', price: 2500, icon: 'disc', difficulty: '★★★', time: '90min', story: '森のあなぐまさんが見つけた特別な切り株をイメージ。', desc: 'ビターなココアを練り込んだしっとりとしたスポンジ。' },
+    { id: '4', no: '04', name: '秘密の鍵穴ドーナツ', price: 450, icon: 'key', difficulty: '★☆☆', time: '30min', story: 'この穴から世界をのぞくと、明日のお天気がわかる魔法。', desc: 'じっくりと時間をかけて揚げた、昔ながらの素朴なドーナツ。' },
+    { id: '5', no: '05', name: '風の丘のクロワッサン', price: 380, icon: 'wind', difficulty: '★★★', time: '120min', story: '丘の上で吹くそよ風が、生地を何層にも重ねてくれた。', desc: '発酵バターを幾層にも折り込み、丁寧に焼き上げました。' },
+    { id: '6', no: '06', name: 'ブランの特製マドレーヌ', price: 400, icon: 'rabbit', difficulty: '★☆☆', time: '40min', story: '店主のブランが一番得意な、貝殻の形の焼き菓子。', desc: 'しっとりと焼き上げた生地に、花の蜜をたっぷり閉じ込めました。' }
+];
 
-    <nav class="sticky top-0 z-[100] bg-white/80 backdrop-blur-md border-b-2 border-[#FFD1DC]/30 py-4 px-6">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <a href="#" class="flex items-center gap-2">
-                <div class="w-10 h-10 bg-[#FFD1DC] rounded-full flex items-center justify-center text-white">
-                    <i data-lucide="rabbit" size="20"></i>
-                </div>
-                <h1 class="text-2xl font-display text-[#FF8DA1]">Blanc's Recipe</h1>
-            </a>
+let cartItems = [];
 
-            <div class="hidden md:flex gap-8 font-bold text-gray-600 items-center">
-                <a href="#" class="hover:text-[#FF8DA1] transition-colors">Home</a>
-                <a href="#about" class="hover:text-[#FF8DA1] transition-colors">Story</a>
-                <a href="#shop" class="hover:text-[#FF8DA1] transition-colors">Shop</a>
-                <a href="#contact" class="hover:text-[#FF8DA1] transition-colors">Contact</a>
-                <button id="cart-btn-desktop" class="cart-trigger p-2 text-gray-600 hover:text-[#FF8DA1] relative outline-none">
-                    <i data-lucide="shopping-cart"></i>
-                    <span id="cart-count" class="absolute -top-1 -right-1 bg-[#FF8DA1] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center hidden">0</span>
-                </button>
-            </div>
+const messages = [
+    "霧の朝だね。今日はハチミツを多めに練り込んだよ。",
+    "風が強い日は、クロワッサンの層が綺麗に焼けるんだ。",
+    "星が綺麗な夜には、少ししょっぱいクッキーが合うよ。",
+    "見つけてくれてありがとう。ゆっくりしていってね。",
+    "あなぐまくんが遊びに来たよ。一緒にロールケーキを食べよう。"
+];
 
-            <div class="flex md:hidden items-center gap-4">
-                <button id="cart-btn-mobile" class="cart-trigger p-2 text-gray-600 relative outline-none">
-                    <i data-lucide="shopping-cart"></i>
-                    <span id="cart-count-mobile" class="absolute -top-1 -right-1 bg-[#FF8DA1] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center hidden">0</span>
-                </button>
-                <button id="menu-open" class="p-2 text-gray-600"><i data-lucide="menu"></i></button>
-            </div>
-        </div>
-    </nav>
+// --- 2. メッセージ更新（あなぐまくん制御付き） ---
+function updateMessage() {
+    const el = document.getElementById("blanc-message");
+    const icon = document.getElementById("anaguma-icon");
+    if (!el || !icon) return;
 
-    <div id="mobile-menu" class="fixed inset-0 z-[200] bg-[#FFFDF9] translate-x-full transition-transform duration-300 md:hidden flex flex-col p-6">
-        <div class="flex justify-end"><button id="menu-close" class="p-2"><i data-lucide="x" size="32"></i></button></div>
-        <div class="flex flex-col items-center gap-10 mt-16 font-bold text-2xl text-gray-600">
-            <a href="#" class="mobile-link">Home</a>
-            <a href="#about" class="mobile-link">Story</a>
-            <a href="#shop" class="mobile-link">Shop</a>
-            <a href="#contact" class="mobile-link">Contact</a>
-        </div>
-    </div>
+    const msg = messages[Math.floor(Math.random() * messages.length)];
+    el.innerText = msg;
 
-    <header class="py-12 md:py-20 text-center px-4 overflow-hidden">
-       <h2 class="text-5xl md:text-8xl font-display text-[#FF8DA1] mb-4">Blanc's Recipe</h2>
-        <p class="text-lg md:text-2xl font-bold text-[#5F9EA0] tracking-[0.2em] mb-12">ブランのレシピ店</p>
+    if (msg.includes("あなぐまくん")) {
+        icon.classList.add("show");
+        icon.style.opacity = "1";
+        icon.style.pointerEvents = "auto";
+    } else {
+        icon.classList.remove("show");
+        icon.style.opacity = "0";
+        icon.style.pointerEvents = "none";
+    }
+}
+// --- 3. 商品描画（点線の丸を復活！） ---
+function renderProducts() {
+    const grid = document.getElementById('product-grid');
+    if (!grid) return;
+    grid.innerHTML = '';
+    
+    products.forEach(p => {
+        const card = document.createElement('div');
+        // カード全体のデザイン
+        card.className = "recipe-card rounded-[2.5rem] p-8 shadow-lg text-center cursor-pointer transition-all duration-300 hover:shadow-2xl group flex flex-col items-center relative bg-white";
+        card.onclick = () => openModal(p);
         
-        <div class="flex justify-center gap-4 mb-10 overflow-x-auto pb-6 no-scrollbar px-4">
-            <div class="w-24 h-24 md:w-32 md:h-32 bg-white rounded-3xl shadow-lg flex items-center justify-center text-[#FF8DA1] shrink-0 transform -rotate-6 border border-[#FFD1DC]/30"><i data-lucide="star" size="40"></i></div>
-            <div class="w-24 h-24 md:w-32 md:h-32 bg-white rounded-3xl shadow-lg flex items-center justify-center text-[#5F9EA0] shrink-0 transform rotate-3 border border-[#B0E0E6]/30"><i data-lucide="chef-hat" size="40"></i></div>
-            <div class="w-24 h-24 md:w-32 md:h-32 bg-white rounded-3xl shadow-lg flex items-center justify-center text-[#FFD1DC] shrink-0 transform -rotate-3 border border-[#FFD1DC]/30"><i data-lucide="utensils" size="40"></i></div>
-        </div>
-
-        <div class="flex flex-col md:flex-row justify-center items-center gap-4 px-6 mb-12">
-            <a href="#about" class="w-full md:w-auto min-w-[220px] bg-white border-2 border-[#5F9EA0] text-[#5F9EA0] px-8 py-4 rounded-full font-bold hover:bg-[#F4FBFB] transition-all flex items-center justify-center gap-2 shadow-sm">
-                <i data-lucide="book-open" size="20"></i> ストーリーを見る
-            </a>
-            <a href="#shop" class="w-full md:w-auto min-w-[220px] bg-[#FF8DA1] text-white px-8 py-4 rounded-full font-bold hover:bg-[#ff758f] shadow-lg transition-all flex items-center justify-center gap-2">
-                <i data-lucide="sparkles" size="20"></i> お菓子をみる
-            </a>
-        </div>
-    </header>
-
-  
-    <section id="about" class="py-24 px-6 max-w-6xl mx-auto">
-        <div class="flex flex-col md:flex-row items-center gap-16">
-            <div class="relative shrink-0">
-                <div class="w-56 h-56 md:w-80 md:h-80 bg-[#FFF0F3] rounded-full flex items-center justify-center border-4 border-dashed border-[#FFD1DC] shadow-inner relative overflow-hidden">
-                    <i data-lucide="rabbit" class="text-[#FF8DA1] transform scale-[4.0]"></i>
+        card.innerHTML = `
+            <div class="recipe-tag bg-[#FFD1DC] text-white px-4 py-1 rounded-full text-xs mb-6 font-bold tracking-widest">RECIPE ${p.no}</div>
+            
+            <div class="w-20 h-20 rounded-full border-2 border-dashed border-[#FFD1DC] flex items-center justify-center mb-6 bg-[#FFF0F3]/30 group-hover:scale-110 transition-transform">
+                <div class="text-[#FF8DA1]">
+                    <i data-lucide="${p.icon}" size="40" stroke-width="1.5"></i>
                 </div>
-                <div class="absolute -top-4 -right-4 text-[#FFD1DC] animate-pulse"><i data-lucide="sparkles" size="48"></i></div>
-            </div>
-            <div class="bg-white p-10 md:p-16 rounded-[3rem] shadow-xl border-2 border-[#FFD1DC]/30 relative flex-1">
-                <div class="absolute -top-6 left-10 bg-[#FFD1DC] text-white px-6 py-2 rounded-full font-bold text-sm">Our Story</div>
-                <h3 class="font-bold text-[#FF8DA1] text-2xl md:text-3xl mb-8 leading-tight">「やあ、見つけてくれてありがとう。<br class="hidden md:block">ここは、心に灯をともすレシピ店。」</h3>
-                <div class="space-y-6 text-gray-600 leading-loose md:text-lg">
-                    <p>岩手の深い山あいに、霧の朝にだけひっそりと開く不思議なお店があります。<br>店主は、真っ白なうさぎの「ブラン」。</p>
-                    <p>彼が焼くお菓子には、ちょっとした魔法がかけられています。<br>悲しい夜を乗り越えるための「星屑」、勇気が必要な朝のための「鍵穴」、<br class="hidden md:block">そして、大切な誰かを想う時に彩りを添える「ハチミツ」。</p>
-                    <p>誰のキッチンにもある材料で、誰にも真似できない温かさを。<br>ブランは今日も、遠い空の下にいる「あなた」を想って、秘密のレシピ帳を広げています。</p>
-                </div>
-                <div class="mt-10 text-right"><p class="font-display text-3xl text-[#5F9EA0]">- Blanc's Recipe</p></div>
-            </div>
-        </div>
-    </section>
-
-    <div class="px-6 max-w-4xl mx-auto">
-        <div id="blanc-message-container" class="bg-white/60 backdrop-blur-sm p-6 md:p-8 rounded-[2.5rem] border-2 border-dashed border-[#FFD1DC] text-center shadow-sm transition-all duration-500">
-            <p id="blanc-message" class="text-gray-600 italic md:text-xl font-medium leading-relaxed">
-                読み込み中...
-            </p>
-        </div>
-    </div>
-
-    <div id="anaguma-icon" style="position: fixed; bottom: -150px; right: 30px; opacity: 0; pointer-events: none;" class="transition-all duration-700 z-[1000]">
-        <div class="relative flex flex-col items-center group">
-            <div class="bg-white text-[#5F9EA0] text-[10px] px-3 py-1 rounded-full shadow-md mb-3 border border-[#B0E0E6] font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-                クッキーある？
             </div>
             
-            <div class="w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-dashed border-[#FFD1DC] p-2 bg-white shadow-xl flex items-center justify-center overflow-hidden">
-                <img src="anaguma.png" alt="あなぐまくん" 
-                     class="w-full h-full object-cover rounded-full">
-            </div>
-        </div>
-    </div>
-    <section id="shop" class="py-24 px-4 bg-white/40">
-        <div class="max-w-7xl mx-auto">
-            <h3 class="text-4xl font-display text-center text-[#FF8DA1] mb-16">Daily Specials</h3>
-            <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12"></div>
-        </div>
-    </section>
-
-    <section id="contact" class="py-24 px-6">
-        <div class="max-w-2xl mx-auto bg-white p-8 md:p-12 rounded-[3rem] shadow-xl border-2 border-[#FFD1DC]/30 text-center">
-            <h3 class="text-3xl font-display text-[#FF8DA1] mb-8">Contact Us</h3>
-            <form class="space-y-6 text-left" onsubmit="event.preventDefault(); alert('メッセージを預かりました！');">
-                <div><label class="block text-sm font-bold text-gray-600 mb-2">お名前</label><input type="text" class="w-full px-6 py-3 rounded-full border-2 border-[#FFD1DC]/30 focus:outline-none focus:border-[#FF8DA1]"></div>
-                <div><label class="block text-sm font-bold text-gray-600 mb-2">メールアドレス</label><input type="email" class="w-full px-6 py-3 rounded-full border-2 border-[#FFD1DC]/30 focus:outline-none focus:border-[#FF8DA1]"></div>
-                <div><label class="block text-sm font-bold text-gray-600 mb-2">メッセージ</label><textarea class="w-full px-6 py-4 rounded-[2rem] border-2 border-[#FFD1DC]/30 focus:outline-none focus:border-[#FF8DA1] h-32"></textarea></div>
-                <button type="submit" class="w-full py-4 bg-[#FF8DA1] text-white rounded-full font-bold shadow-lg hover:bg-[#ff758f] transition-all">手紙を送る</button>
-            </form>
-        </div>
-    </section>
-
-    <footer class="py-12 text-center text-gray-400 font-bold text-xs">&copy; 2026 Blanc's Recipe. Created by Miho Takahashi</footer>
-
-    <div id="cart-modal" class="fixed inset-0 z-[160] hidden flex items-center justify-center p-4">
-        <div class="absolute inset-0 bg-black/60" id="cart-overlay"></div>
-        <div class="relative w-full max-w-xl bg-white rounded-[3rem] p-8 shadow-2xl">
-            <button id="cart-close" class="absolute top-6 right-6"><i data-lucide="x"></i></button>
-            <h2 class="text-3xl font-display text-[#5F9EA0] mb-8 text-center">Your Cart</h2>
-            <div id="cart-items-list" class="max-h-60 overflow-y-auto mb-8 text-gray-600 space-y-3"></div>
-            <div class="border-t-2 border-dashed border-[#B0E0E6] pt-6 flex justify-between items-center mb-8">
-                <span class="font-bold">Total</span><span class="text-3xl font-display text-[#FF8DA1]" id="total-price">¥0</span>
-            </div>
-            <button onclick="alert('注文を受け付けました！')" class="w-full py-4 bg-[#5F9EA0] text-white rounded-full font-bold">注文を確定する</button>
-        </div>
-    </div>
-
-    <div id="modal" class="fixed inset-0 z-[150] hidden flex items-center justify-center p-4">
-        <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" id="modal-overlay"></div>
-        <div class="relative w-full max-w-4xl bg-[#FFFDF9] rounded-[3rem] overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[90vh] overflow-y-auto md:overflow-hidden">
-            <button id="modal-close" class="absolute top-6 right-6 z-20 p-2 bg-white rounded-full shadow-md"><i data-lucide="x"></i></button>
-            <div id="modal-icon" class="w-full md:w-1/2 bg-[#FFD1DC]/20 flex items-center justify-center p-12 text-[#FF8DA1]"></div>
-            <div class="p-8 md:p-14 flex flex-col flex-1">
-                <div id="modal-info" class="text-[10px] font-bold text-[#5F9EA0] mb-2 uppercase tracking-widest"></div>
-                <h2 id="modal-title" class="text-3xl md:text-4xl font-bold text-[#FF8DA1] mb-2"></h2>
-                <p id="modal-price" class="text-2xl md:text-3xl font-display text-[#5F9EA0] mb-6"></p>
-                <div class="bg-white/60 p-6 rounded-2xl border-2 border-dashed border-[#FFD1DC] mb-8 text-sm text-gray-600 leading-loose">
-                    <p id="modal-story" class="italic mb-4"></p>
-                    <p id="modal-description" class="border-l-2 border-[#FFD1DC] pl-4"></p>
+            <div class="flex-grow w-full text-gray-600 flex flex-col">
+                <div class="text-[10px] font-bold text-[#5F9EA0] mb-3 uppercase tracking-widest">${p.difficulty} | ${p.time}</div>
+                <h4 class="text-xl md:text-2xl font-bold mb-3 group-hover:text-[#FF8DA1] transition-colors">${p.name}</h4>
+                <p class="text-xs italic mb-8 line-clamp-2 leading-relaxed">"${p.story}"</p>
+                <div class="flex justify-between items-center mt-auto pt-5 border-t border-dashed border-[#FFD1DC]">
+                    <span class="text-2xl md:text-3xl font-display text-[#5F9EA0]">¥${p.price.toLocaleString()}</span>
+                    <div class="w-10 h-10 bg-[#FFD1DC] rounded-xl flex items-center justify-center text-white group-hover:bg-[#FF8DA1] transition-colors shadow-md">
+                        <i data-lucide="plus" size="20"></i>
+                    </div>
                 </div>
-                <button id="add-to-cart-btn" class="w-full py-4 bg-[#FF8DA1] text-white rounded-full font-bold">カートに入れる</button>
-            </div>
-        </div>
-    </div>
+            </div>`;
+        grid.appendChild(card);
+    });
+    // Lucideアイコンの再描画
+    if (window.lucide) lucide.createIcons();
+}
 
-    <div id="order-success" class="fixed bottom-10 left-1/2 -translate-x-1/2 z-[200] hidden bg-[#5F9EA0] text-white px-8 py-3 rounded-full shadow-2xl text-sm font-bold"></div>
+// --- 4. モーダル関連 ---
+function openModal(p) {
+    const ids = ['modal-info', 'modal-title', 'modal-price', 'modal-story', 'modal-description', 'modal-icon'];
+    if (ids.some(id => !document.getElementById(id))) return;
 
-    <script src="script.js"></script>
-</body>
-</html>
+    document.getElementById('modal-info').innerText = `Recipe No.${p.no} | ${p.difficulty} | ${p.time}`;
+    document.getElementById('modal-title').innerText = p.name;
+    document.getElementById('modal-price').innerText = `¥${p.price.toLocaleString()}`;
+    document.getElementById('modal-story').innerText = `「${p.story}」`;
+    document.getElementById('modal-description').innerText = p.desc;
+    document.getElementById('modal-icon').innerHTML = `<i data-lucide="${p.icon}" size="80"></i>`;
+    document.getElementById('add-to-cart-btn').onclick = (e) => {
+        e.stopPropagation();
+        addToCart(p);
+    };
+    document.getElementById('modal').classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    if (window.lucide) lucide.createIcons();
+}
+
+function closeModal() {
+    const m = document.getElementById('modal');
+    if (m) m.classList.add('hidden');
+    document.body.style.overflow = 'auto';
+}
+
+function addToCart(p) {
+    cartItems.push(p);
+    updateCartUI();
+    closeModal();
+    showToast(`${p.name}をカートに届けたよ！`);
+}
+
+function updateCartUI() {
+    const total = cartItems.reduce((sum, item) => sum + item.price, 0);
+    const countD = document.getElementById('cart-count');
+    const countM = document.getElementById('cart-count-mobile');
+    const list = document.getElementById('cart-items-list');
+    const priceEl = document.getElementById('total-price');
+    
+    if (countD) { countD.classList.toggle('hidden', cartItems.length === 0); countD.innerText = cartItems.length; }
+    if (countM) { countM.classList.toggle('hidden', cartItems.length === 0); countM.innerText = cartItems.length; }
+    if (list) list.innerHTML = cartItems.map(item => `<div class="flex justify-between py-2 border-b border-gray-100 italic"><span>${item.name}</span><span>¥${item.price.toLocaleString()}</span></div>`).join('');
+    if (priceEl) priceEl.innerText = `¥${total.toLocaleString()}`;
+}
+
+function showToast(msg) {
+    const toast = document.getElementById('order-success');
+    if (!toast) return;
+    toast.innerText = msg;
+    toast.classList.remove('hidden');
+    setTimeout(() => toast.classList.add('hidden'), 3000);
+}
+
+// --- 5. メイン初期化 ---
+document.addEventListener('DOMContentLoaded', () => {
+    // 描画と初期化
+    renderProducts();
+    updateMessage();
+    if (window.luc
