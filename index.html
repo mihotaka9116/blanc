@@ -29,7 +29,7 @@
     <header class="py-12 text-center">
         <h2 class="text-5xl md:text-8xl font-display text-[#FF8DA1] mb-4">Blanc's Recipe</h2>
         <div id="blanc-message-container" class="max-w-xl mx-auto p-6 border-2 border-dashed border-[#FFD1DC] rounded-[2rem] bg-white">
-            <p id="blanc-message" class="text-gray-600 italic">読み込み中...</p>
+            <p id="blanc-message" class="text-gray-600 italic">霧の朝だね。今日はハチミツを多めに練り込んだよ。</p>
         </div>
     </header>
 
@@ -41,7 +41,7 @@
 
     <div id="modal" class="fixed inset-0 z-[150] hidden flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" id="modal-overlay"></div>
-        <div class="relative w-full max-w-4xl bg-[#FFFDF9] rounded-[3rem] overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[90vh]">
+        <div class="relative w-full max-w-4xl bg-[#FFFDF9] rounded-[3rem] overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[90vh] overflow-y-auto md:overflow-hidden">
             <button id="modal-close" class="absolute top-6 right-6 z-20 p-2 bg-white rounded-full"><i data-lucide="x"></i></button>
             <div id="modal-icon" class="w-full md:w-1/2 bg-[#B0E0E6]/10 flex items-center justify-center p-12 text-[#5F9EA0]"></div>
             <div class="p-8 md:p-14 flex flex-col flex-1">
@@ -49,11 +49,8 @@
                 <h2 id="modal-title" class="text-3xl font-bold text-[#FF8DA1] mb-2"></h2>
                 <p id="modal-price" class="text-2xl font-display text-[#5F9EA0] mb-6"></p>
                 <p id="modal-story" class="italic text-gray-600 mb-4"></p>
-                <p id="modal-description" class="text-sm text-gray-500 mb-6"></p>
-                
-                <div id="modal-allergy" class="text-[10px] text-[#5F9EA0] bg-[#F4FBFB] px-3 py-1 rounded-full w-fit mb-8 font-bold"></div>
-                
-                <button id="add-to-cart-btn" class="w-full py-4 bg-[#FF8DA1] text-white rounded-full font-bold">カートに入れる</button>
+                <p id="modal-description" class="text-sm text-gray-500 mb-8"></p>
+                <button id="add-to-cart-btn" class="w-full py-4 bg-[#FF8DA1] text-white rounded-full font-bold shadow-md">カートに入れる</button>
             </div>
         </div>
     </div>
