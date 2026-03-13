@@ -1,4 +1,4 @@
-// --- 1. 商品データ（allergy追加） ---
+// --- 1. 商品データ（アレルギー情報含む） ---
 const products = [
     { id: '1', no: '01', name: '夜空の星屑クッキー', price: 1200, icon: 'star', difficulty: '★★★', time: '45min', story: '夜空からこぼれ落ちた星の欠片。', desc: 'バターの香りが広がるサクサククッキー。', allergy: '小麦・卵・乳成分' },
     { id: '2', no: '02', name: '木漏れ日のシフォン', price: 2800, icon: 'chef-hat', difficulty: '★★☆', time: '60min', story: '森の精霊たちのダンス。', desc: '驚くほどふわふわな食感です。', allergy: '卵・小麦・乳成分' },
@@ -10,7 +10,7 @@ const products = [
 
 let cartItems = [];
 
-// --- 2. メッセージ ---
+// --- 2. メッセージリスト ---
 const messages = [
     "霧の朝だね。今日はハチミツを多めに練り込んだよ。",
     "星が綺麗な夜には、少ししょっぱいクッキーが合うよ。",
@@ -22,30 +22,33 @@ const messages = [
     "あなぐまくんが持ってきた木の実、隠し味に使ってみようかな。"
 ];
 
-// --- 3. メッセージ更新 ---
+// --- 3. メッセージとアイコンの更新 ---
 function updateMessage() {
     const el = document.getElementById("blanc-message");
     const icon = document.getElementById("anaguma-icon");
-    if (!el || !icon) return;
+    if (!el) return;
 
     const msg = messages[Math.floor(Math.random() * messages.length)];
     el.innerText = msg;
 
-    if (msg.includes("あなぐまくん")) {
-        icon.style.opacity = "1";
-        icon.style.bottom = "30px";
-        icon.style.pointerEvents = "auto";
-    } else {
-        icon.style.opacity = "0";
-        icon.style.bottom = "-160px";
-        icon.style.pointerEvents = "none";
+    if (icon) {
+        if (msg.includes("あなぐまくん")) {
+            icon.style.opacity = "1";
+            icon.style.bottom = "30px";
+            icon.style.pointerEvents = "auto";
+        } else {
+            icon.style.opacity = "0";
+            icon.style.bottom = "-160px";
+            icon.style.pointerEvents = "none";
+        }
     }
 }
 
-// --- 4. 商品描画 ---
+// --- 4. 商品一覧の描画 ---
 function renderProducts() {
     const grid = document.getElementById('product-grid');
     if (!grid) return;
+    
     grid.innerHTML = '';
     products.forEach(p => {
         const card = document.createElement('div');
@@ -53,21 +56,24 @@ function renderProducts() {
         card.onclick = () => openModal(p);
         card.innerHTML = `
             <div class="text-[10px] font-bold text-[#FFD1DC] mb-4 tracking-widest uppercase italic">Recipe ${p.no}</div>
-            <div class="icon-animate-wrap">
-                <i data-lucide="${p.icon}" stroke-width="1.2" class="text-[#FF8DA1]"></i>
+            <div class="mb-6 text-[#FF8DA1]">
+                <i data-lucide="${p.icon}" size="48" stroke-width="1.2"></i>
             </div>
             <h4 class="text-xl font-bold text-gray-700 mb-2">${p.name}</h4>
             <p class="text-xs italic text-gray-400 mb-6">"${p.story}"</p>
             <div class="w-full pt-4 border-t border-dashed border-[#B0E0E6]/30 flex justify-between items-center">
                 <span class="text-xl font-display text-[#5F9EA0]">¥${p.price.toLocaleString()}</span>
-                <div class="w-10 h-10 bg-[#B0E0E6] rounded-xl flex items-center justify-center text-white"><i data-lucide="plus" size="18"></i></div>
+                <div class="w-10 h-10 bg-[#B0E0E6] rounded-xl flex items-center justify-center text-white">
+                    <i data-lucide="plus" size="18"></i>
+                </div>
             </div>`;
         grid.appendChild(card);
     });
+    // アイコンを再描画
     if (window.lucide) lucide.createIcons();
 }
 
-// --- 5. モーダル ---
+// --- 5. モーダルの制御 ---
 function openModal(p) {
     document.getElementById('modal-info').innerText = `No.${p.no} | ${p.time}`;
     document.getElementById('modal-title').innerText = p.name;
@@ -75,13 +81,13 @@ function openModal(p) {
     document.getElementById('modal-story').innerText = `「${p.story}」`;
     document.getElementById('modal-description').innerText = p.desc;
     
-    // アレルギー表記の反映
     const allergyEl = document.getElementById('modal-allergy');
     if (allergyEl) allergyEl.innerText = `特定原材料等：${p.allergy}`;
 
-    document.getElementById('modal-icon').innerHTML = `<div class="icon-animate-modal"><i data-lucide="${p.icon}"></i></div>`;
+    document.getElementById('modal-icon').innerHTML = `<i data-lucide="${p.icon}" size="80" stroke-width="1"></i>`;
     document.getElementById('add-to-cart-btn').onclick = () => addToCart(p);
     document.getElementById('modal').classList.remove('hidden');
+    
     if (window.lucide) lucide.createIcons();
 }
 
@@ -90,7 +96,7 @@ function addToCart(p) {
     cartItems.push(p);
     updateCartUI();
     document.getElementById('modal').classList.add('hidden');
-    showToast(`${p.name}をカートに届けたよ！`);
+    showToast(`${p.name}をカートに入れたよ！`);
 }
 
 function removeFromCart(index) {
@@ -104,8 +110,15 @@ function updateCartUI() {
     
     const countD = document.getElementById('cart-count');
     const countM = document.getElementById('cart-count-mobile');
-    if(countD) { countD.innerText = cartItems.length; countD.classList.toggle('hidden', cartItems.length === 0); }
-    if(countM) { countM.innerText = cartItems.length; countM.classList.toggle('hidden', cartItems.length === 0); }
+    
+    if(countD) {
+        countD.innerText = cartItems.length;
+        cartItems.length > 0 ? countD.classList.remove('hidden') : countD.classList.add('hidden');
+    }
+    if(countM) {
+        countM.innerText = cartItems.length;
+        cartItems.length > 0 ? countM.classList.remove('hidden') : countM.classList.add('hidden');
+    }
     
     if (list) {
         if (cartItems.length === 0) {
@@ -117,7 +130,7 @@ function updateCartUI() {
                         <p class="text-sm font-bold text-gray-700">${item.name}</p>
                         <p class="text-xs text-[#5F9EA0]">¥${item.price.toLocaleString()}</p>
                     </div>
-                    <button onclick="removeFromCart(${i})" class="p-2 text-gray-300 hover:text-[#FF8DA1] transition-colors">
+                    <button onclick="removeFromCart(${i})" class="p-2 text-gray-300 hover:text-[#FF8DA1]">
                         <i data-lucide="trash-2" size="18"></i>
                     </button>
                 </div>`).join('');
@@ -127,31 +140,35 @@ function updateCartUI() {
     if (window.lucide) lucide.createIcons();
 }
 
-function checkout() {
-    if (cartItems.length === 0) return;
-    cartItems = [];
-    updateCartUI();
-    document.getElementById('cart-modal').classList.add('hidden');
-    showToast("注文を受け付けました！ブランが準備を始めます。");
-}
-
 function showToast(msg) {
     const toast = document.getElementById('order-success');
     if(!toast) return;
     toast.innerText = msg;
     toast.classList.remove('hidden');
-    setTimeout(() => toast.classList.add('hidden'), 4000);
+    setTimeout(() => toast.classList.add('hidden'), 3000);
 }
 
-// --- 7. 初期化 ---
-document.addEventListener('DOMContentLoaded', () => {
+// --- 7. 初期化処理 ---
+window.onload = () => {
+    // 1. 商品を表示
     renderProducts();
+    
+    // 2. メッセージを表示
     updateMessage();
+    
+    // 3. 全体のアイコンを初期化
+    if (window.lucide) lucide.createIcons();
+
+    // 4. イベントリスナーの設定
     document.getElementById('menu-open').onclick = () => document.getElementById('mobile-menu').classList.remove('translate-x-full');
     document.getElementById('menu-close').onclick = () => document.getElementById('mobile-menu').classList.add('translate-x-full');
-    document.querySelectorAll('.cart-trigger').forEach(b => b.onclick = () => document.getElementById('cart-modal').classList.remove('hidden'));
+    
+    document.querySelectorAll('.cart-trigger').forEach(btn => {
+        btn.onclick = () => document.getElementById('cart-modal').classList.remove('hidden');
+    });
+
     document.getElementById('cart-close').onclick = () => document.getElementById('cart-modal').classList.add('hidden');
     document.getElementById('cart-overlay').onclick = () => document.getElementById('cart-modal').classList.add('hidden');
     document.getElementById('modal-overlay').onclick = () => document.getElementById('modal').classList.add('hidden');
     document.getElementById('modal-close').onclick = () => document.getElementById('modal').classList.add('hidden');
-});
+};
