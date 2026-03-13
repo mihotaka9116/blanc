@@ -193,3 +193,48 @@ document.querySelectorAll('.faq-question').forEach(button => {
         icon.classList.toggle('rotate');
     };
 });
+
+// --- 6. カート機能（削除ボタン付き） ---
+function removeFromCart(index) {
+    cartItems.splice(index, 1);
+    updateCartUI();
+}
+
+function updateCartUI() {
+    const total = cartItems.reduce((sum, item) => sum + item.price, 0);
+    const countD = document.getElementById('cart-count');
+    const countM = document.getElementById('cart-count-mobile');
+    const list = document.getElementById('cart-items-list');
+    const priceEl = document.getElementById('total-price');
+
+    if (countD) { countD.classList.toggle('hidden', cartItems.length === 0); countD.innerText = cartItems.length; }
+    if (countM) { countM.classList.toggle('hidden', cartItems.length === 0); countM.innerText = cartItems.length; }
+    
+    if (list) {
+        list.innerHTML = cartItems.map((item, index) => `
+            <div class="flex justify-between items-center py-3 border-b border-dashed border-[#B0E0E6]/30 italic">
+                <div class="flex flex-col">
+                    <span class="text-gray-700 font-bold">${item.name}</span>
+                    <span class="text-xs text-gray-400">¥${item.price.toLocaleString()}</span>
+                </div>
+                <button onclick="removeFromCart(${index})" class="p-2 text-gray-300 hover:text-red-400 transition-colors">
+                    <i data-lucide="trash-2" size="18"></i>
+                </button>
+            </div>
+        `).join('');
+    }
+    if (priceEl) priceEl.innerText = `¥${total.toLocaleString()}`;
+    if (window.lucide) lucide.createIcons();
+}
+
+// 注文確定ボタンの動作変更
+function checkout() {
+    if (cartItems.length === 0) return;
+    // カートを空にする
+    cartItems = [];
+    updateCartUI();
+    document.getElementById('cart-modal').classList.add('hidden');
+    
+    // 注文完了メッセージを可愛く表示
+    showToast("ご注文ありがとうございます！ブランが準備を始めました。");
+}
