@@ -108,3 +108,22 @@ body {
     justify-content: center;
     background: rgba(255, 240, 243, 0.4);
 }
+
+/* Q&A用スタイル */
+.faq-question:hover {
+    background-color: #F4FBFB;
+}
+
+.faq-icon.rotate {
+    transform: rotate(180deg);
+}
+
+.faq-answer.show {
+    display: block;
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
