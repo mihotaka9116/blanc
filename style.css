@@ -58,77 +58,45 @@ body {
         display: none;
     }
 }
-
-/* スクロール誘導のコンテナ */
-.scroll-indicator {
+/* スクロールガイド全体（位置の固定） */
+.scroll-guide {
     position: absolute;
     bottom: 30px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     flex-direction: column;
-    items: center;
-    gap: 8px;
-    color: #5F9EA0; /* ブランドカラーの青緑 */
-    opacity: 0.8;
-    z-index: 10;
-}
-
-/* 矢印の動き */
-.scroll-arrow {
-    animation: scroll-bounce 2s infinite;
-}
-
-@keyframes scroll-bounce {
-    0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0);
-    }
-    40% {
-        transform: translateY(-10px);
-    }
-    60% {
-        transform: translateY(-5px);
-    }
-}
-
-/* 「Scroll」の文字も少しふわふわさせる場合 */
-.scroll-text {
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    font-weight: bold;
-}
-
-/* スクロールガイドを画面中央下に固定 */
-.scroll-guide {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%); /* これで確実に真ん中になります */
-    display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: 4px;
     z-index: 50;
 }
 
+/* 「Scroll」の文字 */
 .scroll-text {
     font-size: 10px;
     letter-spacing: 0.3em;
     color: #5F9EA0;
     font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* 矢印アイコンの動き */
+.scroll-arrow-icon {
+    color: #5F9EA0;
+    animation: scroll-bounce 2s infinite;
 }
 
 /* 縦に動く線のデザイン */
 .scroll-line {
     width: 2px;
-    height: 40px;
-    background: rgba(95, 158, 160, 0.2); /* 薄い青緑 */
+    height: 30px;
+    background: rgba(95, 158, 160, 0.2);
     position: relative;
     overflow: hidden;
+    margin-top: 4px;
 }
 
-/* 動く白い光の線 */
+/* 線の中を流れるピンクの光 */
 .scroll-line::after {
     content: "";
     position: absolute;
@@ -136,11 +104,19 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: #FF8DA1; /* ピンクの線が流れます */
-    animation: scroll-anim 2s infinite;
+    background: #FF8DA1;
+    animation: scroll-line-anim 2s infinite;
 }
 
-@keyframes scroll-anim {
+/* アニメーション：跳ねる動き */
+@keyframes scroll-bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-6px); }
+    60% { transform: translateY(-3px); }
+}
+
+/* アニメーション：線が流れる動き */
+@keyframes scroll-line-anim {
     0% { transform: translateY(-100%); }
     100% { transform: translateY(100%); }
 }
