@@ -163,11 +163,57 @@ function showToast(msg) {
     setTimeout(() => toast.classList.add('hidden'), 4000);
 }
 
-// --- 7. 初期化 ---
+// --- 7. 初期化 (ここから下をすべて入れ替えてください) ---
 document.addEventListener('DOMContentLoaded', () => {
+    // 1. 商品とメッセージの初期表示
     renderProducts();
     updateMessage();
 
+    // 2. スマホメニュー関連の要素取得
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuOpenBtn = document.getElementById('menu-open');
+    const menuCloseBtn = document.getElementById('menu-close');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    // 3. メニュー開閉の処理
+    if (menuOpenBtn && mobileMenu) {
+        menuOpenBtn.onclick = () => {
+            mobileMenu.classList.remove('translate-x-full');
+            document.body.style.overflow = 'hidden'; 
+        };
+    }
+
+    const closeMenu = () => {
+        if (mobileMenu) {
+            mobileMenu.classList.add('translate-x-full');
+            document.body.style.overflow = ''; 
+        }
+    };
+
+    if (menuCloseBtn) {
+        menuCloseBtn.onclick = closeMenu;
+    }
+
+    // 4. スマホリンクをクリックした時にメニューを閉じる
+    mobileLinks.forEach(link => {
+        link.onclick = (e) => {
+            closeMenu();
+            
+            const href = link.getAttribute('href');
+            if (href && href.startsWith('#') && href !== '#') {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    // アニメーションが終わる頃にスクロール
+                    setTimeout(() => {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }, 300);
+                }
+            }
+        };
+    });
+
+    // 5. あなぐまくんアイコンの制御
     const ana = document.getElementById('anaguma-icon');
     if (ana) {
         ana.onclick = () => {
@@ -177,11 +223,27 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
-    document.getElementById('menu-open').onclick = () => document.getElementById('mobile-menu').classList.remove('translate-x-full');
-    document.getElementById('menu-close').onclick = () => document.getElementById('mobile-menu').classList.add('translate-x-full');
-    document.querySelectorAll('.cart-trigger').forEach(b => b.onclick = () => document.getElementById('cart-modal').classList.remove('hidden'));
-    document.getElementById('cart-close').onclick = () => document.getElementById('cart-modal').classList.add('hidden');
-    document.getElementById('cart-overlay').onclick = () => document.getElementById('cart-modal').classList.add('hidden');
-    document.getElementById('modal-overlay').onclick = () => document.getElementById('modal').classList.add('hidden');
-    document.getElementById('modal-close').onclick = () => document.getElementById('modal').classList.add('hidden');
+    // 6. カート・モーダルの制御
+    document.querySelectorAll('.cart-trigger').forEach(b => {
+        b.onclick = () => {
+            const cartModal = document.getElementById('cart-modal');
+            if (cartModal) cartModal.classList.remove('hidden');
+        };
+    });
+    
+    // 閉じるボタン各種
+    const closeIds = [
+        { btn: 'cart-close', modal: 'cart-modal' },
+        { btn: 'cart-overlay', modal: 'cart-modal' },
+        { btn: 'modal-overlay', modal: 'modal' },
+        { btn: 'modal-close', modal: 'modal' }
+    ];
+
+    closeIds.forEach(item => {
+        const btnEl = document.getElementById(item.btn);
+        const modalEl = document.getElementById(item.modal);
+        if (btnEl && modalEl) {
+            btnEl.onclick = () => modalEl.classList.add('hidden');
+        }
+    });
 });
