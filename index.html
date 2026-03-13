@@ -43,14 +43,14 @@
     <div id="mobile-menu" class="fixed inset-0 z-[200] bg-[#FFFDF9] translate-x-full transition-transform duration-300 md:hidden flex flex-col p-6">
         <div class="flex justify-end"><button id="menu-close" class="p-2"><i data-lucide="x" size="32"></i></button></div>
         <div class="flex flex-col items-center gap-10 mt-16 font-bold text-2xl text-gray-600">
-            <a href="#" class="mobile-link" onclick="document.getElementById('menu-close').click()">Home</a>
-            <a href="#about" class="mobile-link" onclick="document.getElementById('menu-close').click()">Story</a>
-            <a href="#shop" class="mobile-link" onclick="document.getElementById('menu-close').click()">Shop</a>
-            <a href="#contact" class="mobile-link" onclick="document.getElementById('menu-close').click()">Contact</a>
+            <a href="#" class="mobile-link">Home</a>
+            <a href="#about" class="mobile-link">Story</a>
+            <a href="#shop" class="mobile-link">Shop</a>
+            <a href="#contact" class="mobile-link">Contact</a>
         </div>
     </div>
 
-    <header class="py-12 md:py-20 text-center px-4 overflow-hidden">
+    <header class="py-12 md:py-20 text-center px-4">
         <h2 class="text-5xl md:text-8xl font-display text-[#FF8DA1] mb-4">Blanc's Recipe</h2>
         <p class="text-lg md:text-2xl font-bold text-[#5F9EA0] tracking-[0.2em] mb-12">ブランのレシピ店</p>
         <div class="flex flex-col md:flex-row justify-center items-center gap-4 px-6">
@@ -63,35 +63,9 @@
         </div>
     </header>
 
-    <section id="about" class="py-24 px-6 max-w-6xl mx-auto">
-        <div class="flex flex-col md:flex-row items-center gap-16">
-            <div class="relative shrink-0">
-                <div class="w-56 h-56 md:w-80 md:h-80 bg-[#FFF0F3] rounded-full flex items-center justify-center border-4 border-dashed border-[#FFD1DC] shadow-inner relative overflow-hidden">
-                    <i data-lucide="rabbit" class="text-[#FF8DA1] transform scale-[4.0]"></i>
-                </div>
-            </div>
-            <div class="bg-white p-10 md:p-16 rounded-[3rem] shadow-xl border-2 border-[#FFD1DC]/30 relative flex-1">
-                <div class="absolute -top-6 left-10 bg-[#FFD1DC] text-white px-6 py-2 rounded-full font-bold text-sm">Our Story</div>
-                <div class="space-y-6 text-gray-600 leading-loose md:text-lg">
-                    <p>岩手の深い山あいに、霧の朝にだけひっそりと開く不思議なお店があります。<br>店主は、真っ白なうさぎの「ブラン」。</p>
-                    <p>彼が焼くお菓子には、ちょっとした魔法がかけられています。</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <div class="px-6 max-w-4xl mx-auto my-12">
         <div id="blanc-message-container" class="bg-white/60 backdrop-blur-sm p-6 md:p-8 rounded-[2.5rem] border-2 border-dashed border-[#FFD1DC] text-center shadow-sm">
             <p id="blanc-message" class="text-gray-600 italic md:text-xl font-medium leading-relaxed">読み込み中...</p>
-        </div>
-    </div>
-
-    <div id="anaguma-icon" style="position: fixed; bottom: -160px; right: 30px; opacity: 0; pointer-events: none;" class="transition-all duration-700 z-[1000]">
-        <div class="relative flex flex-col items-center group">
-            <div class="bg-white text-[#5F9EA0] text-[10px] px-3 py-1 rounded-full shadow-md mb-3 border border-[#B0E0E6] font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">クッキーある？</div>
-            <div class="w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-dashed border-[#B0E0E6] p-2 bg-white shadow-xl flex items-center justify-center overflow-hidden">
-                <img src="anaguma.png" alt="あなぐまくん" class="w-full h-full object-cover rounded-full">
-            </div>
         </div>
     </div>
 
@@ -102,62 +76,24 @@
         </div>
     </section>
 
-    <section id="faq" class="py-24 px-6 bg-[#F4FBFB]/50">
-        <div class="max-w-3xl mx-auto">
-            <h3 class="text-4xl font-display text-center text-[#5F9EA0] mb-16">Q & A</h3>
-            <div class="space-y-6" id="faq-list">
-                <div class="faq-item bg-white rounded-[2.5rem] border-2 border-[#B0E0E6]/30 overflow-hidden shadow-sm">
-                    <button class="faq-question w-full flex justify-between items-center p-6 md:p-8 text-left outline-none" onclick="this.parentElement.querySelector('.faq-answer').classList.toggle('hidden'); this.querySelector('.faq-icon').classList.toggle('rotate-180')">
-                        <span class="font-bold text-gray-700 md:text-lg flex items-center gap-3">
-                            <i data-lucide="info" class="text-[#5F9EA0]"></i> アレルギー成分について
-                        </span>
-                        <i data-lucide="chevron-down" class="faq-icon transition-transform duration-300"></i>
-                    </button>
-                    <div class="faq-answer hidden p-6 md:p-8 pt-0 text-gray-600 leading-relaxed border-t border-dashed border-[#B0E0E6]/30">
-                        各商品の詳細ページに、使用している特定原材料を記載しております。保存料や着色料は一切使用しておりません。
-                    </div>
-                </div>
-                </div>
-        </div>
-    </section>
-
-    <footer class="py-12 text-center text-gray-400 font-bold text-xs">&copy; 2026 Blanc's Recipe. Created by Miho Takahashi</footer>
-
     <div id="modal" class="fixed inset-0 z-[150] hidden flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" id="modal-overlay"></div>
         <div class="relative w-full max-w-4xl bg-[#FFFDF9] rounded-[3rem] overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[90vh] overflow-y-auto md:overflow-hidden">
-            <button id="modal-close" class="absolute top-6 right-6 z-20 p-2 bg-white rounded-full transition-transform hover:rotate-90"><i data-lucide="x"></i></button>
-            <div id="modal-icon" class="w-full md:w-1/2 bg-[#B0E0E6]/10 flex items-center justify-center p-12 text-[#5F9EA0]">
-                </div>
+            <button id="modal-close" class="absolute top-6 right-6 z-20 p-2 bg-white rounded-full"><i data-lucide="x"></i></button>
+            <div id="modal-icon" class="w-full md:w-1/2 bg-[#B0E0E6]/10 flex items-center justify-center p-12 text-[#5F9EA0]"></div>
             <div class="p-8 md:p-14 flex flex-col flex-1">
                 <div id="modal-info" class="text-[10px] font-bold text-[#5F9EA0] mb-2 tracking-widest uppercase"></div>
                 <h2 id="modal-title" class="text-3xl font-bold text-[#FF8DA1] mb-2"></h2>
                 <p id="modal-price" class="text-2xl font-display text-[#5F9EA0] mb-6"></p>
-                <p id="modal-story" class="italic text-gray-600 mb-4 leading-relaxed"></p>
-                <p id="modal-description" class="text-sm text-gray-500 mb-8 leading-loose"></p>
+                <p id="modal-story" class="italic text-gray-600 mb-4"></p>
+                <p id="modal-description" class="text-sm text-gray-500 mb-8"></p>
                 
-                <div id="modal-allergy" class="text-[10px] text-[#5F9EA0] bg-[#F4FBFB] px-4 py-2 rounded-full w-fit mb-8 font-bold border border-[#B0E0E6]/30"></div>
+                <div id="modal-allergy" class="text-[10px] text-gray-400 mb-8"></div>
                 
-                <button id="add-to-cart-btn" class="w-full py-4 bg-[#FF8DA1] text-white rounded-full font-bold shadow-md hover:bg-[#ff758f] transition-all">カートに入れる</button>
+                <button id="add-to-cart-btn" class="w-full py-4 bg-[#FF8DA1] text-white rounded-full font-bold shadow-md">カートに入れる</button>
             </div>
         </div>
-    </div>
-
-    <div id="cart-modal" class="fixed inset-0 z-[160] hidden flex items-center justify-center p-4">
-        <div class="absolute inset-0 bg-black/60" id="cart-overlay"></div>
-        <div class="relative w-full max-w-xl bg-white rounded-[3rem] p-8 shadow-2xl">
-            <button id="cart-close" class="absolute top-6 right-6"><i data-lucide="x"></i></button>
-            <h2 class="text-3xl font-display text-[#5F9EA0] mb-8 text-center">Your Cart</h2>
-            <div id="cart-items-list" class="max-h-60 overflow-y-auto mb-8 space-y-3 px-2"></div>
-            <div class="border-t-2 border-dashed border-[#B0E0E6] pt-6 flex justify-between items-center mb-8">
-                <span class="font-bold text-gray-400">合計</span>
-                <span class="text-3xl font-display text-[#FF8DA1]" id="total-price">¥0</span>
-            </div>
-            <button onclick="checkout()" class="w-full py-4 bg-[#5F9EA0] text-white rounded-full font-bold shadow-lg hover:bg-[#4a8a8c] transition-all">注文を確定する</button>
-        </div>
-    </div>
-
-    <div id="order-success" class="fixed bottom-10 left-1/2 -translate-x-1/2 z-[250] hidden bg-[#5F9EA0] text-white px-8 py-3 rounded-full shadow-2xl text-sm font-bold"></div>
+    </div
 
     <script src="script.js"></script>
 </body>
