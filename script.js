@@ -156,3 +156,33 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('modal-overlay').onclick = () => document.getElementById('modal').classList.add('hidden');
     document.getElementById('modal-close').onclick = () => document.getElementById('modal').classList.add('hidden');
 });
+
+// --- 1. 商品データ（allergyを追加） ---
+const products = [
+    { id: '1', no: '01', name: '夜空の星屑クッキー', price: 1200, icon: 'star', difficulty: '★★★', time: '45min', story: '夜空からこぼれ落ちた星の欠片。', desc: 'バターの香りが広がるサクサククッキー。', allergy: '小麦・卵・乳成分' },
+    { id: '2', no: '02', name: '木漏れ日のシフォン', price: 2800, icon: 'chef-hat', difficulty: '★★☆', time: '60min', story: '森の精霊たちのダンス。', desc: '驚くほどふわふわな食感です。', allergy: '卵・小麦・乳成分' },
+    { id: '3', no: '03', name: 'あなぐまの切り株ロール', price: 2500, icon: 'disc', difficulty: '★★★', time: '90min', story: 'あなぐまくんが選んだ特別な切り株。', desc: 'ビターなココアとクリームの相性抜群。', allergy: '小麦・卵・乳成分・大豆' },
+    { id: '4', no: '04', name: '秘密の鍵穴ドーナツ', price: 450, icon: 'key', difficulty: '★☆☆', time: '30min', story: '明日のお天気がわかる魔法。', desc: '素朴で優しい甘さのドーナツ。', allergy: '小麦・卵・乳成分' },
+    { id: '5', no: '05', name: '風の丘のクロワッサン', price: 380, icon: 'wind', difficulty: '★★★', time: '120min', story: 'そよ風が重ねた生地。', desc: '発酵バターの香りがたまらない。', allergy: '小麦・乳成分・卵' },
+    { id: '6', no: '06', name: 'ブランの特製マドレーヌ', price: 400, icon: 'rabbit', difficulty: '★☆☆', time: '40min', story: '店主一番のお気に入り。', desc: '花の蜜を閉じ込めたしっとり食感。', allergy: '卵・小麦・乳成分' }
+];
+
+// --- 5. モーダル（allergyの表示処理を追加） ---
+function openModal(p) {
+    document.getElementById('modal-info').innerText = `No.${p.no} | ${p.time}`;
+    document.getElementById('modal-title').innerText = p.name;
+    document.getElementById('modal-price').innerText = `¥${p.price.toLocaleString()}`;
+    document.getElementById('modal-story').innerText = `「${p.story}」`;
+    document.getElementById('modal-description').innerText = p.desc;
+    
+    // アレルギー情報を追加
+    const allergyEl = document.getElementById('modal-allergy');
+    if (allergyEl) {
+        allergyEl.innerText = `特定原材料等：${p.allergy}`;
+    }
+
+    document.getElementById('modal-icon').innerHTML = `<div class="icon-animate-modal"><i data-lucide="${p.icon}"></i></div>`;
+    document.getElementById('add-to-cart-btn').onclick = () => addToCart(p);
+    document.getElementById('modal').classList.remove('hidden');
+    if (window.lucide) lucide.createIcons();
+}
