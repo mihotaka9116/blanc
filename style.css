@@ -1,129 +1,53 @@
+/* 基本フォント */
 body {
     font-family: 'M PLUS Rounded 1c', sans-serif;
-    background: linear-gradient(135deg, #FFFDF9 0%, #F4FBFB 50%, #FFF0F3 100%);
-    background-attachment: fixed;
 }
-.font-display { font-family: 'Pacifico', cursive; }
+.font-display {
+    font-family: 'Pacifico', cursive;
+}
 
-/* 点線の丸コンテナ（商品カード用） */
+/* 一覧のアイコンを囲う丸（水色に変更） */
 .icon-animate-wrap {
-    width: 100px; height: 100px; border-radius: 9999px;
-    border: 2px dashed #FFD1DC;
-    background: rgba(255, 240, 243, 0.3);
-    display: flex; align-items: center; justify-content: center;
-    margin-bottom: 1.5rem; transition: transform 0.3s ease;
-}
-.group:hover .icon-animate-wrap { transform: scale(1.1) rotate(5deg); }
-
-.recipe-card {
-    background-color: rgba(255, 255, 255, 0.8);
-    background-image: radial-gradient(#FFD1DC 0.5px, transparent 0.5px);
-    background-size: 10px 10px;
-    backdrop-filter: blur(5px);
+    width: 130px !important;
+    height: 130px !important;
+    border-radius: 50%;
+    border: 3px dashed #B0E0E6 !important; /* 水色に変更 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(244, 251, 251, 0.8) !important; 
+    margin-bottom: 1.5rem;
+    transition: all 0.4s ease;
 }
 
-.recipe-tag {
-    position: absolute; top: 1.5rem; left: 1.5rem;
-    background: #FFD1DC; color: white; padding: 2px 12px;
-    border-radius: 99px; font-size: 0.65rem; font-weight: bold;
-}
-
-/* あなぐまくん出現アニメーション */
-#anaguma-icon.show {
-    bottom: 30px;
-    opacity: 1;
-    transform: rotate(-5deg);
-}
-
-#blanc-message { animation: messageFade 0.8s ease-out; }
-@keyframes messageFade {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.no-scrollbar::-webkit-scrollbar { display: none; }
-
-/* style.css の該当箇所を修正 */
-.icon-animate-wrap {
-    width: 120px; height: 120px; /* 100pxから120pxへ拡大 */
-    border-radius: 9999px;
-    border: 3px dashed #FFD1DC; /* 少し線を太く */
-    background: rgba(255, 240, 243, 0.4);
-    display: flex; align-items: center; justify-content: center;
-    margin-bottom: 1.5rem; 
-    margin-top: 1rem; /* 少し余白を追加 */
-    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-/* 詳細画面（モーダル）のアイコン用スタイル */
-.icon-animate-modal svg {
-    filter: drop-shadow(0 10px 15px rgba(255, 141, 161, 0.2));
-    transition: all 0.5s ease;
-}
-
-#modal-icon {
-    min-height: 300px; /* アイコン表示エリアの高さを確保 */
-}
-
-/* あなぐまくんがひょっこり出ている時のゆらゆら待機モーション */
-#anaguma-icon.show img {
-    animation: anaguma-sway 3s ease-in-out infinite;
-}
-
-@keyframes anaguma-sway {
-    0%, 100% { transform: rotate(0deg) translateY(0); }
-    50% { transform: rotate(5deg) translateY(-8px); }
-}
-
-/* クリックした時の「わーい！」というジャンプ */
-.anaguma-happy {
-    animation: anaguma-jump 0.5s ease-out 2;
-}
-
-@keyframes anaguma-jump {
-    0%, 100% { transform: translateY(0) scale(1) rotate(-5deg); }
-    50% { transform: translateY(-30px) scale(1.1) rotate(5deg); }
-}
-
-/* 一覧画面（カード内）のアイコンサイズを強制固定 */
 .icon-animate-wrap svg {
     width: 70px !important;
     height: 70px !important;
 }
 
-/* 詳細画面（モーダル）のアイコンサイズを強制固定 */
+/* ホバー時の動き */
+.group:hover .icon-animate-wrap {
+    border-color: #5F9EA0 !important;
+    transform: scale(1.05) rotate(5deg);
+    background: white !important;
+}
+
+/* 詳細モーダルの巨大アイコン */
 .icon-animate-modal svg {
     width: 180px !important;
     height: 180px !important;
 }
 
-/* 点線の丸自体のサイズも少し大きくして余裕を持たせる */
-.icon-animate-wrap {
-    width: 130px !important;
-    height: 130px !important;
-    border-radius: 50%;
-    border: 3px dashed #FFD1DC;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(255, 240, 243, 0.4);
-}
+/* FAQのアニメーション */
+.faq-icon.rotate { transform: rotate(180deg); }
+.faq-answer.show { display: block; animation: fadeIn 0.3s ease; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-/* Q&A用スタイル */
-.faq-question:hover {
-    background-color: #F4FBFB;
+/* あなぐまくんの喜びアクション */
+.anaguma-happy {
+    animation: jump 0.5s infinite alternate;
 }
-
-.faq-icon.rotate {
-    transform: rotate(180deg);
-}
-
-.faq-answer.show {
-    display: block;
-    animation: slideDown 0.3s ease-out;
-}
-
-@keyframes slideDown {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
+@keyframes jump {
+    from { transform: translateY(0); }
+    to { transform: translateY(-30px); }
 }
