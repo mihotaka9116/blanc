@@ -51,3 +51,10 @@ body {
     from { transform: translateY(0); }
     to { transform: translateY(-30px); }
 }
+
+/* スマホ（画面幅768px未満）の時はあなぐまくんを隠す */
+@media (max-width: 767px) {
+    #anaguma-icon {
+        display: none !important;
+    }
+}
