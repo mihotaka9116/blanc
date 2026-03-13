@@ -86,14 +86,20 @@
         </div>
     </div>
 
-    <div id="anaguma-icon" style="position: fixed; bottom: -160px; right: 30px; opacity: 0; pointer-events: none;" class="transition-all duration-700 z-[1000]">
-        <div class="relative flex flex-col items-center group">
-            <div class="bg-white text-[#5F9EA0] text-[10px] px-3 py-1 rounded-full shadow-md mb-3 border border-[#B0E0E6] font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">クッキーある？</div>
-            <div class="w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-dashed border-[#B0E0E6] p-2 bg-white shadow-xl flex items-center justify-center overflow-hidden">
-                <img src="anaguma.png" alt="あなぐまくん" class="w-full h-full object-cover rounded-full">
-            </div>
+   <div id="anaguma-icon" 
+     onclick="updateMessage(); this.style.transform='scale(1.1) translateY(-10px)'; setTimeout(()=>this.style.transform='scale(1) translateY(0)', 200);"
+     style="position: fixed; bottom: -160px; right: 30px; opacity: 0; pointer-events: none; cursor: pointer;" 
+     class="transition-all duration-700 z-[1000]">
+    
+    <div class="relative flex flex-col items-center group">
+        <div class="bg-white text-[#5F9EA0] text-[10px] px-3 py-1 rounded-full shadow-md mb-3 border border-[#B0E0E6] font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+            クッキーある？
+        </div>
+        <div class="w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-dashed border-[#B0E0E6] p-2 bg-white shadow-xl flex items-center justify-center overflow-hidden">
+            <img src="anaguma.png" alt="あなぐまくん" class="w-full h-full object-cover rounded-full">
         </div>
     </div>
+</div>
 
     <section id="shop" class="py-24 px-4 bg-white/40">
         <div class="max-w-7xl mx-auto">
