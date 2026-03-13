@@ -176,3 +176,20 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('modal-close').onclick = closeModal;
     document.getElementById('modal-overlay').onclick = closeModal;
 });
+
+// --- 7. 初期化 --- の中に追加
+document.querySelectorAll('.faq-question').forEach(button => {
+    button.onclick = () => {
+        const answer = button.nextElementSibling;
+        const icon = button.querySelector('.faq-icon');
+        
+        // 他のQ&Aを閉じる（1つずつ開かせたい場合）
+        // document.querySelectorAll('.faq-answer').forEach(el => {
+        //     if (el !== answer) el.classList.add('hidden');
+        // });
+
+        answer.classList.toggle('hidden');
+        answer.classList.toggle('show');
+        icon.classList.toggle('rotate');
+    };
+});
