@@ -22,23 +22,34 @@ const messages = [
     "あなぐまくんが持ってきた木の実、隠し味に使ってみようかな。"
 ];
 
-// --- 3. メッセージ更新 ---
+// --- 3. メッセージ更新（確実に動くように修正） ---
 function updateMessage() {
     const el = document.getElementById("blanc-message");
     const icon = document.getElementById("anaguma-icon");
-    if (!el || !icon) return;
+    if (!el) return;
 
+    // メッセージをランダムに選ぶ
     const msg = messages[Math.floor(Math.random() * messages.length)];
     el.innerText = msg;
 
-    if (msg.includes("あなぐまくん")) {
-        icon.style.opacity = "1";
-        icon.style.bottom = "30px";
-        icon.style.pointerEvents = "auto";
-    } else {
-        icon.style.opacity = "0";
-        icon.style.bottom = "-160px";
-        icon.style.pointerEvents = "none";
+    // あなぐまくんのアイコンがある場合のみ、表示・非表示を切り替える
+    if (icon) {
+        if (msg.includes("あなぐまくん")) {
+            // メッセージに「あなぐまくん」が入っている時は出す
+            icon.style.opacity = "1";
+            icon.style.bottom = "30px";
+            icon.style.pointerEvents = "auto";
+            icon.style.visibility = "visible"; // 念のため追加
+        } else {
+            // 入っていない時は隠す
+            icon.style.opacity = "0";
+            icon.style.bottom = "-160px";
+            icon.style.pointerEvents = "none";
+            // visibilityをhiddenにするとクリックできなくなるので安心です
+            setTimeout(() => {
+                if (icon.style.opacity === "0") icon.style.visibility = "hidden";
+            }, 300);
+        }
     }
 }
 
