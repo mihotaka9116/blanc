@@ -1,11 +1,11 @@
-// --- 1. 商品データ ---
+// --- 1. 商品データ（allergy追加） ---
 const products = [
-    { id: '1', no: '01', name: '夜空の星屑クッキー', price: 1200, icon: 'star', difficulty: '★★★', time: '45min', story: '夜空からこぼれ落ちた星의欠片。', desc: 'バターの香りが広がるサクサククッキー。' },
-    { id: '2', no: '02', name: '木漏れ日のシフォン', price: 2800, icon: 'chef-hat', difficulty: '★★☆', time: '60min', story: '森の精霊たちのダンス。', desc: '驚くほどふわふわな食感です。' },
-    { id: '3', no: '03', name: 'あなぐまの切り株ロール', price: 2500, icon: 'disc', difficulty: '★★★', time: '90min', story: 'あなぐまくんが選んだ特別な切り株。', desc: 'ビターなココアとクリームの相性抜群。' },
-    { id: '4', no: '04', name: '秘密の鍵穴ドーナツ', price: 450, icon: 'key', difficulty: '★☆☆', time: '30min', story: '明日のお天気がわかる魔法。', desc: '素朴で優しい甘さのドーナツ。' },
-    { id: '5', no: '05', name: '風の丘のクロワッサン', price: 380, icon: 'wind', difficulty: '★★★', time: '120min', story: 'そよ風が重ねた生地。', desc: '発酵バターの香りがたまらない。' },
-    { id: '6', no: '06', name: 'ブランの特製マドレーヌ', price: 400, icon: 'rabbit', difficulty: '★☆☆', time: '40min', story: '店主一番のお気に入り。', desc: '花の蜜を閉じ込めたしっとり食感。' }
+    { id: '1', no: '01', name: '夜空の星屑クッキー', price: 1200, icon: 'star', difficulty: '★★★', time: '45min', story: '夜空からこぼれ落ちた星の欠片。', desc: 'バターの香りが広がるサクサククッキー。', allergy: '小麦・卵・乳成分' },
+    { id: '2', no: '02', name: '木漏れ日のシフォン', price: 2800, icon: 'chef-hat', difficulty: '★★☆', time: '60min', story: '森の精霊たちのダンス。', desc: '驚くほどふわふわな食感です。', allergy: '卵・小麦・乳成分' },
+    { id: '3', no: '03', name: 'あなぐまの切り株ロール', price: 2500, icon: 'disc', difficulty: '★★★', time: '90min', story: 'あなぐまくんが選んだ特別な切り株。', desc: 'ビターなココアとクリームの相性抜群。', allergy: '小麦・卵・乳成分・大豆' },
+    { id: '4', no: '04', name: '秘密の鍵穴ドーナツ', price: 450, icon: 'key', difficulty: '★☆☆', time: '30min', story: '明日のお天気がわかる魔法。', desc: '素朴で優しい甘さのドーナツ。', allergy: '小麦・卵・乳成分' },
+    { id: '5', no: '05', name: '風の丘のクロワッサン', price: 380, icon: 'wind', difficulty: '★★★', time: '120min', story: 'そよ風が重ねた生地。', desc: '発酵バターの香りがたまらない。', allergy: '小麦・乳成分・卵' },
+    { id: '6', no: '06', name: 'ブランの特製マドレーヌ', price: 400, icon: 'rabbit', difficulty: '★☆☆', time: '40min', story: '店主一番のお気に入り。', desc: '花の蜜を閉じ込めたしっとり食感。', allergy: '卵・小麦・乳成分' }
 ];
 
 let cartItems = [];
@@ -74,6 +74,11 @@ function openModal(p) {
     document.getElementById('modal-price').innerText = `¥${p.price.toLocaleString()}`;
     document.getElementById('modal-story').innerText = `「${p.story}」`;
     document.getElementById('modal-description').innerText = p.desc;
+    
+    // アレルギー表記の反映
+    const allergyEl = document.getElementById('modal-allergy');
+    if (allergyEl) allergyEl.innerText = `特定原材料等：${p.allergy}`;
+
     document.getElementById('modal-icon').innerHTML = `<div class="icon-animate-modal"><i data-lucide="${p.icon}"></i></div>`;
     document.getElementById('add-to-cart-btn').onclick = () => addToCart(p);
     document.getElementById('modal').classList.remove('hidden');
@@ -128,11 +133,6 @@ function checkout() {
     updateCartUI();
     document.getElementById('cart-modal').classList.add('hidden');
     showToast("注文を受け付けました！ブランが準備を始めます。");
-    const ana = document.getElementById('anaguma-icon');
-    if(ana) { 
-        ana.classList.add('anaguma-happy'); 
-        setTimeout(() => ana.classList.remove('anaguma-happy'), 3000); 
-    }
 }
 
 function showToast(msg) {
@@ -146,8 +146,7 @@ function showToast(msg) {
 // --- 7. 初期化 ---
 document.addEventListener('DOMContentLoaded', () => {
     renderProducts();
-    updateMessage(); // 読み込み時に一度だけ実行
-
+    updateMessage();
     document.getElementById('menu-open').onclick = () => document.getElementById('mobile-menu').classList.remove('translate-x-full');
     document.getElementById('menu-close').onclick = () => document.getElementById('mobile-menu').classList.add('translate-x-full');
     document.querySelectorAll('.cart-trigger').forEach(b => b.onclick = () => document.getElementById('cart-modal').classList.remove('hidden'));
