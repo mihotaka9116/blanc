@@ -1,28 +1,25 @@
 // --- 1. 商品データ ---
 const products = [
-    { id: '1', no: '01', name: '夜空の星屑クッキー', price: 1200, icon: 'star', difficulty: '★★★', time: '45min', story: '夜空からこぼれ落ちた星の欠片を拾い集めて焼いた、少ししょっぱいバタークッキー。', desc: '北海道産バターを贅沢に使用し、生地を何度も寝かせてサクサクの食感を実現しました。' },
-    { id: '2', no: '02', name: '木漏れ日のシフォン', price: 2800, icon: 'chef-hat', difficulty: '★★☆', time: '60min', story: '森の精霊たちがダンスをする午後のひととき。', desc: '驚くほどふわふわで、弾力があります。' },
-    { id: '3', no: '03', name: 'あなぐまの切り株ロール', price: 2500, icon: 'disc', difficulty: '★★★', time: '90min', story: '森のあなぐまさんが見つけた特別な切り株をイメージ。', desc: 'ビターなココアを練り込んだしっとりとしたスポンジ。' },
-    { id: '4', no: '04', name: '秘密の鍵穴ドーナツ', price: 450, icon: 'key', difficulty: '★☆☆', time: '30min', story: 'この穴から世界をのぞくと、明日のお天気がわかる魔法。', desc: 'じっくりと時間をかけて揚げた、昔ながらの素朴なドーナツ。' },
-    { id: '5', no: '05', name: '風の丘のクロワッサン', price: 380, icon: 'wind', difficulty: '★★★', time: '120min', story: '丘の上で吹くそよ風が、生地を何層にも重ねてくれた。', desc: '発酵バターを幾層にも折り込み、丁寧に焼き上げました。' },
-    { id: '6', no: '06', name: 'ブランの特製マドレーヌ', price: 400, icon: 'rabbit', difficulty: '★☆☆', time: '40min', story: '店主のブランが一番得意な、貝殻の形の焼き菓子。', desc: 'しっとりと焼き上げた生地に、花の蜜をたっぷり閉じ込めました。' }
+    { id: '1', no: '01', name: '夜空の星屑クッキー', price: 1200, icon: 'star', difficulty: '★★★', time: '45min', story: '夜空からこぼれ落ちた星의欠片。', desc: 'バターの香りが広がるサクサククッキー。' },
+    { id: '2', no: '02', name: '木漏れ日のシフォン', price: 2800, icon: 'chef-hat', difficulty: '★★☆', time: '60min', story: '森の精霊たちのダンス。', desc: '驚くほどふわふわな食感です。' },
+    { id: '3', no: '03', name: 'あなぐまの切り株ロール', price: 2500, icon: 'disc', difficulty: '★★★', time: '90min', story: 'あなぐまくんが選んだ特別な切り株。', desc: 'ビターなココアとクリームの相性抜群。' },
+    { id: '4', no: '04', name: '秘密の鍵穴ドーナツ', price: 450, icon: 'key', difficulty: '★☆☆', time: '30min', story: '明日のお天気がわかる魔法。', desc: '素朴で優しい甘さのドーナツ。' },
+    { id: '5', no: '05', name: '風の丘のクロワッサン', price: 380, icon: 'wind', difficulty: '★★★', time: '120min', story: 'そよ風が重ねた生地。', desc: '発酵バターの香りがたまらない。' },
+    { id: '6', no: '06', name: 'ブランの特製マドレーヌ', price: 400, icon: 'rabbit', difficulty: '★☆☆', time: '40min', story: '店主一番のお気に入り。', desc: '花の蜜を閉じ込めたしっとり食感。' }
 ];
 
 let cartItems = [];
 
-// --- 2. メッセージ配列 ---
+// --- 2. メッセージ ---
 const messages = [
     "霧の朝だね。今日はハチミツを多めに練り込んだよ。",
-    "風が強い日は、クロワッサンの層が綺麗に焼けるんだ。",
     "星が綺麗な夜には、少ししょっぱいクッキーが合うよ。",
-    "見つけてくれてありがとう。ゆっくりしていってね。",
     "あなぐまくんが遊びに来たよ。一緒にロールケーキを食べよう。",
-    "おはよう。今朝の霧はミルクの香りがするね。シフォンがふわふわに焼けたよ。",
-    "窓の外は真っ白。こんな日は、温かい紅茶とマドレーヌで心に灯をともそう。",
-    "お疲れさま。今日の最後の一仕事は、自分をたっぷり甘やかすことだよ。",
-    "あなぐまくんが遊びに来たよ。彼が見つけてくれた特別な切り株で、今日はロールケーキを巻いたんだ。",
-    "あなぐまくんが持ってきた木の実、少しだけクッキーに混ぜてみたよ。森の香りがするはずさ。",
-    "あなぐまくんとお茶をしていたら、ついつつ話し込んじゃった。お菓子が焦げなくてよかったよ。"
+    "お疲れさま。自分をたっぷり甘やかすことも大切だよ。",
+    "窓の外を見て。霧の向こうに、新しいレシピが隠れているかも。",
+    "焼きたてのマドレーヌがあるよ。あなぐまくんが狙ってるみたい。",
+    "今日はしっとりした風が吹いているね。シフォンケーキがよく膨らむよ。",
+    "あなぐまくんが持ってきた木の実、隠し味に使ってみようかな。"
 ];
 
 // --- 3. メッセージ更新 ---
@@ -35,166 +32,62 @@ function updateMessage() {
     el.innerText = msg;
 
     if (msg.includes("あなぐまくん")) {
-        icon.classList.add("show");
         icon.style.opacity = "1";
-        icon.style.pointerEvents = "auto";
         icon.style.bottom = "30px";
+        icon.style.pointerEvents = "auto";
     } else {
-        icon.classList.remove("show");
         icon.style.opacity = "0";
-        icon.style.pointerEvents = "none";
         icon.style.bottom = "-160px";
+        icon.style.pointerEvents = "none";
     }
 }
 
-// --- 4. 商品一覧の描画（アイコンサイズ修正版） ---
+// --- 4. 商品描画 ---
 function renderProducts() {
     const grid = document.getElementById('product-grid');
     if (!grid) return;
     grid.innerHTML = '';
-
     products.forEach(p => {
         const card = document.createElement('div');
-        card.className = "group recipe-card rounded-[2.5rem] p-8 shadow-lg text-center cursor-pointer transition-all duration-300 hover:shadow-2xl flex flex-col items-center relative overflow-hidden bg-white";
+        card.className = "group bg-white rounded-[2.5rem] p-8 shadow-lg text-center cursor-pointer transition-all flex flex-col items-center relative overflow-hidden";
         card.onclick = () => openModal(p);
-        
         card.innerHTML = `
-            <div class="recipe-tag uppercase tracking-tighter">RECIPE ${p.no}</div>
-            <div class="icon-animate-wrap flex items-center justify-center">
-                <div class="text-[#FF8DA1]">
-                    <i data-lucide="${p.icon}" stroke-width="1.2" style="width: 70px; height: 70px;"></i>
-                </div>
+            <div class="text-[10px] font-bold text-[#FFD1DC] mb-4 tracking-widest uppercase italic">Recipe ${p.no}</div>
+            <div class="icon-animate-wrap">
+                <i data-lucide="${p.icon}" stroke-width="1.2" class="text-[#FF8DA1]"></i>
             </div>
-            <div class="flex-grow w-full text-gray-600 flex flex-col">
-                <div class="text-[10px] font-bold text-[#5F9EA0] mb-3 uppercase tracking-widest">${p.difficulty} | ${p.time}</div>
-                <h4 class="text-xl md:text-2xl font-bold mb-3 group-hover:text-[#FF8DA1] transition-colors">${p.name}</h4>
-                <p class="text-xs italic mb-8 line-clamp-2">"${p.story}"</p>
-                <div class="flex justify-between items-center mt-auto pt-5 border-t border-dashed border-[#FFD1DC]">
-                    <span class="text-2xl font-display text-[#5F9EA0]">¥${p.price.toLocaleString()}</span>
-                    <div class="w-10 h-10 bg-[#FFD1DC] rounded-xl flex items-center justify-center text-white group-hover:bg-[#FF8DA1] transition-colors shadow-md">
-                        <i data-lucide="plus" size="20"></i>
-                    </div>
-                </div>
+            <h4 class="text-xl font-bold text-gray-700 mb-2">${p.name}</h4>
+            <p class="text-xs italic text-gray-400 mb-6">"${p.story}"</p>
+            <div class="w-full pt-4 border-t border-dashed border-[#B0E0E6]/30 flex justify-between items-center">
+                <span class="text-xl font-display text-[#5F9EA0]">¥${p.price.toLocaleString()}</span>
+                <div class="w-10 h-10 bg-[#B0E0E6] rounded-xl flex items-center justify-center text-white"><i data-lucide="plus" size="18"></i></div>
             </div>`;
         grid.appendChild(card);
     });
     if (window.lucide) lucide.createIcons();
 }
 
-// --- 5. モーダル表示（詳細アイコンサイズ大幅拡大） ---
+// --- 5. モーダル ---
 function openModal(p) {
-    document.getElementById('modal-info').innerText = `Recipe No.${p.no} | ${p.difficulty} | ${p.time}`;
+    document.getElementById('modal-info').innerText = `No.${p.no} | ${p.time}`;
     document.getElementById('modal-title').innerText = p.name;
     document.getElementById('modal-price').innerText = `¥${p.price.toLocaleString()}`;
     document.getElementById('modal-story').innerText = `「${p.story}」`;
     document.getElementById('modal-description').innerText = p.desc;
-    
-    // 詳細画面のアイコンをさらに巨大化 (180px)
-    document.getElementById('modal-icon').innerHTML = `
-        <div class="icon-animate-modal flex items-center justify-center w-full">
-            <i data-lucide="${p.icon}" stroke-width="1" style="width: 180px; height: 180px;"></i>
-        </div>`;
-    
-    document.getElementById('add-to-cart-btn').onclick = (e) => {
-        e.stopPropagation();
-        addToCart(p);
-    };
-    
+    document.getElementById('modal-icon').innerHTML = `<div class="icon-animate-modal"><i data-lucide="${p.icon}"></i></div>`;
+    document.getElementById('add-to-cart-btn').onclick = () => addToCart(p);
     document.getElementById('modal').classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
     if (window.lucide) lucide.createIcons();
 }
 
-function closeModal() {
-    document.getElementById('modal').classList.add('hidden');
-    document.body.style.overflow = 'auto';
-}
-
-// --- 6. カート・通知機能（そのまま） ---
+// --- 6. カート機能 ---
 function addToCart(p) {
     cartItems.push(p);
     updateCartUI();
-    closeModal();
+    document.getElementById('modal').classList.add('hidden');
     showToast(`${p.name}をカートに届けたよ！`);
 }
 
-function updateCartUI() {
-    const total = cartItems.reduce((sum, item) => sum + item.price, 0);
-    const countD = document.getElementById('cart-count');
-    const countM = document.getElementById('cart-count-mobile');
-    const list = document.getElementById('cart-items-list');
-    const priceEl = document.getElementById('total-price');
-
-    if (countD) { countD.classList.toggle('hidden', cartItems.length === 0); countD.innerText = cartItems.length; }
-    if (countM) { countM.classList.toggle('hidden', cartItems.length === 0); countM.innerText = cartItems.length; }
-    
-    if (list) {
-        list.innerHTML = cartItems.map(item => `
-            <div class="flex justify-between py-2 border-b border-gray-100 italic">
-                <span>${item.name}</span>
-                <span>¥${item.price.toLocaleString()}</span>
-            </div>
-        `).join('');
-    }
-    if (priceEl) priceEl.innerText = `¥${total.toLocaleString()}`;
-}
-
-function showToast(msg) {
-    const toast = document.getElementById('order-success');
-    if (!toast) return;
-    toast.innerText = msg;
-    toast.classList.remove('hidden');
-    setTimeout(() => toast.classList.add('hidden'), 3000);
-}
-
-// --- 7. 初期化 ---
-document.addEventListener('DOMContentLoaded', () => {
-    renderProducts();
-    updateMessage();
-
-    const anaguma = document.getElementById('anaguma-icon');
-    if (anaguma) {
-        anaguma.style.cursor = "pointer";
-        anaguma.onclick = () => {
-            anaguma.classList.add('anaguma-happy');
-            showToast("あなぐまくん：わーい！クッキー大好き！");
-            setTimeout(() => { anaguma.classList.remove('anaguma-happy'); }, 1000);
-        };
-    }
-
-    document.getElementById('menu-open').onclick = () => document.getElementById('mobile-menu').classList.remove('translate-x-full');
-    document.getElementById('menu-close').onclick = () => document.getElementById('mobile-menu').classList.add('translate-x-full');
-
-    document.querySelectorAll('.cart-trigger').forEach(btn => {
-        btn.onclick = () => {
-            if (cartItems.length > 0) document.getElementById('cart-modal').classList.remove('hidden');
-            else showToast("カートはまだ空っぽだよ。");
-        };
-    });
-
-    document.getElementById('cart-close').onclick = () => document.getElementById('cart-modal').classList.add('hidden');
-    document.getElementById('modal-close').onclick = closeModal;
-    document.getElementById('modal-overlay').onclick = closeModal;
-});
-
-// --- 7. 初期化 --- の中に追加
-document.querySelectorAll('.faq-question').forEach(button => {
-    button.onclick = () => {
-        const answer = button.nextElementSibling;
-        const icon = button.querySelector('.faq-icon');
-        
-        // 他のQ&Aを閉じる（1つずつ開かせたい場合）
-        // document.querySelectorAll('.faq-answer').forEach(el => {
-        //     if (el !== answer) el.classList.add('hidden');
-        // });
-
-        answer.classList.toggle('hidden');
-        answer.classList.toggle('show');
-        icon.classList.toggle('rotate');
-    };
-});
-
-// --- 6. カート機能（削除ボタン付き） ---
 function removeFromCart(index) {
     cartItems.splice(index, 1);
     updateCartUI();
@@ -202,39 +95,64 @@ function removeFromCart(index) {
 
 function updateCartUI() {
     const total = cartItems.reduce((sum, item) => sum + item.price, 0);
+    const list = document.getElementById('cart-items-list');
+    
     const countD = document.getElementById('cart-count');
     const countM = document.getElementById('cart-count-mobile');
-    const list = document.getElementById('cart-items-list');
-    const priceEl = document.getElementById('total-price');
-
-    if (countD) { countD.classList.toggle('hidden', cartItems.length === 0); countD.innerText = cartItems.length; }
-    if (countM) { countM.classList.toggle('hidden', cartItems.length === 0); countM.innerText = cartItems.length; }
+    if(countD) { countD.innerText = cartItems.length; countD.classList.toggle('hidden', cartItems.length === 0); }
+    if(countM) { countM.innerText = cartItems.length; countM.classList.toggle('hidden', cartItems.length === 0); }
     
     if (list) {
-        list.innerHTML = cartItems.map((item, index) => `
-            <div class="flex justify-between items-center py-3 border-b border-dashed border-[#B0E0E6]/30 italic">
-                <div class="flex flex-col">
-                    <span class="text-gray-700 font-bold">${item.name}</span>
-                    <span class="text-xs text-gray-400">¥${item.price.toLocaleString()}</span>
-                </div>
-                <button onclick="removeFromCart(${index})" class="p-2 text-gray-300 hover:text-red-400 transition-colors">
-                    <i data-lucide="trash-2" size="18"></i>
-                </button>
-            </div>
-        `).join('');
+        if (cartItems.length === 0) {
+            list.innerHTML = '<p class="text-center py-4 text-gray-400 italic">カートは空っぽだよ。</p>';
+        } else {
+            list.innerHTML = cartItems.map((item, i) => `
+                <div class="flex justify-between items-center py-3 border-b border-dashed border-[#B0E0E6]/30">
+                    <div>
+                        <p class="text-sm font-bold text-gray-700">${item.name}</p>
+                        <p class="text-xs text-[#5F9EA0]">¥${item.price.toLocaleString()}</p>
+                    </div>
+                    <button onclick="removeFromCart(${i})" class="p-2 text-gray-300 hover:text-[#FF8DA1] transition-colors">
+                        <i data-lucide="trash-2" size="18"></i>
+                    </button>
+                </div>`).join('');
+        }
     }
-    if (priceEl) priceEl.innerText = `¥${total.toLocaleString()}`;
+    document.getElementById('total-price').innerText = `¥${total.toLocaleString()}`;
     if (window.lucide) lucide.createIcons();
 }
 
-// 注文確定ボタンの動作変更
 function checkout() {
     if (cartItems.length === 0) return;
-    // カートを空にする
     cartItems = [];
     updateCartUI();
     document.getElementById('cart-modal').classList.add('hidden');
-    
-    // 注文完了メッセージを可愛く表示
-    showToast("ご注文ありがとうございます！ブランが準備を始めました。");
+    showToast("注文を受け付けました！ブランが準備を始めます。");
+    const ana = document.getElementById('anaguma-icon');
+    if(ana) { 
+        ana.classList.add('anaguma-happy'); 
+        setTimeout(() => ana.classList.remove('anaguma-happy'), 3000); 
+    }
 }
+
+function showToast(msg) {
+    const toast = document.getElementById('order-success');
+    if(!toast) return;
+    toast.innerText = msg;
+    toast.classList.remove('hidden');
+    setTimeout(() => toast.classList.add('hidden'), 4000);
+}
+
+// --- 7. 初期化 ---
+document.addEventListener('DOMContentLoaded', () => {
+    renderProducts();
+    updateMessage(); // 読み込み時に一度だけ実行
+
+    document.getElementById('menu-open').onclick = () => document.getElementById('mobile-menu').classList.remove('translate-x-full');
+    document.getElementById('menu-close').onclick = () => document.getElementById('mobile-menu').classList.add('translate-x-full');
+    document.querySelectorAll('.cart-trigger').forEach(b => b.onclick = () => document.getElementById('cart-modal').classList.remove('hidden'));
+    document.getElementById('cart-close').onclick = () => document.getElementById('cart-modal').classList.add('hidden');
+    document.getElementById('cart-overlay').onclick = () => document.getElementById('cart-modal').classList.add('hidden');
+    document.getElementById('modal-overlay').onclick = () => document.getElementById('modal').classList.add('hidden');
+    document.getElementById('modal-close').onclick = () => document.getElementById('modal').classList.add('hidden');
+});
