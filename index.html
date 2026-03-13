@@ -185,6 +185,40 @@
     </div>
 </section>
 
+    <section id="contact" class="py-24 px-6">
+    <div class="max-w-3xl mx-auto bg-white rounded-[3rem] p-10 md:p-16 shadow-xl border-2 border-[#B0E0E6]/20 relative overflow-hidden">
+        <div class="absolute -top-10 -right-10 w-32 h-32 bg-[#F4FBFB] rounded-full"></div>
+        
+        <div class="relative z-10 text-center mb-12">
+            <h3 class="text-4xl font-display text-[#5F9EA0] mb-4">Contact</h3>
+            <p class="text-gray-500 text-sm">ブランへの手紙（お問い合わせ）</p>
+        </div>
+
+        <form onsubmit="event.preventDefault(); showToast('お手紙（メッセージ）を預かりました！'); this.reset();" class="space-y-6 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-xs font-bold text-[#5F9EA0] mb-2 ml-4 uppercase tracking-widest">Name</label>
+                    <input type="text" required placeholder="お名前" class="w-full px-6 py-4 rounded-full bg-[#F4FBFB] border-none focus:ring-2 focus:ring-[#B0E0E6] outline-none text-gray-600">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-[#5F9EA0] mb-2 ml-4 uppercase tracking-widest">Email</label>
+                    <input type="email" required placeholder="メールアドレス" class="w-full px-6 py-4 rounded-full bg-[#F4FBFB] border-none focus:ring-2 focus:ring-[#B0E0E6] outline-none text-gray-600">
+                </div>
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-[#5F9EA0] mb-2 ml-4 uppercase tracking-widest">Message</label>
+                <textarea required rows="5" placeholder="ブランにお話ししたいことを教えてください..." class="w-full px-8 py-6 rounded-[2rem] bg-[#F4FBFB] border-none focus:ring-2 focus:ring-[#B0E0E6] outline-none text-gray-600"></textarea>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="bg-[#5F9EA0] text-white px-12 py-4 rounded-full font-bold hover:bg-[#4a8a8c] shadow-lg transition-all flex items-center justify-center gap-2 mx-auto group">
+                    <span>お手紙を送る</span>
+                    <i data-lucide="send" size="18" class="group-hover:translate-x-1 transition-transform"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
     <footer class="py-12 text-center text-gray-400 font-bold text-xs">&copy; 2026 Blanc's Recipe. Created by Miho Takahashi</footer>
 
     <div id="modal" class="fixed inset-0 z-[150] hidden flex items-center justify-center p-4">
