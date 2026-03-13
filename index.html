@@ -102,24 +102,68 @@
         </div>
     </section>
 
-    <section id="faq" class="py-24 px-6 bg-[#F4FBFB]/50">
-        <div class="max-w-3xl mx-auto">
-            <h3 class="text-4xl font-display text-center text-[#5F9EA0] mb-16">Q & A</h3>
-            <div class="space-y-4" id="faq-list">
-                <div class="faq-item bg-white rounded-[2rem] border-2 border-[#B0E0E6]/30 overflow-hidden shadow-sm">
-                    <button class="faq-question w-full flex justify-between items-center p-6 md:p-8 text-left outline-none">
-                        <span class="font-bold text-gray-700 md:text-lg flex items-center gap-3">
-                            <i data-lucide="credit-card" class="text-[#5F9EA0]"></i> 支払い方法
-                        </span>
-                        <i data-lucide="chevron-down" class="faq-icon transition-transform duration-300"></i>
-                    </button>
-                    <div class="faq-answer hidden p-6 md:p-8 pt-0 text-gray-600 leading-relaxed border-t border-dashed border-[#B0E0E6]/30">
-                        クレジットカード、各種QR決済に対応しています。
-                    </div>
+   <section id="faq" class="py-24 px-6 bg-[#F4FBFB]/50">
+    <div class="max-w-3xl mx-auto">
+        <h3 class="text-4xl font-display text-center text-[#5F9EA0] mb-16">Q & A</h3>
+        
+        <div class="space-y-6" id="faq-list">
+            
+            <div class="faq-item bg-white rounded-[2.5rem] border-2 border-[#B0E0E6]/30 overflow-hidden shadow-sm">
+                <button class="faq-question w-full flex justify-between items-center p-6 md:p-8 text-left outline-none" onclick="this.parentElement.querySelector('.faq-answer').classList.toggle('hidden'); this.querySelector('.faq-icon').classList.toggle('rotate-180')">
+                    <span class="font-bold text-gray-700 md:text-lg flex items-center gap-3">
+                        <i data-lucide="credit-card" class="text-[#5F9EA0]"></i> 支払い方法を教えてください
+                    </span>
+                    <i data-lucide="chevron-down" class="faq-icon transition-transform duration-300"></i>
+                </button>
+                <div class="faq-answer hidden p-6 md:p-8 pt-0 text-gray-600 leading-relaxed border-t border-dashed border-[#B0E0E6]/30">
+                    クレジットカード、各種QR決済、キャリア決済に対応しています。森のどんぐりでの支払いは現在準備中です。
                 </div>
+            </div>
+
+            <div class="faq-item bg-white rounded-[2.5rem] border-2 border-[#B0E0E6]/30 overflow-hidden shadow-sm">
+                <button class="faq-question w-full flex justify-between items-center p-6 md:p-8 text-left outline-none" onclick="this.parentElement.querySelector('.faq-answer').classList.toggle('hidden'); this.querySelector('.faq-icon').classList.toggle('rotate-180')">
+                    <span class="font-bold text-gray-700 md:text-lg flex items-center gap-3">
+                        <i data-lucide="calendar" class="text-[#5F9EA0]"></i> 賞味期限はいつまでですか？
+                    </span>
+                    <i data-lucide="chevron-down" class="faq-icon transition-transform duration-300"></i>
+                </button>
+                <div class="faq-answer hidden p-6 md:p-8 pt-0 text-gray-600 leading-relaxed border-t border-dashed border-[#B0E0E6]/30">
+                    <p class="mb-2">お届けするお菓子の種類によって異なります：</p>
+                    <ul class="list-disc list-inside space-y-1 ml-2">
+                        <li><strong>焼き菓子：</strong> 発送日から約14日間</li>
+                        <li><strong>生菓子：</strong> 到着当日〜翌日まで</li>
+                        <li><strong>シフォン：</strong> 発送日から約3日間</li>
+                    </ul>
                 </div>
+            </div>
+
+            <div class="faq-item bg-white rounded-[2.5rem] border-2 border-[#B0E0E6]/30 overflow-hidden shadow-sm">
+                <button class="faq-question w-full flex justify-between items-center p-6 md:p-8 text-left outline-none" onclick="this.parentElement.querySelector('.faq-answer').classList.toggle('hidden'); this.querySelector('.faq-icon').classList.toggle('rotate-180')">
+                    <span class="font-bold text-gray-700 md:text-lg flex items-center gap-3">
+                        <i data-lucide="gift" class="text-[#5F9EA0]"></i> ギフトラッピングは可能ですか？
+                    </span>
+                    <i data-lucide="chevron-down" class="faq-icon transition-transform duration-300"></i>
+                </button>
+                <div class="faq-answer hidden p-6 md:p-8 pt-0 text-gray-600 leading-relaxed border-t border-dashed border-[#B0E0E6]/30">
+                    はい、森の草花をイメージしたオリジナルラッピングを承っております。備考欄に「ギフト希望」とご記入ください。
+                </div>
+            </div>
+
+            <div class="faq-item bg-white rounded-[2.5rem] border-2 border-[#B0E0E6]/30 overflow-hidden shadow-sm">
+                <button class="faq-question w-full flex justify-between items-center p-6 md:p-8 text-left outline-none" onclick="this.parentElement.querySelector('.faq-answer').classList.toggle('hidden'); this.querySelector('.faq-icon').classList.toggle('rotate-180')">
+                    <span class="font-bold text-gray-700 md:text-lg flex items-center gap-3">
+                        <i data-lucide="info" class="text-[#5F9EA0]"></i> アレルギー成分について
+                    </span>
+                    <i data-lucide="chevron-down" class="faq-icon transition-transform duration-300"></i>
+                </button>
+                <div class="faq-answer hidden p-6 md:p-8 pt-0 text-gray-600 leading-relaxed border-t border-dashed border-[#B0E0E6]/30">
+                    各商品の詳細ページに、使用している特定原材料を記載しております。保存料や着色料は一切使用しておりません。
+                </div>
+            </div>
+
         </div>
-    </section>
+    </div>
+</section>
 
     <section id="contact" class="py-24 px-6">
         <div class="max-w-3xl mx-auto bg-white rounded-[3rem] p-10 md:p-16 shadow-xl border-2 border-[#B0E0E6]/20 relative overflow-hidden">
