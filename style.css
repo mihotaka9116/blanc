@@ -1,5 +1,4 @@
-<style>
-    /* 1. NEWSとGALLERYの背景ドットを削除し、ミニマルな白背景へ */
+   /* 1. NEWSとGALLERYの背景ドットを削除し、ミニマルな白背景へ */
     .section-news, .section-gallery {
         background-image: none; /* ドット画像を強制解除 */
         background-color: #ffffff; 
