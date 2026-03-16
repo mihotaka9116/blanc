@@ -1,122 +1,211 @@
-/* 基本フォント */
-body {
-    font-family: 'M PLUS Rounded 1c', sans-serif;
-}
-.font-display {
-    font-family: 'Pacifico', cursive;
-}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blanc's Recipe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-[#FFFDF9] scroll-smooth overflow-x-hidden">
 
-/* 一覧のアイコンを囲う丸（水色に変更） */
-.icon-animate-wrap {
-    width: 130px;
-    height: 130px;
-    border-radius: 50%;
-    border: 3px dashed #B0E0E6; /* 水色に変更 */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(244, 251, 251, 0.8); 
-    margin-bottom: 1.5rem;
-    transition: all 0.4s ease;
-}
+    <nav class="sticky top-0 z-[100] bg-white/80 backdrop-blur-md border-b-2 border-[#FFD1DC]/30 py-4 px-6">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="#" class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-[#FFD1DC] rounded-full flex items-center justify-center text-white">
+                    <i data-lucide="rabbit" size="20"></i>
+                </div>
+                <h1 class="text-2xl font-display text-[#FF8DA1]">Blanc's Recipes</h1>
+            </a>
+            <div class="hidden md:flex gap-8 font-bold text-gray-600 items-center">
+                <a href="#" class="hover:text-[#FF8DA1] transition-colors">Home</a>
+                <a href="#about" class="hover:text-[#FF8DA1] transition-colors">Story</a>
+                <a href="#shop" class="hover:text-[#FF8DA1] transition-colors">Shop</a>
+                <a href="#faq" class="hover:text-[#FF8DA1] transition-colors">Q&A</a>
+                <a href="#contact" class="hover:text-[#FF8DA1] transition-colors">Contact</a>
+                <button class="cart-trigger p-2 text-gray-600 hover:text-[#FF8DA1] relative outline-none">
+                    <i data-lucide="shopping-cart"></i>
+                    <span id="cart-count" class="absolute -top-1 -right-1 bg-[#FF8DA1] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center hidden">0</span>
+                </button>
+            </div>
+            <div class="flex md:hidden items-center gap-4">
+                <button class="cart-trigger p-2 text-gray-600 relative outline-none">
+                    <i data-lucide="shopping-cart"></i>
+                    <span id="cart-count-mobile" class="absolute -top-1 -right-1 bg-[#FF8DA1] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center hidden">0</span>
+                </button>
+                <button id="menu-open" class="p-2 text-gray-600"><i data-lucide="menu"></i></button>
+            </div>
+        </div>
+    </nav>
 
-.icon-animate-wrap svg {
-    width: 70px;
-    height: 70px;
-}
+    <div id="mobile-menu" class="fixed inset-0 z-[200] bg-[#FFFDF9] translate-x-full transition-transform duration-300 md:hidden flex flex-col p-6">
+        <div class="flex justify-end"><button id="menu-close" class="p-2"><i data-lucide="x" size="32"></i></button></div>
+        <div class="flex flex-col items-center gap-10 mt-16 font-bold text-2xl text-gray-600">
+            <a href="#" class="mobile-link">Home</a>
+            <a href="#about" class="mobile-link">Story</a>
+            <a href="#shop" class="mobile-link">Shop</a>
+            <a href="#contact" class="mobile-link">Contact</a>
+        </div>
+    </div>
 
-/* ホバー時の動き */
-.group:hover .icon-animate-wrap {
-    border-color: #5F9EA0;
-    transform: scale(1.05) rotate(5deg);
-    background: white;
-}
+    <header class="relative py-12 md:py-20 text-center px-4 overflow-hidden min-h-[90vh] flex flex-col justify-center items-center">
+        
+        <div class="max-w-5xl w-full px-4 mb-10">
+            <img src="ramp.jpg" alt="Blanc's Recipes" class="w-full h-auto max-h-[50vh] md:max-h-[60vh] object-cover rounded-[2rem] md:rounded-[3rem] shadow-2xl border-4 border-white">
+        </div>
 
-/* 詳細モーダルの巨大アイコン */
-.icon-animate-modal svg {
-    width: 180px;
-    height: 180px;
-}
+        <h2 class="text-5xl md:text-8xl font-display text-[#FF8DA1] mb-6">Blanc's Recipes</h2>
+        <p class="text-lg md:text-2xl font-bold text-[#5F9EA0] tracking-[0.2em] mb-12">Blanc's Recipe</p>
+        
+        <div class="flex flex-col md:flex-row justify-center items-center gap-4 px-6 mb-20">
+            <a href="#about" class="w-full md:w-auto min-w-[220px] bg-white border-2 border-[#5F9EA0] text-[#5F9EA0] px-8 py-4 rounded-full font-bold hover:bg-[#F4FBFB] transition-all flex items-center justify-center gap-2">
+                <i data-lucide="book-open" size="20"></i> ストーリーを見る
+            </a>
+            <a href="#shop" class="w-full md:w-auto min-w-[220px] bg-[#FF8DA1] text-white px-8 py-4 rounded-full font-bold hover:bg-[#ff758f] shadow-lg transition-all flex items-center justify-center gap-2">
+                <i data-lucide="sparkles" size="20"></i> お菓子をみる
+            </a>
+        </div>
 
-/* FAQのアニメーション */
-.faq-icon.rotate { transform: rotate(180deg); }
-.faq-answer.show { display: block; animation: fadeIn 0.3s ease; }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        <div class="scroll-guide">
+            <span class="scroll-text">Scroll</span>
+            <div class="scroll-arrow-icon">
+                <i data-lucide="chevron-down" size="20"></i>
+            </div>
+            <div class="scroll-line"></div>
+        </div>
+    </header>
 
-/* あなぐまくんの喜びアクション */
-.anaguma-happy {
-    animation: jump 0.5s infinite alternate;
-}
-@keyframes jump {
-    from { transform: translateY(0); }
-    to { transform: translateY(-30px); }
-}
+    <section id="about" class="py-24 px-6 max-w-6xl mx-auto">
+        <div class="flex flex-col md:flex-row items-center gap-16">
+            <div class="relative shrink-0">
+                <div class="w-56 h-56 md:w-80 md:h-80 bg-[#FFF0F3] rounded-full flex items-center justify-center border-4 border-dashed border-[#FFD1DC] shadow-inner relative overflow-hidden">
+                    <i data-lucide="rabbit" class="text-[#FF8DA1] transform scale-[4.0]"></i>
+                </div>
+            </div>
+            <div class="bg-white p-10 md:p-16 rounded-[3rem] shadow-xl border-2 border-[#FFD1DC]/30 relative flex-1">
+                <div class="absolute -top-6 left-10 bg-[#FFD1DC] text-white px-6 py-2 rounded-full font-bold text-sm">Our Story</div>
+                <div class="space-y-6 text-gray-600 leading-loose md:text-lg">
+                    <p>岩手の深い山あいに、霧の朝にだけひっそりと開く不思議なお店があります。<br>店主は、真っ白なうさぎの「ブラン」。</p>
+                    <p>彼が焼くお菓子には、ちょっとした魔法がかけられています。</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-/* スマホ（画面幅768px未満）の時はあなぐまくんを隠す */
-@media (max-width: 767px) {
-    #anaguma-icon {
-        display: none;
-    }
-}
-/* スクロールガイド全体（位置の固定） */
-.scroll-guide {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    z-index: 50;
-}
+    <div class="px-6 max-w-4xl mx-auto my-12">
+        <div id="blanc-message-container" class="bg-white/60 backdrop-blur-sm p-6 md:p-8 rounded-[2.5rem] border-2 border-dashed border-[#FFD1DC] text-center shadow-sm">
+            <p id="blanc-message" class="text-gray-600 italic md:text-xl font-medium leading-relaxed">読み込み中...</p>
+        </div>
+    </div>
 
-/* 「Scroll」の文字 */
-.scroll-text {
-    font-size: 10px;
-    letter-spacing: 0.3em;
-    color: #5F9EA0;
-    font-weight: bold;
-    text-transform: uppercase;
-}
+    <div id="anaguma-icon" 
+     onclick="updateMessage(); this.style.transform='scale(1.1) translateY(-10px)'; setTimeout(()=>this.style.transform='scale(1) translateY(0)', 200);"
+     style="position: fixed; bottom: -160px; right: 30px; opacity: 0; pointer-events: none; cursor: pointer;" 
+     class="transition-all duration-700 z-[1000]">
+    
+        <div class="relative flex flex-col items-center group">
+            <div class="bg-white text-[#5F9EA0] text-[10px] px-3 py-1 rounded-full shadow-md mb-3 border border-[#B0E0E6] font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                クッキーある？
+            </div>
+            <div class="w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-dashed border-[#B0E0E6] p-2 bg-white shadow-xl flex items-center justify-center overflow-hidden">
+                <img src="anaguma.png" alt="あなぐまくん" class="w-full h-full object-cover rounded-full">
+            </div>
+        </div>
+    </div>
 
-/* 矢印アイコンの動き */
-.scroll-arrow-icon {
-    color: #5F9EA0;
-    animation: scroll-bounce 2s infinite;
-}
+    <section id="shop" class="py-24 px-4 bg-white/40">
+        <div class="max-w-7xl mx-auto">
+            <h3 class="text-4xl font-display text-center text-[#FF8DA1] mb-16">Daily Specials</h3>
+            <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12"></div>
+        </div>
+    </section>
 
-/* 縦に動く線のデザイン */
-.scroll-line {
-    width: 2px;
-    height: 30px;
-    background: rgba(95, 158, 160, 0.2);
-    position: relative;
-    overflow: hidden;
-    margin-top: 4px;
-}
+    <section id="faq" class="py-24 px-6 bg-[#F4FBFB]/50">
+        <div class="max-w-3xl mx-auto">
+            <h3 class="text-4xl font-display text-center text-[#5F9EA0] mb-16">Q & A</h3>
+            <div class="space-y-6" id="faq-list">
+                <div class="faq-item bg-white rounded-[2.5rem] border-2 border-[#B0E0E6]/30 overflow-hidden shadow-sm">
+                    <button class="faq-question w-full flex justify-between items-center p-6 md:p-8 text-left outline-none" onclick="this.parentElement.querySelector('.faq-answer').classList.toggle('hidden'); this.querySelector('.faq-icon').classList.toggle('rotate-180')">
+                        <span class="font-bold text-gray-700 md:text-lg flex items-center gap-3">
+                            <i data-lucide="credit-card" class="text-[#5F9EA0]"></i> 支払い方法を教えてください
+                        </span>
+                        <i data-lucide="chevron-down" class="faq-icon transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer hidden p-6 md:p-8 pt-0 text-gray-600 leading-relaxed border-t border-dashed border-[#B0E0E6]/30">
+                        クレジットカード、各種QR決済、キャリア決済に対応しています。森のどんぐりでの支払いは現在準備中です。
+                    </div>
+                </div>
+                <div class="faq-item bg-white rounded-[2.5rem] border-2 border-[#B0E0E6]/30 overflow-hidden shadow-sm">
+                    <button class="faq-question w-full flex justify-between items-center p-6 md:p-8 text-left outline-none" onclick="this.parentElement.querySelector('.faq-answer').classList.toggle('hidden'); this.querySelector('.faq-icon').classList.toggle('rotate-180')">
+                        <span class="font-bold text-gray-700 md:text-lg flex items-center gap-3">
+                            <i data-lucide="calendar" class="text-[#5F9EA0]"></i> 賞味期限はいつまでですか？
+                        </span>
+                        <i data-lucide="chevron-down" class="faq-icon transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer hidden p-6 md:p-8 pt-0 text-gray-600 leading-relaxed border-t border-dashed border-[#B0E0E6]/30">
+                        焼き菓子は約14日間、生菓子は当日〜翌日までとなります。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-/* 線の中を流れるピンクの光 */
-.scroll-line::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #FF8DA1;
-    animation: scroll-line-anim 2s infinite;
-}
+    <section id="contact" class="py-24 px-6">
+        <div class="max-w-3xl mx-auto bg-white rounded-[3rem] p-10 md:p-16 shadow-xl border-2 border-[#B0E0E6]/20 relative overflow-hidden">
+            <div class="absolute -top-10 -right-10 w-32 h-32 bg-[#F4FBFB] rounded-full"></div>
+            <div class="relative z-10 text-center mb-12">
+                <h3 class="text-4xl font-display text-[#5F9EA0] mb-4">Contact</h3>
+                <p class="text-gray-500 text-sm">ブランへの手紙（お問い合わせ）</p>
+            </div>
+            <form onsubmit="event.preventDefault(); showToast('お手紙を預かりました！'); this.reset();" class="space-y-6 relative z-10">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <input type="text" required placeholder="お名前" class="w-full px-6 py-4 rounded-full bg-[#F4FBFB] border-none outline-none text-gray-600">
+                    <input type="email" required placeholder="メールアドレス" class="w-full px-6 py-4 rounded-full bg-[#F4FBFB] border-none outline-none text-gray-600">
+                </div>
+                <textarea required rows="5" placeholder="ブランにお話ししたいことを教えてください..." class="w-full px-8 py-6 rounded-[2rem] bg-[#F4FBFB] border-none outline-none text-gray-600"></textarea>
+                <div class="text-center">
+                    <button type="submit" class="bg-[#5F9EA0] text-white px-12 py-4 rounded-full font-bold shadow-lg hover:bg-[#4a8a8c] transition-all">お手紙を送る</button>
+                </div>
+            </form>
+        </div>
+    </section>
 
-/* アニメーション：跳ねる動き */
-@keyframes scroll-bounce {
-    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-    40% { transform: translateY(-6px); }
-    60% { transform: translateY(-3px); }
-}
+    <footer class="py-12 text-center text-gray-400 font-bold text-xs">&copy; 2026 Blanc's Recipe. Created by Miho Takahashi</footer>
 
-/* アニメーション：線が流れる動き */
-@keyframes scroll-line-anim {
-    0% { transform: translateY(-100%); }
-    100% { transform: translateY(100%); }
-}
+    <div id="modal" class="fixed inset-0 z-[150] hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" id="modal-overlay"></div>
+        <div class="relative w-full max-w-4xl bg-[#FFFDF9] rounded-[3rem] overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[90vh] overflow-y-auto md:overflow-hidden">
+            <button id="modal-close" class="absolute top-6 right-6 z-20 p-2 bg-white rounded-full"><i data-lucide="x"></i></button>
+            <div id="modal-icon" class="w-full md:w-1/2 bg-[#B0E0E6]/10 flex items-center justify-center p-12 text-[#5F9EA0]"></div>
+            <div class="p-8 md:p-14 flex flex-col flex-1">
+                <div id="modal-info" class="text-[10px] font-bold text-[#5F9EA0] mb-2 tracking-widest uppercase"></div>
+                <h2 id="modal-title" class="text-3xl font-bold text-[#FF8DA1] mb-2"></h2>
+                <p id="modal-price" class="text-2xl font-display text-[#5F9EA0] mb-6"></p>
+                <p id="modal-story" class="italic text-gray-600 mb-4"></p>
+                <p id="modal-description" class="text-sm text-gray-500 mb-8"></p>
+                <button id="add-to-cart-btn" class="w-full py-4 bg-[#FF8DA1] text-white rounded-full font-bold shadow-md">カートに入れる</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="cart-modal" class="fixed inset-0 z-[160] hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60" id="cart-overlay"></div>
+        <div class="relative w-full max-w-xl bg-white rounded-[3rem] p-8 shadow-2xl">
+            <button id="cart-close" class="absolute top-6 right-6"><i data-lucide="x"></i></button>
+            <h2 class="text-3xl font-display text-[#5F9EA0] mb-8 text-center">Your Cart</h2>
+            <div id="cart-items-list" class="max-h-60 overflow-y-auto mb-8 space-y-3"></div>
+            <div class="border-t-2 border-dashed border-[#B0E0E6] pt-6 flex justify-between items-center mb-8">
+                <span class="font-bold text-gray-400">合計</span>
+                <span class="text-3xl font-display text-[#FF8DA1]" id="total-price">¥0</span>
+            </div>
+            <button onclick="checkout()" class="w-full py-4 bg-[#5F9EA0] text-white rounded-full font-bold shadow-lg">注文を確定する</button>
+        </div>
+    </div>
+
+    <div id="order-success" class="fixed bottom-10 left-1/2 -translate-x-1/2 z-[250] hidden bg-[#5F9EA0] text-white px-8 py-3 rounded-full shadow-2xl text-sm font-bold animate-bounce"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
