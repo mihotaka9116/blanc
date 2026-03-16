@@ -4,17 +4,7 @@
         background-color: #ffffff; 
     }
 
-    /* 2. ルックブックの画像が浮き上がる効果（hover）を無効化 */
-    .lookbook-item img {
-        transition: none;
-        transform: none;
-    }
-    
-    .lookbook-item:hover img {
-        transform: none;
-        filter: none;
-    }
-
+  
     /* 画像の基本スタイル（ミニマルな角丸） */
     .recipe-img {
         width: 100%;
@@ -22,26 +12,7 @@
         border-radius: 8px;
         display: block;
     }
-</style>
 
-<section class="section-gallery py-16">
-    <div class="container mx-auto px-4">
-        <h2 class="text-3xl font-pacifico text-center mb-10">Gallery</h2>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="lookbook-item">
-                <img src="ramp.jpg" alt="Gallery Image" class="recipe-img">
-                <p class="mt-4 text-sm text-gray-500 text-center">自然な素材を活かした盛り付け</p>
-            </div>
-            
-            <div class="lookbook-item">
-                </div>
-        </div>
-    </div>
-</section>
-
-<style>
-<style>
     /* 最後のセクションとフッターを包むコンテナ */
     .fantasy-wrapper {
         position: relative;
