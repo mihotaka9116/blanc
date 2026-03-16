@@ -1,133 +1,42 @@
-/* 基本フォント */
-body {
-    font-family: 'M PLUS Rounded 1c', sans-serif;
-}
-.font-display {
-    font-family: 'Pacifico', cursive;
-}
-/* 一覧のアイコンを囲う丸（水色に変更） */
-.icon-animate-wrap {
-    width: 130px;
-    height: 130px;
-    border-radius: 50%;
-    border: 3px dashed #B0E0E6;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(244, 251, 251, 0.8); 
-    margin-bottom: 1.5rem;
-    transition: all 0.4s ease;
-}
-.icon-animate-wrap svg {
-    width: 70px;
-    height: 70px;
-}
-.group:hover .icon-animate-wrap {
-    border-color: #5F9EA0;
-    transform: scale(1.05) rotate(5deg);
-    background: white;
-}
-.icon-animate-modal svg {
-    width: 180px;
-    height: 180px;
-}
-.faq-icon.rotate { transform: rotate(180deg); }
-.faq-answer.show { display: block; animation: fadeIn 0.3s ease; }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-.anaguma-happy {
-    animation: jump 0.5s infinite alternate;
-}
-@keyframes jump {
-    from { transform: translateY(0); }
-    to { transform: translateY(-30px); }
-}
-@media (max-width: 767px) {
-    #anaguma-icon {
-        display: none;
+<style>
+    /* 1. NEWSとGALLERYの背景ドットを削除し、ミニマルな白背景へ */
+    .section-news, .section-gallery {
+        background-image: none !important; /* ドット画像を強制解除 */
+        background-color: #ffffff; 
     }
-}
-.scroll-guide {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    z-index: 50;
-}
-.scroll-text {
-    font-size: 10px;
-    letter-spacing: 0.3em;
-    color: #fff;
-    font-weight: bold;
-    text-transform: uppercase;
-    text-shadow: 0 1px 4px rgba(0,0,0,0.4);
-}
-.scroll-arrow-icon {
-    color: #fff;
-    animation: scroll-bounce 2s infinite;
-    filter: drop-shadow(0 1px 3px rgba(0,0,0,0.4));
-}
-.scroll-line {
-    width: 2px;
-    height: 30px;
-    background: rgba(255,255,255,0.2);
-    position: relative;
-    overflow: hidden;
-    margin-top: 4px;
-}
-.scroll-line::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #FF8DA1;
-    animation: scroll-line-anim 2s infinite;
-}
-@keyframes scroll-bounce {
-    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-    40% { transform: translateY(-6px); }
-    60% { transform: translateY(-3px); }
-}
-@keyframes scroll-line-anim {
-    0% { transform: translateY(-100%); }
-    100% { transform: translateY(100%); }
-}
 
-/* ===== Hero Section with background image ===== */
-header.hero-bg {
-    position: relative;
-    background-image: var(--hero-bg-image);
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-}
-header.hero-bg::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        to bottom,
-        rgba(255, 240, 245, 0.45) 0%,
-        rgba(255, 209, 220, 0.35) 40%,
-        rgba(180, 220, 220, 0.40) 70%,
-        rgba(255, 253, 249, 0.85) 100%
-    );
-    z-index: 0;
-}
-header.hero-bg > * {
-    position: relative;
-    z-index: 1;
-}
-header.hero-bg h2 {
-    color: #fff;
-    text-shadow: 0 2px 16px rgba(255,100,130,0.5), 0 1px 3px rgba(0,0,0,0.15);
-}
-header.hero-bg p {
-    color: #fff;
-    text-shadow: 0 1px 8px rgba(95,158,160,0.5), 0 1px 3px rgba(0,0,0,0.15);
-}
+    /* 2. ルックブックの画像が浮き上がる効果（hover）を無効化 */
+    .lookbook-item img {
+        transition: none !important;
+        transform: none !important;
+    }
+    
+    .lookbook-item:hover img {
+        transform: none !important;
+        filter: none !important;
+    }
+
+    /* 画像の基本スタイル（ミニマルな角丸） */
+    .recipe-img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        display: block;
+    }
+</style>
+
+<section class="section-gallery py-16">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-pacifico text-center mb-10">Gallery</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="lookbook-item">
+                <img src="ramp.jpg" alt="Gallery Image" class="recipe-img">
+                <p class="mt-4 text-sm text-gray-500 text-center">自然な素材を活かした盛り付け</p>
+            </div>
+            
+            <div class="lookbook-item">
+                </div>
+        </div>
+    </div>
+</section>
