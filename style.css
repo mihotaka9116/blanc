@@ -31,7 +31,7 @@
         background-image: url('fantasy.jpg');
         background-size: cover;
         background-position: bottom; /* 画像の下側を基準にする */
-        opacity: 0.15; /* プレゼン資料に合わせて薄めに */
+        opacity: 0.15;
         z-index: 0;
         pointer-events: none;
     }
