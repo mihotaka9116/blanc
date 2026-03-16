@@ -1,19 +1,19 @@
 <style>
     /* 1. NEWSとGALLERYの背景ドットを削除し、ミニマルな白背景へ */
     .section-news, .section-gallery {
-        background-image: none !important; /* ドット画像を強制解除 */
+        background-image: none; /* ドット画像を強制解除 */
         background-color: #ffffff; 
     }
 
     /* 2. ルックブックの画像が浮き上がる効果（hover）を無効化 */
     .lookbook-item img {
-        transition: none !important;
-        transform: none !important;
+        transition: none;
+        transform: none;
     }
     
     .lookbook-item:hover img {
-        transform: none !important;
-        filter: none !important;
+        transform: none;
+        filter: none;
     }
 
     /* 画像の基本スタイル（ミニマルな角丸） */
@@ -42,28 +42,32 @@
 </section>
 
 <style>
-    /* フッター全体の親要素（ここを基準にする） */
-    .footer-fantasy {
+<style>
+    /* 最後のセクションとフッターを包むコンテナ */
+    .fantasy-wrapper {
         position: relative;
-        background-color: #ffffff; /* ベースの色 */
+        width: 100%;
+        background-color: #ffffff;
         overflow: hidden;
     }
 
-    /* 画像を背景として薄く配置する */
-    .footer-bg-image {
+    /* 背景画像：セクションの下側からフッターにかけて配置 */
+    .fantasy-bg {
         position: absolute;
-        inset: 0;
+        bottom: 0;
+        left: 0;
         width: 100%;
-        height: 100%;
+        height: 100%; /* セクション全体に広げる */
         background-image: url('fantasy.jpg');
         background-size: cover;
-        background-position: center;
-        opacity: 0.15; /* ここで「薄さ」を調整（0.1〜0.2がおすすめ） */
-        pointer-events: none; /* コンテンツの邪魔をしない */
+        background-position: bottom; /* 画像の下側を基準にする */
+        opacity: 0.15; /* プレゼン資料に合わせて薄めに */
+        z-index: 0;
+        pointer-events: none;
     }
 
-    /* コンテンツを画像より上に表示させる */
-    .footer-content {
+    /* 中のコンテンツを浮かせる */
+    .relative-content {
         position: relative;
         z-index: 1;
     }
