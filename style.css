@@ -1,73 +1,146 @@
-   /* 1. NEWSとGALLERYの背景ドットを削除し、ミニマルな白背景へ */
-    .section-news, .section-gallery {
-        background-image: none; /* ドット画像を強制解除 */
-        background-color: #ffffff; 
-    }
+/* 基本フォント */
+body {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+}
+.font-display {
+    font-family: 'Pacifico', cursive;
+}
 
-  
-    /* 画像の基本スタイル（ミニマルな角丸） */
-    .recipe-img {
-        width: 100%;
-        height: auto;
-        border-radius: 8px;
-        display: block;
-    }
+/* 一覧のアイコンを囲う丸（水色に変更） */
+.icon-animate-wrap {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    border: 3px dashed #B0E0E6; /* 水色に変更 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(244, 251, 251, 0.8); 
+    margin-bottom: 1.5rem;
+    transition: all 0.4s ease;
+}
 
-    /* 最後のセクションとフッターを包むコンテナ */
-    .fantasy-wrapper {
-        position: relative;
-        width: 100%;
-        background-color: #ffffff;
-        overflow: hidden;
-    }
+.icon-animate-wrap svg {
+    width: 70px;
+    height: 70px;
+}
 
-    /* 背景画像：セクションの下側からフッターにかけて配置 */
-    .fantasy-bg {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 100%; /* セクション全体に広げる */
-        background-image: url('fantasy.jpg');
-        background-size: cover;
-        background-position: bottom; /* 画像の下側を基準にする */
-        opacity: 0.15;
-        z-index: 0;
-        pointer-events: none;
-    }
+/* ホバー時の動き */
+.group:hover .icon-animate-wrap {
+    border-color: #5F9EA0;
+    transform: scale(1.05) rotate(5deg);
+    background: white;
+}
 
-    /* 中のコンテンツを浮かせる */
-    .relative-content {
-        position: relative;
-        z-index: 1;
-    }
-/* 画像を敷くための専用エリア */
-    .footer-image-spacer {
-        position: relative;
-        width: 100%;
-        height: 200px; /* ★ここの数値で画像の見える高さを調整できます */
-        background-color: #ffffff; /* 背景色 */
-        overflow: hidden;
-    }
+/* 詳細モーダルの巨大アイコン */
+.icon-animate-modal svg {
+    width: 180px;
+    height: 180px;
+}
 
-    /* 薄く敷く背景画像の設定 */
-    .footer-image-spacer::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: var(--hero-bg-image); /* メイン画像と同じものを使用 */
-        background-size: cover;
-        background-position: center;
-        opacity: 0.15; /* ★0.15（15%）の薄さに設定 */
-        z-index: 0;
-    }
+/* FAQのアニメーション */
+.faq-icon.rotate { transform: rotate(180deg); }
+.faq-answer.show { display: block; animation: fadeIn 0.3s ease; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-    /* フッター自体の設定 */
-    footer {
-        background-color: #ffffff;
-        position: relative;
-        z-index: 1;
+/* あなぐまくんの喜びアクション */
+.anaguma-happy {
+    animation: jump 0.5s infinite alternate;
+}
+@keyframes jump {
+    from { transform: translateY(0); }
+    to { transform: translateY(-30px); }
+}
+
+/* スマホ（画面幅768px未満）の時はあなぐまくんを隠す */
+@media (max-width: 767px) {
+    #anaguma-icon {
+        display: none;
     }
+}
+
+/* スクロール誘導のコンテナ */
+.scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    items: center;
+    gap: 8px;
+    color: #5F9EA0; /* ブランドカラーの青緑 */
+    opacity: 0.8;
+    z-index: 10;
+}
+
+/* 矢印の動き */
+.scroll-arrow {
+    animation: scroll-bounce 2s infinite;
+}
+
+@keyframes scroll-bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+/* 「Scroll」の文字も少しふわふわさせる場合 */
+.scroll-text {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+/* スクロールガイドを画面中央下に固定 */
+.scroll-guide {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%); /* これで確実に真ん中になります */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    z-index: 50;
+}
+
+.scroll-text {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: #5F9EA0;
+    font-weight: bold;
+}
+
+/* 縦に動く線のデザイン */
+.scroll-line {
+    width: 2px;
+    height: 40px;
+    background: rgba(95, 158, 160, 0.2); /* 薄い青緑 */
+    position: relative;
+    overflow: hidden;
+}
+
+/* 動く白い光の線 */
+.scroll-line::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #FF8DA1; /* ピンクの線が流れます */
+    animation: scroll-anim 2s infinite;
+}
+
+@keyframes scroll-anim {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+}
