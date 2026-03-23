@@ -2,10 +2,10 @@ Blanc's Recipes
 岩手の森にある、うさぎの店主「ブラン」のお菓子屋さん（コンセプトサイト）
 
 🔗 Demo
-[ここにURLを貼る]
+[https://mihotaka9116.github.io/blanc/]
 
 ✨ 制作のポイント
-コンセプト: 岩手の自然を感じる「静寂と温かみ」のあるデザイン
+コンセプト: 白うさぎブランが店主のお菓子屋さん
 
 こだわり: 隠れキャラ（あなぐまくん）や動的なカート機能の実装
 
@@ -16,7 +16,6 @@ Frontend: HTML / Tailwind CSS / JavaScript
 
 Icons: Lucide
 
-Design: Figma
 
 👤 Author
 高橋 美穂（2026年3月 職業訓練修了）
