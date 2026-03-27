@@ -38,8 +38,6 @@ Google Fonts (Pacifico / M PLUS Rounded 1c)
 
 画面幅の狭いデバイスでは、操作性を優先して特定の装飾（あなぐまくんのアイコンなど）を非表示にするなどの最適化を行っています。
 
-🎨 デザインツール
-Figma / Adobe Illustrator / Photoshop
 
 ✒️ Author
 Miho Takahashi
